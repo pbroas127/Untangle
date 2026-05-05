@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     /* ── PRINT SETUP ── */
     @page { size: Letter; margin: 0; }
@@ -45,30 +44,29 @@
       .page:last-child { margin-bottom: 0; }
     }
 
-    /* ── DOWNLOAD BAR (screen only) ── */
-    #download-bar {
+    /* ── PRINT BAR (screen only) ── */
+    #print-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       background: rgba(26,26,26,0.96); backdrop-filter: blur(12px);
       height: 60px; display: flex; align-items: center;
       justify-content: space-between; padding: 0 28px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    #download-bar .brand {
+    #print-bar .brand {
       font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700;
       color: #fff; letter-spacing: -0.03em; text-decoration: none;
     }
-    #download-bar .brand span { color: #7DB87D; }
-    #download-btn {
+    #print-bar .brand span { color: #7DB87D; }
+    #print-btn {
       display: flex; align-items: center; gap: 8px;
       background: #3B5740; color: #fff; border: none;
       padding: 10px 22px; border-radius: 100px; cursor: pointer;
       font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
       transition: all 0.2s; letter-spacing: -0.01em;
     }
-    #download-btn:hover { background: #2A4030; transform: translateY(-1px); }
-    #download-btn svg { width: 15px; height: 15px; }
-    #download-btn.loading { opacity: 0.7; cursor: wait; }
-    @media print { #download-bar { display: none !important; } }
+    #print-btn:hover { background: #2A4030; transform: translateY(-1px); }
+    #print-btn svg { width: 15px; height: 15px; }
+    @media print { #print-bar { display: none !important; } }
     h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.15; letter-spacing: -0.02em; }
 
     /* ── PAGE SHELL ── */
@@ -83,17 +81,6 @@
       flex-direction: column;
     }
     .page:last-child { page-break-after: auto; }
-
-    /* ── PDF RENDERING MODE (strips screen chrome) ── */
-    body.pdf-rendering {
-      background: #fff !important;
-      padding: 0 !important;
-    }
-    body.pdf-rendering .page {
-      margin: 0 auto !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
-    }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAGE 1: COVER
@@ -371,18 +358,16 @@
 </head>
 <body>
 
-<!-- DOWNLOAD BAR (screen only) -->
-<div id="download-bar">
+<!-- PRINT BAR (screen only) -->
+<div id="print-bar">
   <a class="brand" href="/">Untan<span>g</span>le</a>
-  <button id="download-btn" onclick="downloadPDF()">
+  <button id="print-btn" onclick="window.print()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
     </svg>
-    Download PDF
+    Save as PDF
   </button>
 </div>
-
-<div id="pdf-content">
 
 <!-- ═══════════════════════════════════════
      PAGE 1: COVER
@@ -1141,76 +1126,6 @@
 </div>
 
 
-</div><!-- end #pdf-content -->
-
-<script>
-  const SPIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;animation:spin 1s linear infinite"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>';
-  const DL_SVG   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
-
-  async function downloadPDF() {
-    const btn = document.getElementById('download-btn');
-    const bar = document.getElementById('download-bar');
-
-    btn.classList.add('loading');
-    btn.innerHTML = SPIN_SVG + ' Generating PDF...';
-    bar.style.display = 'none';
-
-    // Strip screen chrome so html2pdf renders clean white pages at exact size
-    document.body.classList.add('pdf-rendering');
-
-    // Small delay so browser paints the rendering-mode styles before capture
-    await new Promise(r => setTimeout(r, 200));
-
-    const element = document.getElementById('pdf-content');
-
-    const opt = {
-      margin:      0,
-      filename:    'Stop-Overthinking-Untangle.pdf',
-      image:       { type: 'jpeg', quality: 0.96 },
-      html2canvas: {
-        scale:       2,
-        useCORS:     true,
-        allowTaint:  true,
-        logging:     false,
-        scrollY:     0,
-        scrollX:     0,
-        windowWidth: 816   /* lock to 8.5in @ 96dpi so pages scale correctly */
-      },
-      jsPDF: {
-        unit:        'in',
-        format:      'letter',
-        orientation: 'portrait',
-        compress:    true
-      },
-      /* Each .page div is exactly 11in — break after every one */
-      pagebreak: { mode: 'css', after: '.page' }
-    };
-
-    try {
-      await html2pdf().set(opt).from(element).save();
-    } catch(e) {
-      console.error('PDF generation error:', e);
-    }
-
-    // Restore screen view
-    document.body.classList.remove('pdf-rendering');
-    bar.style.display = 'flex';
-    btn.classList.remove('loading');
-    btn.innerHTML = DL_SVG + ' Download PDF';
-  }
-
-  // Auto-trigger when arriving from the thank-you page
-  window.addEventListener('DOMContentLoaded', () => {
-    if (new URLSearchParams(window.location.search).get('download') === '1') {
-      setTimeout(downloadPDF, 800);
-    }
-  });
-</script>
-
-<style>
-  @keyframes spin { to { transform: rotate(360deg); } }
-</style>
 
 </body>
 </html>
-```

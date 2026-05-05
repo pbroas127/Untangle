@@ -122,13 +122,21 @@
     }
     .book-thumb {
       width: 72px; height: 96px; flex-shrink: 0;
-      background: linear-gradient(145deg, var(--sage) 0%, var(--sage-dark) 100%);
+      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=300&q=85&auto=format&fit=crop');
+      background-size: cover; background-position: center;
       border-radius: 3px 8px 8px 3px;
+      position: relative;
       box-shadow: -4px 4px 0 #c2d0c2, 0 4px 16px rgba(0,0,0,0.15);
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; padding: 10px 8px;
       color: #fff; text-align: center;
     }
+    .book-thumb::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(10,10,10,0.50) 0%, rgba(35,58,40,0.80) 100%);
+      border-radius: inherit; z-index: 0;
+    }
+    .book-thumb > * { position: relative; z-index: 1; }
     .book-thumb__brand {
       font-size: 5px; letter-spacing: 0.12em; text-transform: uppercase;
       opacity: 0.65; margin-bottom: auto; width: 100%; font-family: 'Fraunces', serif;
@@ -290,24 +298,23 @@
           </div>
         </div>
 
-        <!-- Auto-triggers PDF download when guide page loads -->
-        <a class="btn-download" href="stop-overthinking-guide.html?download=1" target="_blank">
+        <a class="btn-download" href="stop-overthinking-guide.html" target="_blank">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
           </svg>
-          Download Your Guide
+          Open Your Guide
         </a>
-        <p class="download-note">Opens in a new tab and downloads automatically. No Ctrl+P needed.</p>
+        <p class="download-note">Opens in a new tab. Use the Save as PDF button at the top, or press Ctrl+P and choose Save as PDF.</p>
       </div>
 
-      <!-- WHAT HAPPENS ON DOWNLOAD -->
+      <!-- HOW TO SAVE -->
       <div class="print-steps">
-        <h4>What happens when you click download</h4>
+        <h4>How to save your guide as a PDF</h4>
         <ul class="steps-list">
-          <li><div class="step-badge">1</div><span>A new tab opens with your guide.</span></li>
-          <li><div class="step-badge">2</div><span>The PDF generates automatically in the background (takes about 10 seconds).</span></li>
-          <li><div class="step-badge">3</div><span>Your browser saves the file as <strong>Stop-Overthinking-Untangle.pdf</strong> to your Downloads folder.</span></li>
-          <li><div class="step-badge">4</div><span>Done. The file is yours to keep and read on any device.</span></li>
+          <li><div class="step-badge">1</div><span>Click the button above to open your guide in a new tab.</span></li>
+          <li><div class="step-badge">2</div><span>Click the <strong>Save as PDF</strong> button in the top bar, or press <strong>Ctrl+P</strong> (Windows) / <strong>Cmd+P</strong> (Mac).</span></li>
+          <li><div class="step-badge">3</div><span>In the print dialog, set the destination to <strong>Save as PDF</strong> and click Save.</span></li>
+          <li><div class="step-badge">4</div><span>Your file saves to your Downloads folder. It is yours to keep on any device.</span></li>
         </ul>
       </div>
 
