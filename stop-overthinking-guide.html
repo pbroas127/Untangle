@@ -74,14 +74,26 @@
     /* ── PAGE SHELL ── */
     .page {
       width: 8.5in;
-      min-height: 11in;
+      height: 11in;          /* FIXED — never grows beyond one page */
+      overflow: hidden;      /* clip anything that would spill */
       position: relative;
-      overflow: hidden;
       page-break-after: always;
+      page-break-inside: avoid;
       display: flex;
       flex-direction: column;
     }
     .page:last-child { page-break-after: auto; }
+
+    /* ── PDF RENDERING MODE (strips screen chrome) ── */
+    body.pdf-rendering {
+      background: #fff !important;
+      padding: 0 !important;
+    }
+    body.pdf-rendering .page {
+      margin: 0 auto !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAGE 1: COVER
@@ -90,7 +102,6 @@
       background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1600&q=85&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
-      min-height: 11in;
       justify-content: space-between;
     }
     .cover__overlay {
@@ -102,7 +113,7 @@
       padding: 0.8in 0.9in;
       display: flex; flex-direction: column;
       justify-content: space-between;
-      min-height: 11in;
+      height: 11in;
       color: #fff;
     }
     .cover__brand {
@@ -137,8 +148,8 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .interior {
       background: var(--white);
-      padding: 0.75in 0.9in;
-      min-height: 11in;
+      padding: 0.55in 0.9in 0.45in;
+      height: 11in;
     }
     .interior--cream { background: var(--cream); }
     .interior--sage  { background: var(--sage); color: #fff; }
@@ -177,7 +188,7 @@
     /* Running header for interior pages */
     .page-header {
       display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+      border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 22px;
       font-size: 8pt; color: var(--light); letter-spacing: 0.06em; text-transform: uppercase;
     }
     .page-header .brand { font-family: 'Fraunces', serif; font-weight: 600; color: var(--sage); font-size: 9pt; letter-spacing: 0.1em; }
@@ -196,8 +207,8 @@
       margin-bottom: 24px; font-weight: 400;
     }
     .body-text {
-      font-size: 10.5pt; line-height: 1.8; color: var(--mid);
-      margin-bottom: 18px;
+      font-size: 10.5pt; line-height: 1.7; color: var(--mid);
+      margin-bottom: 14px;
     }
     .body-text strong { color: var(--dark); font-weight: 600; }
     h3.section-title {
@@ -239,13 +250,13 @@
     .worksheet {
       background: var(--cream);
       border: 1.5px solid var(--border);
-      border-radius: 12px; padding: 24px 28px; margin: 28px 0;
+      border-radius: 12px; padding: 18px 22px; margin: 16px 0;
     }
     .worksheet__title {
-      font-family: 'Fraunces', serif; font-size: 14pt; font-weight: 600;
-      color: var(--dark); margin-bottom: 6px;
+      font-family: 'Fraunces', serif; font-size: 13pt; font-weight: 600;
+      color: var(--dark); margin-bottom: 4px;
     }
-    .worksheet__sub { font-size: 9pt; color: var(--light); margin-bottom: 20px; line-height: 1.5; }
+    .worksheet__sub { font-size: 9pt; color: var(--light); margin-bottom: 14px; line-height: 1.4; }
     .write-line {
       border-bottom: 1px solid #C8C0B5; margin-bottom: 14px; padding-bottom: 14px;
       min-height: 18px;
@@ -256,11 +267,11 @@
     }
     .write-area {
       border: 1px solid var(--border); border-radius: 8px;
-      background: #fff; padding: 12px 14px; margin-bottom: 14px;
-      min-height: 0.6in;
+      background: #fff; padding: 10px 14px; margin-bottom: 10px;
+      min-height: 0.45in;
     }
-    .write-area--lg { min-height: 1in; }
-    .write-area--xl { min-height: 1.4in; }
+    .write-area--lg { min-height: 0.75in; }
+    .write-area--xl { min-height: 1.1in; }
 
     /* Checklist */
     .checklist { list-style: none; margin: 14px 0; }
@@ -330,7 +341,7 @@
     .back-cover {
       background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600&q=85&auto=format&fit=crop');
       background-size: cover; background-position: center;
-      min-height: 11in; justify-content: center; align-items: center;
+      height: 11in; justify-content: center; align-items: center;
     }
     .back-cover__overlay {
       position: absolute; inset: 0;
@@ -340,7 +351,7 @@
       position: relative; z-index: 2;
       text-align: center; color: #fff; padding: 1in;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-height: 11in;
+      height: 11in;
     }
     .back-cover__brand { font-family: 'Fraunces', serif; font-size: 42pt; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.03em; }
     .back-cover__tagline { font-size: 13pt; opacity: 0.7; font-style: italic; font-family: 'Fraunces', serif; margin-bottom: 40px; }
@@ -1133,40 +1144,65 @@
 </div><!-- end #pdf-content -->
 
 <script>
+  const SPIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;animation:spin 1s linear infinite"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>';
+  const DL_SVG   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
   async function downloadPDF() {
     const btn = document.getElementById('download-btn');
     const bar = document.getElementById('download-bar');
-    btn.classList.add('loading');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;animation:spin 1s linear infinite"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg> Generating PDF...';
 
-    // Temporarily hide bar during render
+    btn.classList.add('loading');
+    btn.innerHTML = SPIN_SVG + ' Generating PDF...';
     bar.style.display = 'none';
 
+    // Strip screen chrome so html2pdf renders clean white pages at exact size
+    document.body.classList.add('pdf-rendering');
+
+    // Small delay so browser paints the rendering-mode styles before capture
+    await new Promise(r => setTimeout(r, 200));
+
     const element = document.getElementById('pdf-content');
+
     const opt = {
       margin:      0,
       filename:    'Stop-Overthinking-Untangle.pdf',
       image:       { type: 'jpeg', quality: 0.96 },
-      html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false, scrollY: 0 },
-      jsPDF:       { unit: 'in', format: 'letter', orientation: 'portrait', compress: true },
-      pagebreak:   { mode: ['css', 'legacy'], after: '.page' }
+      html2canvas: {
+        scale:       2,
+        useCORS:     true,
+        allowTaint:  true,
+        logging:     false,
+        scrollY:     0,
+        scrollX:     0,
+        windowWidth: 816   /* lock to 8.5in @ 96dpi so pages scale correctly */
+      },
+      jsPDF: {
+        unit:        'in',
+        format:      'letter',
+        orientation: 'portrait',
+        compress:    true
+      },
+      /* Each .page div is exactly 11in — break after every one */
+      pagebreak: { mode: 'css', after: '.page' }
     };
 
     try {
       await html2pdf().set(opt).from(element).save();
     } catch(e) {
-      console.error(e);
+      console.error('PDF generation error:', e);
     }
 
+    // Restore screen view
+    document.body.classList.remove('pdf-rendering');
     bar.style.display = 'flex';
     btn.classList.remove('loading');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF';
+    btn.innerHTML = DL_SVG + ' Download PDF';
   }
 
-  // Auto-trigger if coming from thank-you page
+  // Auto-trigger when arriving from the thank-you page
   window.addEventListener('DOMContentLoaded', () => {
     if (new URLSearchParams(window.location.search).get('download') === '1') {
-      setTimeout(downloadPDF, 1200);
+      setTimeout(downloadPDF, 800);
     }
   });
 </script>
