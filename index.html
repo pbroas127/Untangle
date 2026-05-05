@@ -141,23 +141,25 @@
     .mockup-wrap { display: flex; justify-content: center; align-items: center; position: relative; }
     .mockup {
       width: 280px; height: 380px;
-      background: linear-gradient(145deg, var(--sage) 0%, var(--sage-dark) 100%);
+      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=600&q=85&auto=format&fit=crop');
+      background-size: cover; background-position: center;
       border-radius: 4px 16px 16px 4px;
-      box-shadow: -10px 10px 0 #c2d0c2, var(--shadow-lg);
+      box-shadow: -10px 10px 0 #b8c8b8, var(--shadow-lg);
       padding: 40px 32px;
       display: flex; flex-direction: column;
       color: #fff; position: relative; overflow: hidden;
     }
     .mockup::before {
-      content: ''; position: absolute; top: 0; right: 0;
-      width: 80px; height: 80px;
-      background: rgba(255,255,255,0.09); border-radius: 0 16px 0 100%;
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(10,10,10,0.52) 0%, rgba(35,58,40,0.82) 100%);
+      border-radius: inherit; z-index: 0;
     }
     .mockup::after {
       content: ''; position: absolute; bottom: -30px; left: -30px;
       width: 140px; height: 140px;
-      background: rgba(255,255,255,0.05); border-radius: 50%;
+      background: rgba(255,255,255,0.04); border-radius: 50%; z-index: 0;
     }
+    .mockup > * { position: relative; z-index: 1; }
     .mockup__brand {
       font-family: 'Fraunces', serif; font-size: 0.75rem;
       letter-spacing: 0.15em; text-transform: uppercase;

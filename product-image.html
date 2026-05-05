@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Image — Untangle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 60px 40px;
+    }
+
+    /* SCENE */
+    .scene {
+      width: 900px; height: 600px;
+      background-image: url('https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=1800&q=90&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      border-radius: 20px; overflow: hidden;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scene__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(15,15,15,0.75) 0%, rgba(35,58,40,0.70) 100%);
+    }
+    .scene__content {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; gap: 72px;
+    }
+
+    /* BOOK MOCKUP */
+    .book {
+      width: 200px; height: 270px;
+      position: relative; flex-shrink: 0;
+    }
+    /* Book shadow */
+    .book::after {
+      content: '';
+      position: absolute; bottom: -16px; left: 10px; right: -10px;
+      height: 30px;
+      background: rgba(0,0,0,0.4);
+      filter: blur(14px); border-radius: 50%;
+    }
+    .book__cover {
+      width: 100%; height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=600&q=90&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      border-radius: 3px 12px 12px 3px;
+      box-shadow: -12px 12px 0 rgba(0,0,0,0.35), 0 20px 60px rgba(0,0,0,0.5);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      padding: 28px 22px;
+      color: #fff;
+    }
+    .book__cover::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(155deg, rgba(10,10,10,0.50) 0%, rgba(35,58,40,0.80) 100%);
+    }
+    /* Left spine */
+    .book__spine {
+      position: absolute; left: -10px; top: 0; bottom: 0;
+      width: 10px;
+      background: linear-gradient(to right, #1A2E1E, #2A4030);
+      border-radius: 3px 0 0 3px;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.3);
+    }
+    .book__brand {
+      font-family: 'Fraunces', serif; font-size: 7px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0.65; margin-bottom: auto; position: relative; z-index: 1;
+    }
+    .book__title {
+      font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700;
+      line-height: 1.05; margin-bottom: 8px; position: relative; z-index: 1;
+    }
+    .book__title em { font-style: italic; font-weight: 300; opacity: 0.85; }
+    .book__sub { font-size: 7.5px; opacity: 0.7; line-height: 1.5; margin-bottom: 14px; position: relative; z-index: 1; }
+    .book__pill {
+      display: inline-block; background: rgba(255,255,255,0.18);
+      border-radius: 100px; padding: 4px 10px;
+      font-size: 7px; font-weight: 600; width: fit-content;
+      position: relative; z-index: 1;
+    }
+
+    /* TEXT SIDE */
+    .scene__text { color: #fff; max-width: 320px; }
+    .scene__eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      margin-bottom: 14px; display: block;
+    }
+    .scene__title {
+      font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .scene__title em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.75); }
+    .scene__sub { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 24px; }
+    .scene__pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .scene__pill {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px; padding: 6px 14px;
+      font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8);
+    }
+
+    /* INSTRUCTIONS BELOW */
+    .instructions {
+      margin-top: 32px; text-align: center;
+      color: rgba(255,255,255,0.4); font-size: 13px; line-height: 1.7;
+    }
+    .instructions strong { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="scene">
+      <div class="scene__overlay"></div>
+      <div class="scene__content">
+        <div class="book">
+          <div class="book__spine"></div>
+          <div class="book__cover">
+            <div class="book__brand">Untangle</div>
+            <div>
+              <div class="book__title">Stop<br/><em>Overthinking</em></div>
+              <div class="book__sub">The 7-Day Mental Reset Guide</div>
+              <div class="book__pill">20 Pages · PDF</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scene__text">
+          <span class="scene__eyebrow">Mental Clarity Guide</span>
+          <div class="scene__title">Stop<br/><em>Overthinking</em></div>
+          <p class="scene__sub">Break the loop in 7 days. Practical tools to quiet your mind and reclaim your peace.</p>
+          <div class="scene__pills">
+            <span class="scene__pill">20 Pages</span>
+            <span class="scene__pill">PDF Download</span>
+            <span class="scene__pill">CBT Techniques</span>
+            <span class="scene__pill">7 Worksheets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <strong>For Stripe product image:</strong> Press F12, go to Console, type <code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;">document.querySelector('.scene').scrollIntoView()</code> then use a screenshot tool at full zoom.<br/>
+      Or simply right-click the card above and choose <strong>Save image as</strong> if your browser supports it.<br/>
+      Recommended size for Stripe: <strong>900 x 600px or 1:1 square crop</strong>.
+    </div>
+  </div>
+</body>
+</html>
