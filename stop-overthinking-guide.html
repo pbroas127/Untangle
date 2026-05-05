@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stop Overthinking — Untangle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── PRINT SETUP ── */
+    @page { size: Letter; margin: 0; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:       #3B5740;
+      --sage-dark:  #2A4030;
+      --sage-light: #E8EFE6;
+      --sage-mid:   #6B8F72;
+      --dark:       #0F0F0F;
+      --dark-2:     #1C1C1C;
+      --mid:        #4A4A4A;
+      --light:      #888;
+      --cream:      #FBF7F0;
+      --warm:       #F7F0E6;
+      --border:     #E4DED4;
+      --white:      #FEFCF8;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--dark); }
+    h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.15; letter-spacing: -0.02em; }
+
+    /* ── PAGE SHELL ── */
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+    }
+    .page:last-child { page-break-after: auto; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 1: COVER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .cover {
+      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1600&q=85&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      min-height: 11in;
+      justify-content: space-between;
+    }
+    .cover__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(15,15,15,0.72) 0%, rgba(42,64,48,0.85) 100%);
+    }
+    .cover__content {
+      position: relative; z-index: 2;
+      padding: 0.8in 0.9in;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      min-height: 11in;
+      color: #fff;
+    }
+    .cover__brand {
+      font-family: 'Fraunces', serif;
+      font-size: 13pt; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0.75;
+    }
+    .cover__main { margin-top: auto; padding-bottom: 0.5in; }
+    .cover__eyebrow {
+      font-size: 9pt; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; opacity: 0.65; margin-bottom: 18px;
+    }
+    .cover__title {
+      font-size: 72pt; font-weight: 700; line-height: 0.92;
+      margin-bottom: 16px;
+    }
+    .cover__title em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.82); }
+    .cover__sub {
+      font-size: 14pt; font-weight: 300; opacity: 0.8; line-height: 1.5;
+      max-width: 4.5in; margin-bottom: 40px;
+    }
+    .cover__divider { width: 56px; height: 2px; background: rgba(255,255,255,0.4); margin-bottom: 24px; }
+    .cover__tagline { font-size: 11pt; opacity: 0.6; font-style: italic; font-family: 'Fraunces', serif; }
+    .cover__footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      opacity: 0.5; font-size: 8pt; letter-spacing: 0.06em;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       INTERIOR STYLES
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .interior {
+      background: var(--white);
+      padding: 0.75in 0.9in;
+      min-height: 11in;
+    }
+    .interior--cream { background: var(--cream); }
+    .interior--sage  { background: var(--sage); color: #fff; }
+    .interior--dark  { background: var(--dark-2); color: #fff; }
+
+    /* Header strip with image */
+    .day-header {
+      margin: -0.75in -0.9in 0.5in;
+      height: 2.6in;
+      position: relative;
+      overflow: hidden;
+    }
+    .day-header img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .day-header__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(42,64,48,0.55) 0%, rgba(15,15,15,0.75) 100%);
+    }
+    .day-header__text {
+      position: absolute; bottom: 0.35in; left: 0.9in; right: 0.9in;
+      color: #fff;
+    }
+    .day-header__num {
+      font-size: 8pt; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; opacity: 0.65; margin-bottom: 6px;
+    }
+    .day-header__title {
+      font-family: 'Fraunces', serif;
+      font-size: 34pt; font-weight: 700; line-height: 1.05;
+    }
+    .day-header__title em { font-style: italic; font-weight: 300; }
+
+    /* Running header for interior pages */
+    .page-header {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+      font-size: 8pt; color: var(--light); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .page-header .brand { font-family: 'Fraunces', serif; font-weight: 600; color: var(--sage); font-size: 9pt; letter-spacing: 0.1em; }
+
+    /* Typography */
+    .section-label {
+      font-size: 8pt; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--sage-mid); margin-bottom: 10px; display: block;
+    }
+    .page-title {
+      font-size: 32pt; font-weight: 700; margin-bottom: 20px; line-height: 1.1;
+    }
+    .page-title em { font-style: italic; color: var(--sage); font-weight: 300; }
+    .lead {
+      font-size: 12pt; line-height: 1.75; color: var(--mid);
+      margin-bottom: 24px; font-weight: 400;
+    }
+    .body-text {
+      font-size: 10.5pt; line-height: 1.8; color: var(--mid);
+      margin-bottom: 18px;
+    }
+    .body-text strong { color: var(--dark); font-weight: 600; }
+    h3.section-title {
+      font-size: 16pt; font-weight: 600; margin-bottom: 12px; margin-top: 28px; color: var(--dark);
+    }
+    h4.sub-title {
+      font-size: 11pt; font-weight: 600; margin-bottom: 8px; margin-top: 20px;
+      color: var(--sage); font-family: 'Inter', sans-serif; letter-spacing: -0.01em;
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--sage-light); border-left: 3px solid var(--sage);
+      border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 24px 0;
+    }
+    .callout__label {
+      font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 6px;
+    }
+    .callout__text { font-size: 10pt; line-height: 1.7; color: var(--dark-2); }
+    .callout__text strong { color: var(--sage-dark); }
+
+    /* Numbered steps */
+    .steps { list-style: none; margin: 16px 0 24px; }
+    .steps li {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 14px; font-size: 10.5pt; line-height: 1.65; color: var(--mid);
+    }
+    .steps li strong { color: var(--dark); }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--sage); color: #fff;
+      font-size: 9pt; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Worksheet / exercise box */
+    .worksheet {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 24px 28px; margin: 28px 0;
+    }
+    .worksheet__title {
+      font-family: 'Fraunces', serif; font-size: 14pt; font-weight: 600;
+      color: var(--dark); margin-bottom: 6px;
+    }
+    .worksheet__sub { font-size: 9pt; color: var(--light); margin-bottom: 20px; line-height: 1.5; }
+    .write-line {
+      border-bottom: 1px solid #C8C0B5; margin-bottom: 14px; padding-bottom: 14px;
+      min-height: 18px;
+    }
+    .write-label {
+      font-size: 8pt; font-weight: 600; color: var(--sage);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .write-area {
+      border: 1px solid var(--border); border-radius: 8px;
+      background: #fff; padding: 12px 14px; margin-bottom: 14px;
+      min-height: 0.6in;
+    }
+    .write-area--lg { min-height: 1in; }
+    .write-area--xl { min-height: 1.4in; }
+
+    /* Checklist */
+    .checklist { list-style: none; margin: 14px 0; }
+    .checklist li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 10pt; color: var(--mid); margin-bottom: 10px; line-height: 1.5;
+    }
+    .check-box {
+      width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 4px;
+      flex-shrink: 0; margin-top: 1px; background: #fff;
+    }
+
+    /* Two column layout */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+
+    /* Highlight stat */
+    .stat-row { display: flex; gap: 24px; margin: 24px 0; }
+    .stat {
+      flex: 1; background: var(--sage); border-radius: 12px;
+      padding: 20px 22px; color: #fff;
+    }
+    .stat__num { font-family: 'Fraunces', serif; font-size: 28pt; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+    .stat__label { font-size: 8.5pt; opacity: 0.75; line-height: 1.4; }
+
+    /* Technique box */
+    .technique {
+      background: var(--dark-2); color: #fff;
+      border-radius: 12px; padding: 24px 28px; margin: 24px 0;
+    }
+    .technique__label {
+      font-size: 7.5pt; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--sage-mid); margin-bottom: 10px;
+    }
+    .technique__title { font-family: 'Fraunces', serif; font-size: 16pt; font-weight: 600; margin-bottom: 12px; }
+    .technique__body { font-size: 10pt; line-height: 1.75; color: rgba(255,255,255,0.75); }
+    .technique__body strong { color: #fff; }
+
+    /* Image accent */
+    .img-accent {
+      width: 100%; border-radius: 12px; overflow: hidden;
+      height: 1.8in; margin: 20px 0;
+    }
+    .img-accent img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    /* Page footer */
+    .page-footer {
+      margin-top: auto; padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 7.5pt; color: var(--light);
+    }
+    .page-footer .page-num { font-weight: 600; }
+
+    /* TOC */
+    .toc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-item__left { display: flex; align-items: center; gap: 16px; }
+    .toc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    .toc-day { font-size: 8pt; color: var(--sage); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .toc-title { font-family: 'Fraunces', serif; font-size: 13pt; font-weight: 600; margin-left: 6px; }
+    .toc-pg { font-size: 9pt; color: var(--light); }
+
+    /* Back cover */
+    .back-cover {
+      background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600&q=85&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      min-height: 11in; justify-content: center; align-items: center;
+    }
+    .back-cover__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(42,64,48,0.9) 0%, rgba(15,15,15,0.85) 100%);
+    }
+    .back-cover__content {
+      position: relative; z-index: 2;
+      text-align: center; color: #fff; padding: 1in;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 11in;
+    }
+    .back-cover__brand { font-family: 'Fraunces', serif; font-size: 42pt; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.03em; }
+    .back-cover__tagline { font-size: 13pt; opacity: 0.7; font-style: italic; font-family: 'Fraunces', serif; margin-bottom: 40px; }
+    .back-cover__url { font-size: 10pt; opacity: 0.5; letter-spacing: 0.06em; }
+
+    /* Day 7 toolkit grid */
+    .toolkit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .toolkit-card {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 16px 18px; background: #fff;
+    }
+    .toolkit-card__day { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
+    .toolkit-card__title { font-family: 'Fraunces', serif; font-size: 11pt; font-weight: 600; margin-bottom: 8px; }
+    .toolkit-card__line { border-bottom: 1px solid #D8D0C8; margin-bottom: 10px; padding-bottom: 10px; font-size: 8.5pt; color: var(--light); }
+    .toolkit-card__line:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     PAGE 1: COVER
+═══════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover__overlay"></div>
+  <div class="cover__content">
+    <div class="cover__brand">Untangle</div>
+    <div class="cover__main">
+      <div class="cover__eyebrow">Mental Clarity Guide</div>
+      <div class="cover__title">Stop<br/><em>Overthinking</em></div>
+      <div class="cover__divider"></div>
+      <div class="cover__sub">The 7-Day Mental Reset Guide. Practical tools to break the loop and reclaim your peace.</div>
+      <div class="cover__tagline">By Untangle</div>
+    </div>
+    <div class="cover__footer">
+      <span>untangle-one.vercel.app</span>
+      <span>© 2026 Untangle</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 2: WELCOME
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Welcome</span>
+  </div>
+
+  <span class="section-label">Hello</span>
+  <h1 class="page-title">Welcome to<br/><em>your reset.</em></h1>
+
+  <p class="lead">
+    If you bought this guide, you already know the feeling. The thought that will not leave. The conversation you keep replaying. The decision you cannot make without spiralling into every possible outcome. You are not broken. Your brain is doing exactly what it was built to do.
+  </p>
+
+  <p class="body-text">
+    Overthinking is not a character flaw. It is a habit your mind learned somewhere along the way, usually to protect you from uncertainty, criticism, or making the wrong call. The problem is that the brain overshoots. What starts as caution turns into a loop that runs on repeat and leaves you exhausted before the day has even started.
+  </p>
+
+  <p class="body-text">
+    This guide uses techniques rooted in cognitive behavioural therapy (CBT), one of the most studied and proven frameworks for changing thought patterns. But you will not find clinical language or theory here. Just clear, honest exercises that take 10 minutes a day and actually work.
+  </p>
+
+  <div class="callout">
+    <div class="callout__label">How to Use This Guide</div>
+    <div class="callout__text">
+      Do one day at a time. Read the content, then do the exercise before moving on. <strong>You do not need to do this perfectly.</strong> You just need to do it honestly. Each day builds on the last, so by Day 7 you will have a personal toolkit you can come back to anytime the spiral starts again.
+    </div>
+  </div>
+
+  <h4 class="sub-title">What to have with you</h4>
+  <ul class="checklist">
+    <li><div class="check-box"></div>A pen or pencil for the worksheets</li>
+    <li><div class="check-box"></div>Ten minutes of quiet each day (morning works best, but any time is fine)</li>
+    <li><div class="check-box"></div>Honesty. The exercises only work if you answer truthfully, not how you think you should answer.</li>
+    <li><div class="check-box"></div>Patience with yourself. Seven days is a start, not a cure.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">2</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 3: CONTENTS
+═══════════════════════════════════════ -->
+<div class="page interior">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Contents</span>
+  </div>
+
+  <span class="section-label">Inside This Guide</span>
+  <h2 class="page-title" style="font-size:28pt; margin-bottom:36px;">Your 7-Day Plan</h2>
+
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 01</div><div class="toc-title">Map Your Mental Loop</div></div>
+    </div>
+    <span class="toc-pg">4</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 02</div><div class="toc-title">The Pattern Interrupt</div></div>
+    </div>
+    <span class="toc-pg">6</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 03</div><div class="toc-title">Reframe the Story</div></div>
+    </div>
+    <span class="toc-pg">8</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 04</div><div class="toc-title">The Mental Offload</div></div>
+    </div>
+    <span class="toc-pg">10</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 05</div><div class="toc-title">Decision Detox</div></div>
+    </div>
+    <span class="toc-pg">12</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 06</div><div class="toc-title">The Quieting Routine</div></div>
+    </div>
+    <span class="toc-pg">14</span>
+  </div>
+  <div class="toc-item">
+    <div class="toc-item__left">
+      <div class="toc-dot"></div>
+      <div><div class="toc-day">Day 07</div><div class="toc-title">Your Long-Term Toolkit</div></div>
+    </div>
+    <span class="toc-pg">16</span>
+  </div>
+
+  <div class="img-accent" style="margin-top: 40px;">
+    <img src="https://images.unsplash.com/photo-1516676839530-135a545cce02?w=1200&q=80&auto=format&fit=crop" alt="Calm nature"/>
+  </div>
+
+  <p class="body-text" style="font-style:italic; color: var(--light); font-size:9.5pt;">
+    This guide is for everyday overthinking and self-help purposes. It is not a replacement for professional mental health support. If you are dealing with severe anxiety or a diagnosed condition, please work with a qualified therapist alongside this guide.
+  </p>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">3</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 4: DAY 1 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?w=1400&q=80&auto=format&fit=crop" alt="Day 1"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 01</div>
+      <div class="day-header__title">Map Your<br/><em>Mental Loop</em></div>
+    </div>
+  </div>
+
+  <p class="lead">Before you can stop a pattern, you have to see it clearly. Most people overthink without knowing what actually starts the spiral. Today you will find out.</p>
+
+  <p class="body-text">Overthinking rarely comes from nowhere. It has a trigger: a message left on read, a comment from a coworker, an upcoming presentation, a decision you need to make. The trigger fires, the brain locks on, and the loop begins.</p>
+
+  <p class="body-text">The problem is that most of us skip straight to the spiral and never look back at what set it off. When you can identify your personal triggers, you gain something powerful: a warning system. You start to recognise the spiral at the beginning, not after it has already taken over your afternoon.</p>
+
+  <h4 class="sub-title">The three main overthinking triggers</h4>
+  <ul class="steps">
+    <li><div class="step-num">1</div><div><strong>Uncertainty.</strong> Not knowing what someone meant, what will happen, or what the right choice is. Your brain fills in the blanks, and it almost always fills them in with the worst case.</div></li>
+    <li><div class="step-num">2</div><div><strong>Social threat.</strong> Feeling judged, rejected, or misunderstood. Your brain replays situations looking for clues about what the other person thinks of you.</div></li>
+    <li><div class="step-num">3</div><div><strong>Unresolved decisions.</strong> A choice you keep putting off. Every time it surfaces, your brain tries to solve it and gets stuck.</div></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">4</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 5: DAY 1 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 01 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">Your Trigger Map</div>
+    <div class="worksheet__sub">Set a timer for 10 minutes. Answer each question honestly. There are no wrong answers here.</div>
+
+    <div class="write-label">Think of the last time you got stuck in a spiral. What happened just before it started?</div>
+    <div class="write-area write-area--lg"></div>
+
+    <div class="write-label">Which of the three trigger types does that fall under? (Circle one: Uncertainty / Social Threat / Unresolved Decision)</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">What is the thought your brain keeps returning to? Write it out in one sentence.</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">What would you tell a friend who had that same thought?</div>
+    <div class="write-area write-area--lg"></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout__label">Notice This</div>
+    <div class="callout__text">The gap between what you would tell a friend and what you tell yourself is where the work happens. Keep that gap in mind as you move through the week.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">5</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 6: DAY 2 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1487621167305-5d248087c724?w=1400&q=80&auto=format&fit=crop" alt="Day 2"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 02</div>
+      <div class="day-header__title">The Pattern<br/><em>Interrupt</em></div>
+    </div>
+  </div>
+
+  <p class="lead">Now that you know what triggers your spiral, today you learn how to stop it in the moment. This is the most immediately useful technique in the guide.</p>
+
+  <p class="body-text">A pattern interrupt is exactly what it sounds like: something that breaks the mental loop before it picks up momentum. The key is that it has to be physical, not mental. You cannot think your way out of an overthinking spiral. You have to do something with your body first.</p>
+
+  <p class="body-text">This works because overthinking is a state of nervous system activation. Your body is subtly in threat mode. A physical action signals to the nervous system that there is no actual emergency, which creates enough of a pause for your rational mind to re-engage.</p>
+
+  <div class="technique">
+    <div class="technique__label">The Core Technique</div>
+    <div class="technique__title">The 5-4-3-2-1 Reset</div>
+    <div class="technique__body">
+      When you feel the spiral starting, stop and do this:<br/><br/>
+      <strong>5</strong> things you can see right now. Name them out loud or in your head.<br/>
+      <strong>4</strong> things you can physically feel. The chair, your feet on the floor, the temperature of the air.<br/>
+      <strong>3</strong> things you can hear. An AC unit, traffic, your own breathing.<br/>
+      <strong>2</strong> things you can smell. Even if subtle.<br/>
+      <strong>1</strong> slow breath. In for 4 counts, hold for 2, out for 6.<br/><br/>
+      That is it. Total time: about 60 seconds. It works because it pulls your attention out of your head and into the present moment, which is where overthinking cannot live.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">6</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 7: DAY 2 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 02 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">Practice the Reset</div>
+    <div class="worksheet__sub">Do the 5-4-3-2-1 Reset right now, even if you are not currently spiralling. Then fill in what you noticed.</div>
+
+    <div class="write-label">5 things you can see:</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">4 things you can feel physically:</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">3 things you can hear:</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">2 things you can smell:</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">After doing this, how does your mind feel compared to 60 seconds ago?</div>
+    <div class="write-area write-area--lg"></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout__label">This Week</div>
+    <div class="callout__text">Use the 5-4-3-2-1 Reset every time you notice yourself spiralling this week. Do not wait until it is bad. Use it at the first sign of the loop starting. Speed is everything with pattern interrupts.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">7</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 8: DAY 3 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1400&q=80&auto=format&fit=crop" alt="Day 3"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 03</div>
+      <div class="day-header__title">Reframe<br/><em>the Story</em></div>
+    </div>
+  </div>
+
+  <p class="lead">Your brain is a storyteller. When it does not have facts, it makes things up. And it almost always tells the same story: the worst one. Today you learn to rewrite it.</p>
+
+  <p class="body-text">Cognitive reframing is the core tool of CBT. It is not about thinking positive or pretending things are fine. It is about questioning the story your brain is telling and looking for a more accurate one. The worst case your brain defaults to is almost never the most likely outcome. It is just the loudest one.</p>
+
+  <h4 class="sub-title">The Three Questions</h4>
+  <p class="body-text">When your brain locks onto a thought, run it through these three questions:</p>
+  <ul class="steps">
+    <li><div class="step-num">1</div><div><strong>Is this actually true, or is this a fear dressed up as a fact?</strong> Most catastrophic thoughts are predictions, not realities. Separate what you know from what you are assuming.</div></li>
+    <li><div class="step-num">2</div><div><strong>What is the most realistic outcome here, not the worst one?</strong> Your brain gives you the extreme. Ask it for the middle ground instead.</div></li>
+    <li><div class="step-num">3</div><div><strong>If the worst did happen, could I handle it?</strong> Almost always the answer is yes. Your brain forgets that you are capable of dealing with hard things.</div></li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout__label">Key Insight</div>
+    <div class="callout__text">You are not trying to eliminate the thought. You are trying to loosen its grip by examining it honestly. A thought that gets examined loses most of its power.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">8</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 9: DAY 3 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 03 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">The Reframe Worksheet</div>
+    <div class="worksheet__sub">Pick one thought that has been on your mind lately. Run it through the three questions below.</div>
+
+    <div class="write-label">The thought I keep having:</div>
+    <div class="write-area write-area--lg"></div>
+
+    <div class="two-col">
+      <div>
+        <div class="write-label">Is this a fact or a fear?</div>
+        <div class="write-area write-area--lg"></div>
+      </div>
+      <div>
+        <div class="write-label">Most realistic outcome (not worst):</div>
+        <div class="write-area write-area--lg"></div>
+      </div>
+    </div>
+
+    <div class="write-label">If the worst did happen, how would I cope with it?</div>
+    <div class="write-area write-area--lg"></div>
+
+    <div class="write-label">Rewritten version of the original thought (more balanced, more honest):</div>
+    <div class="write-area write-area--lg"></div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">9</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 10: DAY 4 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1535025075092-5a1cf795130b?w=1400&q=80&auto=format&fit=crop" alt="Day 4"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 04</div>
+      <div class="day-header__title">The Mental<br/><em>Offload</em></div>
+    </div>
+  </div>
+
+  <p class="lead">Your working memory was not built to hold everything you are trying to keep in it. When you try to carry every thought, worry, and task in your head at once, the mind gets cluttered and anxious. Today you empty it out.</p>
+
+  <p class="body-text">A brain dump is one of the simplest and most underrated tools for mental clarity. The idea is straightforward: you take everything that is sitting in your head and put it on paper. Not organised, not sorted. Just out. Once a thought is written down, your brain stops working overtime to remember it.</p>
+
+  <p class="body-text">Most people resist this because they think they need to do something with the thoughts once they are written. You do not. The act of offloading them is the point. You can organise or act on them later. Right now the goal is to empty the mental queue.</p>
+
+  <div class="technique">
+    <div class="technique__label">The Method</div>
+    <div class="technique__title">The 5-Minute Brain Dump</div>
+    <div class="technique__body">
+      Set a timer for 5 minutes. Write without stopping. Include:<br/><br/>
+      <strong>Worries.</strong> Anything you are anxious about, big or small.<br/>
+      <strong>Tasks.</strong> Things you feel like you should be doing.<br/>
+      <strong>Unfinished thoughts.</strong> Conversations you are still processing.<br/>
+      <strong>Decisions.</strong> Anything you have not made a call on yet.<br/><br/>
+      Do not edit. Do not judge what comes out. Just write until the timer stops. When you are done, your head will feel lighter. That is not a figure of speech — you have literally reduced your cognitive load.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">10</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 11: DAY 4 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 04 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">Your Brain Dump</div>
+    <div class="worksheet__sub">Set a timer for 5 minutes. Write everything that is in your head right now. Use the space below. There is no right way to do this.</div>
+
+    <div class="write-area write-area--xl" style="min-height: 2.8in;"></div>
+
+    <div class="write-label">After the dump: which one of those things actually needs your attention today?</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">Which ones can wait until later, or do not need your energy at all?</div>
+    <div class="write-area write-area--lg"></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout__label">Make This a Habit</div>
+    <div class="callout__text">A 5-minute brain dump at the same time each day (morning or before bed) is one of the highest-leverage things you can do for mental clarity. It takes less time than most people spend doomscrolling and gives back far more.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">11</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 12: DAY 5 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1533162507191-d90c625b2640?w=1400&q=80&auto=format&fit=crop" alt="Day 5"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 05</div>
+      <div class="day-header__title">Decision<br/><em>Detox</em></div>
+    </div>
+  </div>
+
+  <p class="lead">A huge percentage of overthinking is actually just delayed decision-making. The longer you sit with an unmade decision, the more your brain obsesses over it. Today you get a framework for deciding and moving on.</p>
+
+  <p class="body-text">Overthinkers often believe that if they think long enough, the perfect answer will appear. It rarely does. What actually happens is that the thinking creates more anxiety, which makes the decision feel more loaded, which makes you think more. The cycle feeds itself.</p>
+
+  <p class="body-text">The research on decision-making is clear: beyond a certain point, more information and more thinking does not improve the quality of your decisions. It just delays them and wears you out.</p>
+
+  <h4 class="sub-title">The Two-Minute Rule</h4>
+  <p class="body-text">If a decision will take less than two minutes to act on once made, make it now. Do not revisit it. The energy you spend managing small unmade decisions is disproportionate to their actual importance.</p>
+
+  <div class="technique">
+    <div class="technique__label">For Bigger Decisions</div>
+    <div class="technique__title">The 10-10-10 Check</div>
+    <div class="technique__body">
+      Ask yourself three questions about whichever option you are considering:<br/><br/>
+      <strong>How will I feel about this in 10 minutes?</strong><br/>
+      <strong>How will I feel about this in 10 months?</strong><br/>
+      <strong>How will I feel about this in 10 years?</strong><br/><br/>
+      Most decisions that feel urgent right now are irrelevant in 10 months. And most things that matter in 10 years are obvious when you zoom out that far. This check gives you perspective fast.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">12</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 13: DAY 5 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 05 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">The Decision Worksheet</div>
+    <div class="worksheet__sub">Pick one decision you have been sitting on. Run it through the framework below.</div>
+
+    <div class="write-label">The decision I have been overthinking:</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">How long have I been sitting on this decision?</div>
+    <div class="write-area"></div>
+
+    <div class="two-col">
+      <div>
+        <div class="write-label">Option A:</div>
+        <div class="write-area write-area--lg"></div>
+      </div>
+      <div>
+        <div class="write-label">Option B:</div>
+        <div class="write-area write-area--lg"></div>
+      </div>
+    </div>
+
+    <div class="write-label">10-10-10 Check: How will I feel about each option in 10 minutes, 10 months, and 10 years?</div>
+    <div class="write-area write-area--lg"></div>
+
+    <div class="write-label">Based on the above, the decision I am making is:</div>
+    <div class="write-area"></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout__label">One Rule</div>
+    <div class="callout__text">Once you have made the decision, do not reopen it unless you get significant new information. Reopening decided things is one of the biggest drivers of ongoing anxiety.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">13</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 14: DAY 6 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1524901548305-08eeddc35080?w=1400&q=80&auto=format&fit=crop" alt="Day 6"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 06</div>
+      <div class="day-header__title">The Quieting<br/><em>Routine</em></div>
+    </div>
+  </div>
+
+  <p class="lead">For most overthinkers, the worst time of day is the moment the environment gets quiet. Bedtime. The lights go off and the thoughts turn on. Today you build a system that changes that.</p>
+
+  <p class="body-text">Your brain does not have an off switch, but it does respond to signals. When you do the same set of actions in the same order before sleep, you teach your nervous system that those actions mean: it is safe to power down. This is called a wind-down anchor, and it works because the brain is wired for pattern recognition.</p>
+
+  <p class="body-text">The biggest mistake people make with bedtime routines is making them too complicated. A wind-down routine should take 20 to 30 minutes maximum, and it should be so simple that you can do it half-asleep.</p>
+
+  <h4 class="sub-title">What actually helps vs. what feels like it helps</h4>
+  <div class="two-col" style="margin-top: 12px;">
+    <div style="background: var(--sage-light); border-radius: 10px; padding: 16px 18px;">
+      <div style="font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: 10px;">Actually Helps</div>
+      <ul class="checklist">
+        <li><div class="check-box" style="border-color: var(--sage);"></div>Writing tomorrow's top 3 tasks down</li>
+        <li><div class="check-box" style="border-color: var(--sage);"></div>A 5-minute brain dump before bed</li>
+        <li><div class="check-box" style="border-color: var(--sage);"></div>Dim lighting 30 mins before sleep</li>
+        <li><div class="check-box" style="border-color: var(--sage);"></div>The 5-4-3-2-1 Reset if you spiral</li>
+      </ul>
+    </div>
+    <div style="background: #FFF0F0; border-radius: 10px; padding: 16px 18px;">
+      <div style="font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #C0504D; margin-bottom: 10px;">Feels Like It Helps</div>
+      <ul class="checklist">
+        <li><div class="check-box" style="border-color: #E0A0A0;"></div>Scrolling to wind down</li>
+        <li><div class="check-box" style="border-color: #E0A0A0;"></div>Checking messages one more time</li>
+        <li><div class="check-box" style="border-color: #E0A0A0;"></div>Watching something loud to distract</li>
+        <li><div class="check-box" style="border-color: #E0A0A0;"></div>Thinking through problems in bed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">14</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 15: DAY 6 WORKSHEET
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 06 Exercise</span>
+  </div>
+
+  <div class="worksheet">
+    <div class="worksheet__title">Build Your Wind-Down Routine</div>
+    <div class="worksheet__sub">Design your personal 20-minute pre-sleep routine below. Keep it simple. You will do this every night this week.</div>
+
+    <div class="write-label">What time do you want to start your routine?</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">Step 1 (5 mins): Brain dump or write tomorrow's top 3 tasks</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">Step 2 (5 mins): Something calming with no screen (reading, stretching, tea)</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">Step 3 (5 mins): Dim lights, get into bed, one slow breathing exercise</div>
+    <div class="write-area"></div>
+
+    <div class="write-label">If a thought comes up in bed, what will you do with it instead of spiralling?</div>
+    <div class="write-area write-area--lg"></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout__label">The Rule for Bed</div>
+    <div class="callout__text">If a thought surfaces in bed, write it on a notepad and tell yourself: "I have recorded that. I will deal with it tomorrow." This gives your brain permission to let it go because it knows the thought will not be lost.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">15</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 16: DAY 7 CONTENT
+═══════════════════════════════════════ -->
+<div class="page interior" style="padding-top: 0;">
+  <div class="day-header">
+    <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1400&q=80&auto=format&fit=crop" alt="Day 7"/>
+    <div class="day-header__overlay"></div>
+    <div class="day-header__text">
+      <div class="day-header__num">Day 07</div>
+      <div class="day-header__title">Your Long-Term<br/><em>Toolkit</em></div>
+    </div>
+  </div>
+
+  <p class="lead">You made it through the week. Today is not a new technique. It is about pulling everything together into a plan that actually sticks.</p>
+
+  <p class="body-text">The goal was never to stop thinking. Thinking is how you solve problems, plan for the future, and process your experiences. The goal was to give you control over when you think deeply and when you let things go. That control is what this week built.</p>
+
+  <p class="body-text">The techniques you learned this week are tools. Like any tool, they get rusty if you put them down. The people who get lasting results from this kind of work are not the ones who do it perfectly for seven days. They are the ones who keep a small handful of habits going after the week ends.</p>
+
+  <h4 class="sub-title">Your core toolkit in brief</h4>
+  <ul class="steps">
+    <li><div class="step-num">1</div><div><strong>Know your trigger.</strong> When you start spiralling, ask: is this uncertainty, a social threat, or an unresolved decision? Naming it cuts its power in half.</div></li>
+    <li><div class="step-num">2</div><div><strong>Use the 5-4-3-2-1 Reset</strong> at the first sign of a spiral. Not when it is already bad. At the beginning.</div></li>
+    <li><div class="step-num">3</div><div><strong>Run stuck thoughts through the three questions.</strong> Is this a fact or a fear? What is the realistic outcome? Could I handle the worst?</div></li>
+    <li><div class="step-num">4</div><div><strong>Dump your head daily.</strong> Five minutes, same time each day. Non-negotiable.</div></li>
+    <li><div class="step-num">5</div><div><strong>Make decisions and close them.</strong> Use the 10-10-10 check. Decide. Move on.</div></li>
+    <li><div class="step-num">6</div><div><strong>Protect your evenings.</strong> A consistent wind-down routine is not a luxury. It is maintenance.</div></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">16</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 17: DAY 7 TOOLKIT FILL-IN
+═══════════════════════════════════════ -->
+<div class="page interior interior--cream">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>Day 07 Toolkit</span>
+  </div>
+
+  <span class="section-label">Your Personal Plan</span>
+  <h2 class="page-title" style="font-size: 26pt; margin-bottom: 8px;">Fill This In. Keep It.</h2>
+  <p class="body-text" style="margin-bottom: 24px;">This is your reference card. Fill it in now and come back to it whenever you feel the spiral starting again.</p>
+
+  <div class="toolkit-grid">
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 01</div>
+      <div class="toolkit-card__title">My Main Trigger</div>
+      <div class="toolkit-card__line">When I spiral, it is usually because of:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 02</div>
+      <div class="toolkit-card__title">My Pattern Interrupt</div>
+      <div class="toolkit-card__line">When I feel the loop starting, I will:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 03</div>
+      <div class="toolkit-card__title">My Reframe Questions</div>
+      <div class="toolkit-card__line">The question that helps me most:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 04</div>
+      <div class="toolkit-card__title">My Brain Dump Time</div>
+      <div class="toolkit-card__line">I will do my daily 5-minute dump at:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 05</div>
+      <div class="toolkit-card__title">My Decision Rule</div>
+      <div class="toolkit-card__line">When I catch myself overthinking a decision:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+    <div class="toolkit-card">
+      <div class="toolkit-card__day">Day 06</div>
+      <div class="toolkit-card__title">My Wind-Down Time</div>
+      <div class="toolkit-card__line">My routine starts at:</div>
+      <div class="toolkit-card__line" style="min-height: 36px;"></div>
+    </div>
+  </div>
+
+  <div class="worksheet" style="margin-top: 16px;">
+    <div class="worksheet__title">One thing I want to feel differently about in 30 days:</div>
+    <div class="write-area write-area--lg" style="margin-top: 12px;"></div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">17</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 18: CLOSING NOTE
+═══════════════════════════════════════ -->
+<div class="page interior">
+  <div class="page-header">
+    <span class="brand">Untangle</span>
+    <span>A Final Word</span>
+  </div>
+
+  <div class="img-accent" style="margin-bottom: 36px; height: 2.2in;">
+    <img src="https://images.unsplash.com/photo-1444044205806-38f3ed106c10?w=1200&q=80&auto=format&fit=crop" alt="Calm forest"/>
+  </div>
+
+  <span class="section-label">From Untangle</span>
+  <h2 class="page-title" style="font-size: 28pt; margin-bottom: 20px;">You did the work.<br/><em>That matters.</em></h2>
+
+  <p class="lead">Most people who buy a guide like this read the first two pages and put it down. You did not do that. You showed up, you did the exercises, and you built something real this week.</p>
+
+  <p class="body-text">The techniques in this guide are not magic. They are skills. And like any skill, they need practice to stick. The goal is not a perfect week with zero spiralling. The goal is that the next time a thought grabs you, you have something to reach for. Now you do.</p>
+
+  <p class="body-text">Come back to the toolkit on page 17 whenever you need it. Do a brain dump when your head gets noisy. Use the 5-4-3-2-1 Reset the moment you feel a spiral starting. And remember: the gap between what you would tell a friend and what you tell yourself is where the real change happens.</p>
+
+  <div class="callout" style="margin-top: 32px;">
+    <div class="callout__label">Keep Going</div>
+    <div class="callout__text">Visit <strong>untangle-one.vercel.app</strong> for more guides on mental clarity, anxiety, sleep, and relationships. If this guide helped, share it with someone who needs it.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Stop Overthinking — Untangle</span>
+    <span class="page-num">18</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 19: BACK COVER
+═══════════════════════════════════════ -->
+<div class="page back-cover">
+  <div class="back-cover__overlay"></div>
+  <div class="back-cover__content">
+    <div class="back-cover__brand">Untangle</div>
+    <div class="back-cover__tagline">Break the loop. Reclaim your peace.</div>
+    <div style="width: 48px; height: 1px; background: rgba(255,255,255,0.3); margin: 0 auto 32px;"></div>
+    <div class="back-cover__url">untangle-one.vercel.app</div>
+  </div>
+</div>
+
+<!-- PRINT INSTRUCTIONS (hidden when printing) -->
+<div style="max-width: 600px; margin: 60px auto; padding: 40px; font-family: 'Inter', sans-serif; color: #333; background: #f9f6f1; border-radius: 12px;">
+  <h2 style="font-family: 'Fraunces', serif; margin-bottom: 16px; color: #3B5740;">How to Save as PDF</h2>
+  <ol style="padding-left: 20px; line-height: 2;">
+    <li>Press <strong>Ctrl + P</strong> (Windows) or <strong>Cmd + P</strong> (Mac)</li>
+    <li>Set Destination to <strong>"Save as PDF"</strong></li>
+    <li>Set Paper size to <strong>Letter</strong></li>
+    <li>Set Margins to <strong>None</strong></li>
+    <li>Check <strong>"Background graphics"</strong> so images and colors print</li>
+    <li>Click <strong>Save</strong></li>
+  </ol>
+</div>
+
+</body>
+</html>
+```
