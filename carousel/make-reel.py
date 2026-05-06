@@ -340,11 +340,14 @@ def main():
 
     # Use local video if present, otherwise download from Pexels
     idea_path = folder / "idea.mp4"
+    total_dur = sum(l["duration"] if isinstance(l, dict) else 2.2 for l in REEL_LINES)
     if idea_path.exists():
         bg_path = idea_path
         print("  Using local idea.mp4 as background.")
+    elif bg_path.exists():
+        print("  Using existing bg.mp4 — skipping download.")
     else:
-        video_url = get_pexels_video(PEXELS_QUERY, min_duration=len(REEL_LINES) * SECONDS_PER_LINE)
+        video_url = get_pexels_video(PEXELS_QUERY, min_duration=total_dur)
         download_video(video_url, str(bg_path))
 
     # Build reel
