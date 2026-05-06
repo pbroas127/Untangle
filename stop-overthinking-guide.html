@@ -35,15 +35,21 @@
     @media screen {
       body {
         background: #1A1A1A;
-        padding: 72px 20px 60px;
+        padding: 68px 0 40px;
+        overflow-x: hidden;
       }
       .page {
-        margin: 0 auto 24px;
+        margin: 0 auto 16px;
         border-radius: 4px;
         box-shadow: 0 8px 48px rgba(0,0,0,0.55);
-        max-width: 8.5in;
+        transform-origin: top center;
       }
       .page:last-child { margin-bottom: 0; }
+    }
+    @media print {
+      @page { size: 8.5in 11in; margin: 0; }
+      body { background: #fff !important; padding: 0 !important; }
+      .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; }
     }
 
     /* ── PRINT BAR (screen only) ── */
@@ -54,11 +60,7 @@
       justify-content: space-between; padding: 0 28px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    #print-bar .brand {
-      font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700;
-      color: #fff; letter-spacing: -0.03em; text-decoration: none;
-    }
-    #print-bar .brand span { color: #7DB87D; }
+    #print-bar .brand { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; background:linear-gradient(90deg,#fff 0%,#7DB87D 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none; letter-spacing:-0.03em; }
     #print-btn {
       display: flex; align-items: center; gap: 8px;
       background: #3B5740; color: #fff; border: none;
@@ -362,7 +364,7 @@
 
 <!-- PRINT BAR (screen only) -->
 <div id="print-bar">
-  <a class="brand" href="/">Untan<span>g</span>le</a>
+  <a class="brand" href="index.html">Untangle</a>
   <button id="print-btn" onclick="window.print()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
@@ -386,7 +388,7 @@
       <div class="cover__tagline">By Untangle</div>
     </div>
     <div class="cover__footer">
-      <span>untangle-one.vercel.app</span>
+      <span>untanglepdfs.com</span>
       <span>© 2026 Untangle</span>
     </div>
   </div>
@@ -504,7 +506,7 @@
   </div>
 
   <p class="body-text" style="font-style:italic; color: var(--light); font-size:9.5pt;">
-    This guide is for everyday overthinking and self-help purposes. It is not a replacement for professional mental health support. If you are dealing with severe anxiety or a diagnosed condition, please work with a qualified therapist alongside this guide.
+    This guide is for everyday overthinking and self help purposes. It is not a replacement for professional mental health support. If you are dealing with severe anxiety or a diagnosed condition, please work with a qualified therapist alongside this guide.
   </p>
 
   <div class="page-footer">
@@ -911,9 +913,9 @@
 
   <p class="lead">For most overthinkers, the worst time of day is the moment the environment gets quiet. Bedtime. The lights go off and the thoughts turn on. Today you build a system that changes that.</p>
 
-  <p class="body-text">Your brain does not have an off switch, but it does respond to signals. When you do the same set of actions in the same order before sleep, you teach your nervous system that those actions mean: it is safe to power down. This is called a wind-down anchor, and it works because the brain is wired for pattern recognition.</p>
+  <p class="body-text">Your brain does not have an off switch, but it does respond to signals. When you do the same set of actions in the same order before sleep, you teach your nervous system that those actions mean: it is safe to power down. This is called a wind down anchor, and it works because the brain is wired for pattern recognition.</p>
 
-  <p class="body-text">The biggest mistake people make with bedtime routines is making them too complicated. A wind-down routine should take 20 to 30 minutes maximum, and it should be so simple that you can do it half-asleep.</p>
+  <p class="body-text">The biggest mistake people make with bedtime routines is making them too complicated. A wind down routine should take 20 to 30 minutes maximum, and it should be so simple that you can do it half asleep.</p>
 
   <h4 class="sub-title">What actually helps vs. what feels like it helps</h4>
   <div class="two-col" style="margin-top: 12px;">
@@ -1009,7 +1011,7 @@
     <li><div class="step-num">3</div><div><strong>Run stuck thoughts through the three questions.</strong> Is this a fact or a fear? What is the realistic outcome? Could I handle the worst?</div></li>
     <li><div class="step-num">4</div><div><strong>Dump your head daily.</strong> Five minutes, same time each day. Non-negotiable.</div></li>
     <li><div class="step-num">5</div><div><strong>Make decisions and close them.</strong> Use the 10-10-10 check. Decide. Move on.</div></li>
-    <li><div class="step-num">6</div><div><strong>Protect your evenings.</strong> A consistent wind-down routine is not a luxury. It is maintenance.</div></li>
+    <li><div class="step-num">6</div><div><strong>Protect your evenings.</strong> A consistent wind down routine is not a luxury. It is maintenance.</div></li>
   </ul>
 
   <div class="page-footer">
@@ -1105,7 +1107,7 @@
 
   <div class="callout" style="margin-top: 32px;">
     <div class="callout__label">Keep Going</div>
-    <div class="callout__text">Visit <strong>untangle-one.vercel.app</strong> for more guides on mental clarity, anxiety, sleep, and relationships. If this guide helped, share it with someone who needs it.</div>
+    <div class="callout__text">Visit <strong>untanglepdfs.com</strong> for more guides on mental clarity, anxiety, sleep, and relationships. If this guide helped, share it with someone who needs it.</div>
   </div>
 
   <div class="page-footer">
@@ -1123,11 +1125,34 @@
     <div class="back-cover__brand">Untangle</div>
     <div class="back-cover__tagline">Break the loop. Reclaim your peace.</div>
     <div style="width: 48px; height: 1px; background: rgba(255,255,255,0.3); margin: 0 auto 32px;"></div>
-    <div class="back-cover__url">untangle-one.vercel.app</div>
+    <div class="back-cover__url">untanglepdfs.com</div>
   </div>
 </div>
 
 
 
+<script>
+  // Scale pages to fit mobile viewport width
+  function scalePages() {
+    var pageW = 816; // 8.5in at 96dpi
+    var pageH = 1056; // 11in at 96dpi
+    var vw = window.innerWidth;
+    if (vw < pageW) {
+      var scale = vw / pageW;
+      var gap = pageH * (scale - 1); // negative number
+      document.querySelectorAll('.page').forEach(function(p) {
+        p.style.transform = 'scale(' + scale + ')';
+        p.style.marginBottom = (gap + 16) + 'px';
+      });
+    } else {
+      document.querySelectorAll('.page').forEach(function(p) {
+        p.style.transform = '';
+        p.style.marginBottom = '';
+      });
+    }
+  }
+  scalePages();
+  window.addEventListener('resize', scalePages);
+</script>
 </body>
 </html>

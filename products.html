@@ -34,6 +34,12 @@
     .nav__right { display: flex; align-items: center; gap: 32px; }
     .nav__link { text-decoration: none; color: #4A4A4A; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
     .nav__link:hover, .nav__link.active { color: var(--sage); }
+    .nav__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav__burger span { display:block; width:22px; height:2px; background:#0F0F0F; border-radius:2px; transition:all .25s; }
+    .nav__mobile { display:none; position:fixed; inset:0; top:68px; background:#FEFCF8; z-index:199; padding:32px 24px; flex-direction:column; border-top:1px solid var(--border); }
+    .nav__mobile.open { display:flex; }
+    .nav__mobile a { display:block; padding:18px 0; font-size:1.1rem; font-weight:500; color:#0F0F0F; text-decoration:none; border-bottom:1px solid var(--border); }
+    .nav__mobile .btn--mobile { margin-top:24px; background:var(--sage); color:#fff; padding:16px 24px; border-radius:100px; text-align:center; font-weight:600; border-bottom:none; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--radius); font-weight: 600; cursor: pointer; text-decoration: none; transition: all .2s; border: none; font-family: inherit; }
     .btn--primary { background: #0F0F0F; color: #FEFCF8; }
     .btn--primary:hover { background: #2a2a2a; }
@@ -108,6 +114,15 @@
     footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
     footer a:hover { color: #fff; }
     .footer__logo { font-family: 'Fraunces', serif; font-size: 1.1rem; color: #fff; font-weight: 600; }
+    @media (max-width: 768px) {
+      .nav__link { display:none; }
+      .nav__burger { display:flex; }
+      .nav__right .btn--primary { display:none; }
+      .filter-bar { flex-direction:column; align-items:flex-start; }
+      .catalog { grid-template-columns:1fr; }
+      .suggest-banner form { flex-direction:column; }
+      footer { flex-direction:column; text-align:center; }
+    }
   </style>
 </head>
 <body>
@@ -116,17 +131,25 @@
   <nav>
     <a class="nav__logo" href="index.html">Untangle</a>
     <div class="nav__right">
+      <a class="nav__link" href="index.html">Home</a>
       <a class="nav__link active" href="products.html">Products</a>
       <a class="nav__link" href="index.html#faq">FAQ</a>
-      <a class="btn btn--primary" href="index.html#product" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+      <a class="btn btn--primary" href="stop-overthinking.html" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+      <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+  <div class="nav__mobile" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="stop-overthinking.html" class="btn--mobile">Get the Guide $14</a>
+  </div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
     <span class="page-header__eyebrow">All Guides</span>
     <h1 class="page-header__title">Mental clarity, <em>on your terms.</em></h1>
-    <p class="page-header__sub">Practical PDF guides backed by CBT and evidence-based techniques. One-time purchase. Yours forever.</p>
+    <p class="page-header__sub">Practical PDF guides backed by CBT and evidence based techniques. One time purchase. Yours forever.</p>
   </div>
 
   <!-- FILTER BAR -->
@@ -166,9 +189,9 @@
       <div class="product-card__body">
         <div class="product-card__category">Anxiety &amp; Overthinking</div>
         <div class="product-card__title">The 7-Day Mental Reset Guide</div>
-        <p class="product-card__desc">Break the overthinking loop in 7 days. CBT-backed exercises, 10 minutes a day. No therapist. No app subscription. Just tools that actually stick.</p>
+        <p class="product-card__desc">Break the overthinking loop in 7 days. CBT backed exercises, 10 minutes a day. No therapist. No app subscription. Just tools that actually stick.</p>
         <div class="product-card__meta">
-          <span class="product-card__tag">7-Day Program</span>
+          <span class="product-card__tag">7 Day Program</span>
           <span class="product-card__tag">CBT-Backed</span>
           <span class="product-card__tag">Instant PDF</span>
         </div>
@@ -192,7 +215,7 @@
       <div class="product-card__body">
         <div class="product-card__category">Sleep &amp; Wind-Down</div>
         <div class="product-card__title">The 7-Night Sleep Reset Guide</div>
-        <p class="product-card__desc">A structured 7-night protocol to fix your wind-down routine, quiet racing thoughts at bedtime, and wake up actually rested.</p>
+        <p class="product-card__desc">A structured 7 night protocol to fix your wind down routine, quiet racing thoughts at bedtime, and wake up actually rested.</p>
         <div class="product-card__meta">
           <span class="product-card__tag">7-Night Program</span>
           <span class="product-card__tag">Sleep Science</span>
@@ -255,6 +278,11 @@
   </footer>
 
   <script>
+    // Burger
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (burger) burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+
     // Filter tabs
     const tabs = document.querySelectorAll('.filter-tab');
     const cards = document.querySelectorAll('.product-card');
