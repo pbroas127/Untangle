@@ -300,8 +300,9 @@ def upload_to_drive(file_path: Path, filename: str):
 
 def write_reel_caption(lines, folder):
     """Auto-generate a reel-caption.txt from the reel lines."""
-    hook  = f"{lines[0]} {lines[1]}" if len(lines) > 1 else lines[0]
-    body  = "\n".join(lines[2:-1]) if len(lines) > 3 else ""
+    texts = [l["text"] if isinstance(l, dict) else l for l in lines]
+    hook  = f"{texts[0]} {texts[1]}" if len(texts) > 1 else texts[0]
+    body  = "\n".join(texts[2:-1]) if len(texts) > 3 else ""
     parts = [hook, ""]
     if body:
         parts += [body, ""]
