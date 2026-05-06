@@ -1173,16 +1173,21 @@
   // iOS detection
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  // Save PDF button
+  // Save PDF button — iOS downloads pre-generated file, desktop prints
   document.getElementById('print-btn').addEventListener('click', function() {
     if (isIOS) {
-      document.getElementById('ios-modal').classList.add('show');
+      var a = document.createElement('a');
+      a.href = 'stop-overthinking.pdf';
+      a.download = 'Stop-Overthinking-Guide.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     } else {
       window.print();
     }
   });
 
-  // Close modal on backdrop click
+  // Close modal on backdrop click (kept in case modal is triggered elsewhere)
   document.getElementById('ios-modal').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('show');
   });
