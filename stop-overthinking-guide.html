@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    /* ── PRINT SETUP ── */
+    /* â”€â”€ PRINT SETUP â”€â”€ */
     @page { size: 8.5in 11in; margin: 0; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -31,7 +31,7 @@
 
     body { font-family: 'Inter', sans-serif; background: #fff; color: var(--dark); }
 
-    /* ── SCREEN ONLY: browser viewing experience ── */
+    /* â”€â”€ SCREEN ONLY: browser viewing experience â”€â”€ */
     @media screen {
       body {
         background: #1A1A1A;
@@ -51,7 +51,7 @@
       .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; width: 8.5in !important; height: 11in !important; overflow: hidden !important; }
     }
 
-    /* ── PRINT BAR (screen only) ── */
+    /* â”€â”€ PRINT BAR (screen only) â”€â”€ */
     #print-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       background: rgba(26,26,26,0.96); backdrop-filter: blur(12px);
@@ -71,7 +71,7 @@
     #print-btn svg { width: 15px; height: 15px; }
     @media print { #print-bar, #ios-modal { display: none !important; } }
 
-    /* ── iOS SAVE MODAL ── */
+    /* â”€â”€ iOS SAVE MODAL â”€â”€ */
     #ios-modal { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.72); align-items:center; justify-content:center; padding:20px; }
     #ios-modal.show { display:flex; }
     .ios-modal__box { background:#1C1C1C; border-radius:20px; padding:28px 24px 32px; width:100%; max-width:420px; color:#fff; }
@@ -86,10 +86,10 @@
     .ios-modal__close:hover { background:#2A4030; }
     h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.15; letter-spacing: -0.02em; }
 
-    /* ── PAGE SHELL ── */
+    /* â”€â”€ PAGE SHELL â”€â”€ */
     .page {
       width: 8.5in;
-      height: 11in;          /* FIXED — never grows beyond one page */
+      height: 11in;          /* FIXED â€” never grows beyond one page */
       overflow: hidden;      /* clip anything that would spill */
       position: relative;
       page-break-after: always;
@@ -99,9 +99,9 @@
     }
     .page:last-child { page-break-after: auto; }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    /* â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
        PAGE 1: COVER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” */
     .cover {
       background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1600&q=85&auto=format&fit=crop');
       background-size: cover;
@@ -147,9 +147,9 @@
       opacity: 0.5; font-size: 8pt; letter-spacing: 0.06em;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    /* â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
        INTERIOR STYLES
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” */
     .interior {
       background: var(--white);
       padding: 0.55in 0.9in 0.45in;
@@ -411,9 +411,9 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 1: COVER
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page cover">
   <div class="cover__overlay"></div>
   <div class="cover__content">
@@ -427,14 +427,14 @@
     </div>
     <div class="cover__footer">
       <span>untanglepdfs.com</span>
-      <span>© 2026 Untangle</span>
+      <span>Â© 2026 Untangle</span>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 2: WELCOME
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -472,14 +472,14 @@
   </ul>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">2</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 3: CONTENTS
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -548,14 +548,14 @@
   </p>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">3</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 4: DAY 1 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?w=1400&q=80&auto=format&fit=crop" alt="Day 1"/>
@@ -580,14 +580,14 @@
   </ul>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">4</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 5: DAY 1 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -617,14 +617,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">5</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 6: DAY 2 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1487621167305-5d248087c724?w=1400&q=80&auto=format&fit=crop" alt="Day 2"/>
@@ -656,14 +656,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">6</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 7: DAY 2 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -696,14 +696,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">7</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 8: DAY 3 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1400&q=80&auto=format&fit=crop" alt="Day 3"/>
@@ -732,14 +732,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">8</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 9: DAY 3 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -772,14 +772,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">9</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 10: DAY 4 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1535025075092-5a1cf795130b?w=1400&q=80&auto=format&fit=crop" alt="Day 4"/>
@@ -805,19 +805,19 @@
       <strong>Tasks.</strong> Things you feel like you should be doing.<br/>
       <strong>Unfinished thoughts.</strong> Conversations you are still processing.<br/>
       <strong>Decisions.</strong> Anything you have not made a call on yet.<br/><br/>
-      Do not edit. Do not judge what comes out. Just write until the timer stops. When you are done, your head will feel lighter. That is not a figure of speech — you have literally reduced your cognitive load.
+      Do not edit. Do not judge what comes out. Just write until the timer stops. When you are done, your head will feel lighter. That is not a figure of speech â€” you have literally reduced your cognitive load.
     </div>
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">10</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 11: DAY 4 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -843,14 +843,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">11</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 12: DAY 5 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1533162507191-d90c625b2640?w=1400&q=80&auto=format&fit=crop" alt="Day 5"/>
@@ -883,14 +883,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">12</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 13: DAY 5 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -931,14 +931,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">13</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 14: DAY 6 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1524901548305-08eeddc35080?w=1400&q=80&auto=format&fit=crop" alt="Day 6"/>
@@ -978,14 +978,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">14</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 15: DAY 6 WORKSHEET
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -1018,14 +1018,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">15</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 16: DAY 7 CONTENT
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior" style="padding-top: 0;">
   <div class="day-header">
     <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1400&q=80&auto=format&fit=crop" alt="Day 7"/>
@@ -1053,14 +1053,14 @@
   </ul>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">16</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 17: DAY 7 TOOLKIT FILL-IN
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior interior--cream">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -1116,14 +1116,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">17</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 18: CLOSING NOTE
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page interior">
   <div class="page-header">
     <span class="brand">Untangle</span>
@@ -1149,14 +1149,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Stop Overthinking — Untangle</span>
+    <span>Stop Overthinking â€” Untangle</span>
     <span class="page-num">18</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      PAGE 19: BACK COVER
-═══════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page back-cover">
   <div class="back-cover__overlay"></div>
   <div class="back-cover__content">
@@ -1211,3 +1211,4 @@
 </script>
 </body>
 </html>
+
