@@ -18,22 +18,26 @@ from moviepy.video.fx import CrossFadeIn, CrossFadeOut
 # ── CONFIG ─────────────────────────────────────────────────────────────────
 PEXELS_API_KEY = "QAOIVsrWbKt1Q5r30bxwIqQ4I2ERGpJSh0aubDZd6r7g89jl579zRI7l"   # ← replace with your free Pexels key
 
+# Each line: text, style (body/italic/impact/sage/small), duration in seconds
+# body   = Arial Bold, white  — punchy statements
+# italic = Georgia Italic, white — intrusive/anxious thoughts feel
+# impact = Georgia Bold, white, large — pattern-break moments
+# sage   = Georgia Bold Italic, sage green — the resolution/hope lines
+# small  = Arial, dimmer — CTA
 REEL_LINES = [
-    "did i say the wrong thing",
-    "what if they're mad at me",
-    "i should have just—",
-    "but what if—",
-    "okay. stop.",
-    "...",
-    "this is the loop.",
-    "you can break it.",
-    "7 days. 10 minutes a day.",
-    "link in bio.",
+    {"text": "Did I say the wrong thing?",      "style": "italic", "duration": 2.2},
+    {"text": "What if they're mad at me?",      "style": "italic", "duration": 2.2},
+    {"text": "I should have just—",             "style": "italic", "duration": 1.8},
+    {"text": "But what if—",                    "style": "italic", "duration": 1.6},
+    {"text": "STOP.",                           "style": "impact", "duration": 2.0},
+    {"text": "This is a thought loop.",         "style": "body",   "duration": 2.2},
+    {"text": "It can be broken.",               "style": "sage",   "duration": 2.4},
+    {"text": "7 Days.\n10 Minutes a Day.",      "style": "impact", "duration": 2.8},
+    {"text": "Link in bio.",                    "style": "small",  "duration": 2.0},
 ]
 
-PEXELS_QUERY   = "dark bedroom night insomnia awake"   # controls what background footage is pulled
-SECONDS_PER_LINE = 2.2                 # how long each line shows
-FADE_FRAMES    = 12                    # fade-in speed (frames)
+PEXELS_QUERY = "dark bedroom night insomnia awake"
+FADE_FRAMES  = 12
 
 W, H = 1080, 1920                      # vertical 9:16
 # ───────────────────────────────────────────────────────────────────────────
@@ -75,64 +79,103 @@ def download_video(url, dest):
     print(f"  Saved to {dest}")
 
 
-def get_font(size):
-    for fp in ["C:/Windows/Fonts/Georgia.ttf", "C:/Windows/Fonts/Garamond.ttf", "C:/Windows/Fonts/Arial.ttf"]:
+STYLE_CONFIG = {
+    # style: (font_paths, size, RGBA color, line_height_mult)
+    "italic": (
+        ["C:/Windows/Fonts/georgiai.ttf", "C:/Windows/Fonts/georgia.ttf"],
+        72, (255, 255, 255, 195), 1.35
+    ),
+    "body": (
+        ["C:/Windows/Fonts/arialbd.ttf", "C:/Windows/Fonts/arial.ttf"],
+        78, (255, 255, 255, 255), 1.3
+    ),
+    "impact": (
+        ["C:/Windows/Fonts/georgiab.ttf", "C:/Windows/Fonts/georgia.ttf"],
+        108, (255, 255, 255, 255), 1.2
+    ),
+    "sage": (
+        ["C:/Windows/Fonts/georgiaz.ttf", "C:/Windows/Fonts/georgiai.ttf"],
+        92, (125, 184, 125, 255), 1.3
+    ),
+    "small": (
+        ["C:/Windows/Fonts/arialbd.ttf", "C:/Windows/Fonts/arial.ttf"],
+        52, (180, 200, 180, 200), 1.3
+    ),
+}
+
+def get_font(size, style="body"):
+    font_paths, _, _, _ = STYLE_CONFIG.get(style, STYLE_CONFIG["body"])
+    for fp in font_paths:
         if os.path.exists(fp):
             return ImageFont.truetype(fp, size)
     return ImageFont.load_default()
 
-def make_text_frame(text, width=W, height=H, font_size=80):
-    """Render a single transparent RGBA frame with centered text."""
-    img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+def make_text_frame(text, style="body", width=W, height=H):
+    """Render a transparent RGBA frame with styled, centered text."""
+    _, font_size, color, lh_mult = STYLE_CONFIG.get(style, STYLE_CONFIG["body"])
+    font = get_font(font_size, style)
+
+    img  = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    font = get_font(font_size)
 
-    # Word wrap to fit width (with 10% margin each side)
-    max_w = int(width * 0.80)
-    words = text.split()
-    lines, current = [], []
-    for word in words:
-        test = " ".join(current + [word])
-        bbox = draw.textbbox((0, 0), test, font=font)
-        if bbox[2] - bbox[0] > max_w and current:
-            lines.append(" ".join(current))
-            current = [word]
-        else:
-            current.append(word)
-    if current:
-        lines.append(" ".join(current))
+    # Split on explicit newlines first, then word-wrap each segment
+    max_w = int(width * 0.82)
+    all_lines = []
+    for segment in text.split("\n"):
+        words, current = segment.split(), []
+        for word in words:
+            test = " ".join(current + [word])
+            bbox = draw.textbbox((0, 0), test, font=font)
+            if bbox[2] - bbox[0] > max_w and current:
+                all_lines.append(" ".join(current))
+                current = [word]
+            else:
+                current.append(word)
+        if current:
+            all_lines.append(" ".join(current))
 
-    # Measure total text block height
-    line_height = font_size * 1.3
-    total_h = len(lines) * line_height
-    y = (height - total_h) / 2
+    line_height = font_size * lh_mult
+    total_h     = len(all_lines) * line_height
+    y           = (height - total_h) / 2
 
-    for line in lines:
-        bbox = draw.textbbox((0, 0), line, font=font)
+    for line in all_lines:
+        bbox   = draw.textbbox((0, 0), line, font=font)
         line_w = bbox[2] - bbox[0]
-        x = (width - line_w) / 2
-        # Shadow
-        draw.text((x + 3, y + 3), line, font=font, fill=(0, 0, 0, 180))
-        # White text
-        draw.text((x, y), line, font=font, fill=(255, 255, 255, 255))
+        x      = (width - line_w) / 2
+
+        # Subtle dark pill behind text for readability
+        pad_x, pad_y = 28, 14
+        draw.rounded_rectangle(
+            [x - pad_x, y - pad_y, x + line_w + pad_x, y + font_size + pad_y],
+            radius=12, fill=(0, 0, 0, 90)
+        )
+        # Drop shadow
+        draw.text((x + 2, y + 2), line, font=font, fill=(0, 0, 0, 140))
+        # Main text
+        draw.text((x, y), line, font=font, fill=color)
         y += line_height
 
     return np.array(img)
 
 
 def build_reel(lines, bg_path, out_path):
-    total_duration = len(lines) * SECONDS_PER_LINE + 2.0
+    # Support both old list-of-strings and new list-of-dicts format
+    def normalise(l):
+        if isinstance(l, str):
+            return {"text": l, "style": "body", "duration": 2.2}
+        return l
+
+    lines = [normalise(l) for l in lines]
+    total_duration = sum(l["duration"] for l in lines) + 2.0
     print(f"\n  Building reel ({total_duration:.0f}s, {len(lines)} lines)...")
 
     # Load & crop background to 9:16
     bg = VideoFileClip(bg_path)
-    # Loop if too short
     if bg.duration < total_duration:
         loops = math.ceil(total_duration / bg.duration)
         bg = concatenate_videoclips([bg] * loops)
     bg = bg.subclipped(0, total_duration)
 
-    # Crop to 1080x1920
     bg_w, bg_h = bg.size
     target_ratio = W / H
     bg_ratio = bg_w / bg_h
@@ -146,37 +189,41 @@ def build_reel(lines, bg_path, out_path):
         bg = bg.cropped(x1=0, y1=y1, x2=bg_w, y2=y1 + new_h)
     bg = bg.resized((W, H))
 
-    # Dark overlay (ImageClip)
-    overlay_img = Image.new("RGBA", (W, H), (0, 0, 0, 140))
+    # Dark overlay
+    overlay_img = Image.new("RGBA", (W, H), (0, 0, 0, 150))
     overlay = ImageClip(np.array(overlay_img)).with_duration(total_duration)
 
-    # Text clips — one per line, timed sequentially
+    # Text clips — per-line style and duration
     text_clips = []
+    t = 0.0
     for i, line in enumerate(lines):
-        start = i * SECONDS_PER_LINE
-        frame = make_text_frame(line)
-        clip = (
+        frame = make_text_frame(line["text"], style=line["style"])
+        dur   = line["duration"]
+        clip  = (
             ImageClip(frame)
-            .with_start(start)
-            .with_duration(SECONDS_PER_LINE)
-            .with_effects([CrossFadeIn(0.4), CrossFadeOut(0.3)])
+            .with_start(t)
+            .with_duration(dur)
+            .with_effects([CrossFadeIn(0.35), CrossFadeOut(0.25)])
         )
         text_clips.append(clip)
-        print(f"  Line {i+1}/{len(lines)}: \"{line}\"")
+        print(f"  [{line['style']:7s}] {line['text']!r}")
+        t += dur
 
     # Untangle end card (last 2 seconds)
     brand_frame = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    bd = ImageDraw.Draw(brand_frame)
-    brand_font  = get_font(72)
-    tag_font    = get_font(30)
+    bd          = ImageDraw.Draw(brand_frame)
+    brand_font  = get_font(82, "impact")
+    tag_font    = get_font(34, "small")
     brand_text  = "Untangle"
     tag_text    = "untanglepdfs.com"
-    bb = bd.textbbox((0,0), brand_text, font=brand_font)
+
+    bb = bd.textbbox((0, 0), brand_text, font=brand_font)
     bw = bb[2] - bb[0]
-    bd.text(((W - bw) / 2, H//2 - 56), brand_text, font=brand_font, fill=(255,255,255,230))
-    tb = bd.textbbox((0,0), tag_text, font=tag_font)
+    bd.text(((W - bw) / 2, H // 2 - 60), brand_text, font=brand_font, fill=(255, 255, 255, 235))
+
+    tb = bd.textbbox((0, 0), tag_text, font=tag_font)
     tw = tb[2] - tb[0]
-    bd.text(((W - tw) / 2, H//2 + 36), tag_text, font=tag_font, fill=(125,184,125,200))
+    bd.text(((W - tw) / 2, H // 2 + 44), tag_text, font=tag_font, fill=(125, 184, 125, 210))
 
     end_card = (
         ImageClip(np.array(brand_frame))
@@ -186,7 +233,6 @@ def build_reel(lines, bg_path, out_path):
     )
     text_clips.append(end_card)
 
-    # Composite everything
     final = CompositeVideoClip([bg, overlay] + text_clips, size=(W, H))
     final = final.with_fps(30)
 
@@ -195,8 +241,8 @@ def build_reel(lines, bg_path, out_path):
         out_path,
         codec="libx264",
         audio=False,
-        preset="fast",
-        ffmpeg_params=["-crf", "23"],
+        preset="ultrafast",
+        ffmpeg_params=["-crf", "20"],
         logger=None,
     )
     print(f"  Done. reel.mp4 saved.")
