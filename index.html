@@ -93,14 +93,16 @@
       padding: 0 24px; height: 68px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .nav__logo {
-      font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700;
-      color: var(--dark); text-decoration: none; letter-spacing: -0.03em;
-    }
-    .nav__logo span { color: var(--sage); }
+    .nav__logo { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; background:linear-gradient(90deg,#0F0F0F 0%,#3B5740 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none; letter-spacing:-0.03em; }
     .nav__right { display: flex; align-items: center; gap: 20px; }
-    .nav__link { text-decoration: none; color: var(--mid); font-size: 0.9rem; font-weight: 500; }
+    .nav__link { text-decoration: none; color: var(--mid); font-size: 0.9rem; font-weight: 500; transition:color .2s; }
     .nav__link:hover { color: var(--dark); }
+    .nav__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav__burger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:all .25s; }
+    .nav__mobile { display:none; position:fixed; inset:0; top:68px; background:var(--white); z-index:199; padding:32px 24px; flex-direction:column; border-top:1px solid var(--border); }
+    .nav__mobile.open { display:flex; }
+    .nav__mobile a { display:block; padding:18px 0; font-size:1.1rem; font-weight:500; color:var(--dark); text-decoration:none; border-bottom:1px solid var(--border); }
+    .nav__mobile .btn--mobile { margin-top:24px; background:var(--sage); color:#fff; padding:16px 24px; border-radius:100px; text-align:center; font-weight:600; border-bottom:none; }
 
     /* ─── HERO ─── */
     .hero {
@@ -346,10 +348,7 @@
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 20px;
     }
-    .footer__logo {
-      font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700;
-      color: rgba(255,255,255,0.9);
-    }
+    .footer__logo { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:700; background:linear-gradient(90deg,#fff 0%,#7db87d 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     .footer__links { display: flex; gap: 24px; }
     .footer__links a {
       color: rgba(255,255,255,0.4); text-decoration: none;
@@ -366,19 +365,73 @@
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── RESPONSIVE ─── */
+    /* HOW IT WORKS */
+    .how { padding:100px 24px; background:var(--off-white); }
+    .how__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin:0 auto; }
+    .how__step { text-align:center; padding:36px 28px; background:var(--white); border-radius:var(--radius-lg); border:1px solid var(--border); }
+    .how__num { font-family:'Fraunces',serif; font-size:2.4rem; font-weight:700; color:var(--sage); opacity:.25; margin-bottom:12px; line-height:1; }
+    .how__icon { color:var(--sage); margin-bottom:14px; display:flex; justify-content:center; }
+    .how__title { font-size:1.05rem; font-weight:600; margin-bottom:8px; font-family:'Fraunces',serif; }
+    .how__desc { font-size:0.88rem; color:var(--mid); line-height:1.6; }
+    /* CATEGORIES */
+    .categories { padding:100px 24px; background:var(--white); }
+    .cat__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; max-width:1100px; margin:0 auto; }
+    .cat__card { border-radius:var(--radius-lg); padding:32px 26px; border:1px solid var(--border); cursor:pointer; text-decoration:none; display:block; transition:transform .2s,box-shadow .2s; }
+    .cat__card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+    .cat__card--sage { background:var(--sage); }
+    .cat__card--warm { background:var(--warm); }
+    .cat__card--light { background:var(--sage-light); }
+    .cat__card--cream { background:var(--cream); }
+    .cat__icon { margin-bottom:16px; }
+    .cat__card--sage .cat__icon,.cat__card--sage .cat__title,.cat__card--sage .cat__sub { color:#fff; }
+    .cat__title { font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; margin-bottom:6px; color:var(--dark); }
+    .cat__sub { font-size:0.82rem; color:var(--mid); line-height:1.5; }
+    .cat__card--sage .cat__sub { color:rgba(255,255,255,.65); }
+    .cat__count { display:inline-block; margin-top:14px; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:20px; }
+    .cat__card--sage .cat__count { background:rgba(255,255,255,.15); color:#fff; }
+    .cat__card--warm .cat__count,.cat__card--light .cat__count,.cat__card--cream .cat__count { background:var(--sage-light); color:var(--sage); }
+    /* FEATURED SCROLL */
+    .featured { padding:100px 0 100px 24px; background:var(--warm); overflow:hidden; }
+    .featured__header { max-width:1100px; margin:0 auto 40px; padding-right:24px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .featured__scroll { display:flex; gap:22px; overflow-x:auto; padding-right:24px; padding-bottom:12px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    .featured__scroll::-webkit-scrollbar { display:none; }
+    .guide-card { flex:0 0 300px; scroll-snap-align:start; background:var(--white); border-radius:20px; border:1px solid var(--border); overflow:hidden; transition:box-shadow .25s,transform .25s; text-decoration:none; display:flex; flex-direction:column; }
+    .guide-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-3px); }
+    .guide-card__cover { height:180px; display:flex; align-items:center; justify-content:center; position:relative; }
+    .guide-card__cover--sage { background:linear-gradient(140deg,#2A4030 0%,#3B5740 60%,#4a6b51 100%); }
+    .guide-card__cover--slate { background:linear-gradient(140deg,#1e2a3a 0%,#2c3e55 100%); }
+    .guide-card__cover--warm { background:linear-gradient(140deg,#3d2b1f 0%,#7a5035 100%); }
+    .guide-card__cover-inner { text-align:center; color:#fff; padding:20px; }
+    .guide-card__cover-brand { font-family:'Fraunces',serif; font-size:0.72rem; opacity:.55; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+    .guide-card__cover-title { font-family:'Fraunces',serif; font-size:1.2rem; font-weight:600; line-height:1.2; }
+    .guide-card__cover-title em { font-style:italic; opacity:.85; }
+    .guide-card__badge { position:absolute; top:12px; right:12px; font-size:0.68rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:20px; }
+    .badge--live { background:#fff; color:var(--sage); }
+    .badge--soon { background:rgba(0,0,0,.3); color:rgba(255,255,255,.8); }
+    .guide-card__body { padding:20px 22px 22px; display:flex; flex-direction:column; flex:1; }
+    .guide-card__cat { font-size:0.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--sage); margin-bottom:6px; }
+    .guide-card__title { font-size:1.05rem; font-weight:600; margin-bottom:6px; color:var(--dark); }
+    .guide-card__desc { font-size:0.84rem; color:var(--mid); line-height:1.55; flex:1; margin-bottom:16px; }
+    .guide-card__footer { display:flex; align-items:center; justify-content:space-between; }
+    .guide-card__price { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:700; color:var(--dark); }
+    .guide-card--soon { opacity:.7; pointer-events:none; }
+
     @media (max-width: 768px) {
-      .hero__inner { grid-template-columns: 1fr; gap: 52px; text-align: center; }
+      .hero__inner { grid-template-columns: 1fr; gap: 44px; text-align: center; }
       .hero__sub { max-width: 100%; }
       .hero__cta-row { justify-content: center; }
       .hero__trust { justify-content: center; }
       .mockup-wrap { order: -1; }
       .mockup { width: 220px; height: 300px; }
       .mockup__title { font-size: 1.4rem; }
-      .product__inner { grid-template-columns: 1fr; gap: 48px; }
       .trust-bar { gap: 20px; }
       .footer__inner { flex-direction: column; text-align: center; }
       .footer__links { justify-content: center; }
       .nav__link { display: none; }
+      .nav__burger { display:flex; }
+      .nav__right .btn { display:none; }
+      .featured { padding-left:16px; }
+      .guide-card { flex:0 0 260px; }
     }
   </style>
 </head>
@@ -391,14 +444,20 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav__logo" href="#">Untan<span>g</span>le</a>
+    <a class="nav__logo" href="index.html">Untangle</a>
     <div class="nav__right">
       <a class="nav__link" href="products.html">Products</a>
-      <a class="nav__link" href="#inside">What's Inside</a>
       <a class="nav__link" href="#faq">FAQ</a>
-      <a class="btn btn--primary" href="#product" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+      <a class="btn btn--primary" href="stop-overthinking.html" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+      <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+  <div class="nav__mobile" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="#faq">FAQ</a>
+    <a href="stop-overthinking.html" class="btn--mobile">Get the Guide $14</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -412,7 +471,7 @@
           PDF guides built around real tools — CBT-backed, no fluff, no subscriptions. Start with our most popular: the 7-day Stop Overthinking reset.
         </p>
         <div class="hero__cta-row">
-          <a class="btn btn--primary btn--lg" href="#product">Get the Guide $14</a>
+          <a class="btn btn--primary btn--lg" href="stop-overthinking.html">Get the Guide $14</a>
           <a class="btn btn--outline" href="products.html">Browse All Guides</a>
         </div>
         <p class="hero__trust"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Instant PDF download &nbsp;·&nbsp; 20 pages &nbsp;·&nbsp; No subscriptions ever</p>
@@ -439,137 +498,147 @@
     <div class="trust-bar__item"><span class="trust-bar__icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span> 7-Day Guarantee</div>
   </div>
 
-  <!-- PAIN POINTS -->
-  <section class="pain">
+  <!-- HOW IT WORKS -->
+  <section class="how">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-header__eyebrow">Sound Familiar?</span>
-        <h2 class="section-header__title">This guide is for you if…</h2>
-        <p class="section-header__sub">You don't need another person telling you to "just relax." You need actual tools.</p>
+        <span class="section-header__eyebrow">The Process</span>
+        <h2 class="section-header__title">Simple by design.</h2>
+        <p class="section-header__sub">Every Untangle guide follows the same principle — clear steps, real science, results you can feel.</p>
       </div>
-      <div class="pain__grid">
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></span>
-          <h3>You replay conversations on a loop</h3>
-          <p>That thing you said 3 years ago still haunts you at 2am. You can't switch it off no matter how hard you try.</p>
+      <div class="how__grid">
+        <div class="how__step fade-in">
+          <div class="how__num">01</div>
+          <div class="how__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="how__title">Find your guide</div>
+          <div class="how__desc">Browse by topic — overthinking, sleep, focus, confidence. Each guide targets one specific struggle.</div>
         </div>
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-          <h3>You spiral before making decisions</h3>
-          <p>Every choice feels massive. You overthink the small stuff just as much as the big stuff. Nothing feels safe to decide.</p>
+        <div class="how__step fade-in">
+          <div class="how__num">02</div>
+          <div class="how__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+          <div class="how__title">Download instantly</div>
+          <div class="how__desc">One-time payment. PDF lands in your inbox in seconds. No subscriptions, no accounts, no waiting.</div>
         </div>
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-          <h3>Your brain won't shut off at night</h3>
-          <p>You lie in bed wide awake, running through every possible scenario that might go wrong tomorrow.</p>
+        <div class="how__step fade-in">
+          <div class="how__num">03</div>
+          <div class="how__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="how__title">10 minutes a day</div>
+          <div class="how__desc">Short, structured daily exercises. No clearing your schedule. Just a quiet 10 minutes and honest effort.</div>
         </div>
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg></span>
-          <h3>You feel mentally exhausted all day</h3>
-          <p>Not from doing too much from thinking too much. You're drained before the day has even started.</p>
-        </div>
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-          <h3>You catastrophise everything</h3>
-          <p>Your brain jumps straight to the worst case. One small problem becomes a full-scale disaster in your head.</p>
-        </div>
-        <div class="pain__card fade-in">
-          <span class="pain__emoji"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
-          <h3>You overthink what others think of you</h3>
-          <p>You rehearse conversations, overanalyse replies, and edit texts for 20 minutes before finally hitting send.</p>
+        <div class="how__step fade-in">
+          <div class="how__num">04</div>
+          <div class="how__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <div class="how__title">Keep the toolkit</div>
+          <div class="how__desc">Techniques you actually retain. Not a one-read wonder — a system you return to whenever you need it.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCT -->
-  <section class="product" id="product">
-    <div class="product__inner">
-      <div class="mockup-wrap fade-in">
-        <div class="mockup" style="width:260px;height:360px;">
-          <div class="mockup__brand">Untangle</div>
-          <div>
-            <div class="mockup__title">Stop<br/><em>Overthinking</em></div>
-            <div class="mockup__sub">The 7-Day Mental Reset Guide</div>
-            <div class="mockup__pill">✦ Most Popular</div>
+  <!-- CATEGORIES -->
+  <section class="categories">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">What We Cover</span>
+        <h2 class="section-header__title">Built for what keeps you up at night.</h2>
+        <p class="section-header__sub">Real mental health topics, practical exercises, evidence-backed methods. No fluff.</p>
+      </div>
+      <div class="cat__grid">
+        <a class="cat__card cat__card--sage fade-in" href="stop-overthinking.html">
+          <div class="cat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></div>
+          <div class="cat__title">Overthinking &amp; Anxiety</div>
+          <div class="cat__sub">Break mental loops, silence the spiral, and stop catastrophising.</div>
+          <span class="cat__count">1 guide available</span>
+        </a>
+        <a class="cat__card cat__card--warm fade-in" href="products.html">
+          <div class="cat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+          <div class="cat__title">Sleep &amp; Wind-Down</div>
+          <div class="cat__sub">Fix your evening routine and actually fall asleep without the noise.</div>
+          <span class="cat__count">Coming soon</span>
+        </a>
+        <a class="cat__card cat__card--light fade-in" href="products.html">
+          <div class="cat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="cat__title">Focus &amp; Clarity</div>
+          <div class="cat__sub">Rebuild your attention span without apps, timers, or willpower.</div>
+          <span class="cat__count">Coming soon</span>
+        </a>
+        <a class="cat__card cat__card--cream fade-in" href="products.html">
+          <div class="cat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="cat__title">Confidence &amp; Self-Worth</div>
+          <div class="cat__sub">Stop seeking validation and start trusting your own judgment.</div>
+          <span class="cat__count">Coming soon</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED GUIDES -->
+  <section class="featured" id="product">
+    <div class="featured__header fade-in">
+      <div>
+        <span class="section-header__eyebrow" style="text-align:left;display:block;">Featured Guides</span>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);margin:0;">Trending right now</h2>
+      </div>
+      <a class="btn btn--outline" href="products.html" style="flex-shrink:0;">View All Guides</a>
+    </div>
+    <div class="featured__scroll">
+      <!-- LIVE -->
+      <a class="guide-card" href="stop-overthinking.html">
+        <div class="guide-card__cover guide-card__cover--sage">
+          <div class="guide-card__cover-inner">
+            <div class="guide-card__cover-brand">Untangle</div>
+            <div class="guide-card__cover-title">Stop<br/><em>Overthinking</em></div>
+          </div>
+          <span class="guide-card__badge badge--live">Best Seller</span>
+        </div>
+        <div class="guide-card__body">
+          <div class="guide-card__cat">Anxiety &amp; Overthinking</div>
+          <div class="guide-card__title">The 7-Day Mental Reset</div>
+          <p class="guide-card__desc">CBT-backed exercises. 10 minutes a day. Break the spiral for good.</p>
+          <div class="guide-card__footer">
+            <span class="guide-card__price">$14</span>
+            <span class="btn btn--sage" style="padding:10px 20px;font-size:0.84rem;border-radius:100px;">Get it →</span>
+          </div>
+        </div>
+      </a>
+      <!-- COMING SOON -->
+      <div class="guide-card guide-card--soon">
+        <div class="guide-card__cover guide-card__cover--slate">
+          <div class="guide-card__cover-inner">
+            <div class="guide-card__cover-brand">Untangle</div>
+            <div class="guide-card__cover-title">Better<br/><em>Sleep Reset</em></div>
+          </div>
+          <span class="guide-card__badge badge--soon">Coming Soon</span>
+        </div>
+        <div class="guide-card__body">
+          <div class="guide-card__cat">Sleep &amp; Wind-Down</div>
+          <div class="guide-card__title">The 7-Night Sleep Reset</div>
+          <p class="guide-card__desc">Fix your wind-down routine and wake up actually rested.</p>
+          <div class="guide-card__footer">
+            <span class="guide-card__price" style="color:#aaa;">Soon</span>
           </div>
         </div>
       </div>
-      <div class="fade-in">
-        <span class="section-header__eyebrow">The Guide</span>
-        <h2 class="product__title">Stop Overthinking</h2>
-        <p class="product__subtitle">
-          A practical, no-nonsense 20-page PDF guide that walks you through a 7-day reset to quiet your mind, break the spiral, and finally feel like yourself again.
-        </p>
-        <div class="product__price-tag">
-          <span class="product__price">$14</span>
-          <span class="product__price-note">One-time · Instant PDF download</span>
+      <div class="guide-card guide-card--soon">
+        <div class="guide-card__cover guide-card__cover--warm">
+          <div class="guide-card__cover-inner">
+            <div class="guide-card__cover-brand">Untangle</div>
+            <div class="guide-card__cover-title">Deep<br/><em>Focus Guide</em></div>
+          </div>
+          <span class="guide-card__badge badge--soon">Coming Soon</span>
         </div>
-        <ul class="product__includes">
-          <li>7 daily exercises each takes under 10 minutes</li>
-          <li>The "Pattern Interrupt" technique to stop spirals mid-thought</li>
-          <li>A daily check-in worksheet to track your mental load</li>
-          <li>The exact questions to ask when your brain catastrophises</li>
-          <li>How to find your #1 overthinking trigger and defuse it</li>
-          <li>A nighttime wind-down routine to actually turn your brain off</li>
-          <li>Techniques rooted in cognitive behavioural therapy (CBT)</li>
-        </ul>
-        <!-- ✏️ REPLACE href BELOW WITH YOUR PAYHIP / STRIPE LINK -->
-        <a class="btn btn--sage btn--lg" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">
-          Get Instant Access $14 →
-        </a>
-        <p class="product__cta-note"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure checkout · PDF delivered instantly to your email · No subscriptions</p>
+        <div class="guide-card__body">
+          <div class="guide-card__cat">Focus &amp; Clarity</div>
+          <div class="guide-card__title">The Focus Repair Guide</div>
+          <p class="guide-card__desc">Rebuild concentration without apps, timers, or willpower tricks.</p>
+          <div class="guide-card__footer">
+            <span class="guide-card__price" style="color:#aaa;">Soon</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- WHAT'S INSIDE -->
-  <section class="inside" id="inside">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div class="section-header fade-in">
-        <span class="section-header__eyebrow">What's Inside</span>
-        <h2 class="section-header__title">Your 7-Day Reset, Day by Day</h2>
-        <p class="section-header__sub">Each day builds on the last. By Day 7, you'll have a toolkit you keep for life.</p>
-      </div>
-      <div class="days">
-        <div class="day fade-in">
-          <div class="day__num">Day 01</div>
-          <div class="day__title">Map Your Mental Loop</div>
-          <div class="day__desc">Identify exactly what triggers your overthinking and where your mind gets stuck the most.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 02</div>
-          <div class="day__title">The Pattern Interrupt</div>
-          <div class="day__desc">A 60-second technique to stop a spiral the moment it starts before it takes over your day.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 03</div>
-          <div class="day__title">Reframe the Story</div>
-          <div class="day__desc">Challenge the worst-case narrative your brain tells you. Replace catastrophe with reality.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 04</div>
-          <div class="day__title">The Mental Offload</div>
-          <div class="day__desc">A brain dump method that genuinely empties your head in 5 minutes. Think clearly again.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 05</div>
-          <div class="day__title">Decision Detox</div>
-          <div class="day__desc">Stop agonising over choices. A simple framework to decide without second-guessing yourself.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 06</div>
-          <div class="day__title">The Quieting Routine</div>
-          <div class="day__desc">A wind-down system for evenings that tells your brain: it's safe to stop thinking now.</div>
-        </div>
-        <div class="day fade-in">
-          <div class="day__num">Day 07</div>
-          <div class="day__title">Your Long-Term Toolkit</div>
-          <div class="day__desc">Pull it all together into a personal plan you return to anytime the spiral starts again.</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- TESTIMONIALS -->
   <section class="testimonials">
@@ -665,37 +734,27 @@
     </div>
   </div>
 
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <div class="container--sm fade-in">
-      <h2 class="final-cta__title">Ready to stop<br/>the <em>mental loop?</em></h2>
-      <p class="final-cta__sub" style="margin-bottom:40px;">7 days. 10 minutes a day. One guide that gives you the tools to quiet your mind for good.</p>
-      <a class="btn btn--sage btn--lg" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">
-        Get the Guide Now $14 →
-      </a>
-      <div class="final-cta__trust">
-        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Instant PDF delivery</span>
-        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure payment</span>
-        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> 7-day guarantee</span>
-      </div>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div class="footer__inner">
       <div class="footer__logo">Untangle</div>
       <div class="footer__links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="stop-overthinking.html">Stop Overthinking</a>
         <a href="#">Privacy Policy</a>
-        <a href="#">Terms</a>
-        <a href="mailto:hello@untangle.com">Contact</a>
-        <a href="#product">Shop</a>
+        <a href="mailto:hello@untanglepdfs.com">Contact</a>
       </div>
       <p class="footer__copy">© 2026 Untangle. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
+    // ── Burger menu ──
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (burger) burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+
     // ── Scroll fade animations ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

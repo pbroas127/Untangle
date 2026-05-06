@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untangle</title>
+  <meta name="description" content="The 7-Day Stop Overthinking Guide. CBT-backed exercises, 10 minutes a day. Instant PDF download."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; background: #FEFCF8; color: #0F0F0F; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    :root {
+      --white:#FEFCF8; --off-white:#F5F1EA; --sage-light:#E8EFE6; --sage:#3B5740; --sage-dark:#2A4030;
+      --dark:#0F0F0F; --dark-2:#1C1C1C; --mid:#4A4A4A; --light:#888; --border:#E4DED4;
+      --cream:#FBF7F0; --warm:#F7F0E6; --radius:12px; --radius-lg:20px;
+      --shadow:0 2px 20px rgba(0,0,0,0.07); --shadow-lg:0 8px 40px rgba(0,0,0,0.12);
+    }
+    h1,h2,h3 { font-family:'Fraunces',serif; font-weight:600; line-height:1.15; letter-spacing:-0.02em; }
+    h1 { font-size:clamp(2.4rem,5vw,4.2rem); }
+    h2 { font-size:clamp(1.8rem,3.5vw,2.8rem); }
+    h3 { font-size:clamp(1.1rem,2vw,1.4rem); }
+    p  { line-height:1.7; color:var(--mid); }
+    .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+    .container--sm { max-width:720px; margin:0 auto; padding:0 24px; }
+
+    /* BUTTONS */
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:'Inter',sans-serif; font-weight:600; font-size:1rem; border:none; cursor:pointer; text-decoration:none; transition:all .22s; border-radius:100px; letter-spacing:-0.01em; }
+    .btn--primary { background:var(--dark); color:#fff; padding:18px 36px; }
+    .btn--primary:hover { background:var(--sage-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+    .btn--outline { background:transparent; color:var(--dark); border:1.5px solid var(--dark); padding:14px 28px; font-size:0.9rem; }
+    .btn--outline:hover { background:var(--dark); color:#fff; }
+    .btn--sage { background:var(--sage); color:#fff; padding:18px 36px; }
+    .btn--sage:hover { background:var(--sage-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(59,87,64,0.3); }
+    .btn--lg { font-size:1.1rem; padding:20px 44px; }
+
+    /* NAV */
+    nav { position:sticky; top:0; z-index:200; background:rgba(254,252,248,0.95); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:0 24px; height:68px; display:flex; align-items:center; justify-content:space-between; }
+    .nav__logo { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; background:linear-gradient(90deg,#0F0F0F 0%,#3B5740 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none; letter-spacing:-0.03em; }
+    .nav__right { display:flex; align-items:center; gap:20px; }
+    .nav__link { text-decoration:none; color:var(--mid); font-size:0.9rem; font-weight:500; transition:color .2s; }
+    .nav__link:hover { color:var(--dark); }
+    .nav__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav__burger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:all .25s; }
+    .nav__mobile { display:none; position:fixed; inset:0; top:68px; background:var(--white); z-index:199; padding:32px 24px; flex-direction:column; gap:0; border-top:1px solid var(--border); }
+    .nav__mobile.open { display:flex; }
+    .nav__mobile a { display:block; padding:18px 0; font-size:1.1rem; font-weight:500; color:var(--dark); text-decoration:none; border-bottom:1px solid var(--border); }
+    .nav__mobile .btn { margin-top:24px; width:100%; justify-content:center; border-radius:100px; }
+
+    /* HERO */
+    .hero { padding:80px 24px 80px; background:var(--white); }
+    .hero__inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr; gap:72px; align-items:center; }
+    .hero__eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--sage-light); color:var(--sage); font-size:0.78rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:7px 16px; border-radius:100px; margin-bottom:24px; }
+    .hero__eyebrow::before { content:'●'; font-size:0.45rem; }
+    .hero__title { margin-bottom:20px; }
+    .hero__title em { font-style:italic; color:var(--sage); }
+    .hero__sub { font-size:1.05rem; line-height:1.75; color:var(--mid); margin-bottom:32px; }
+    .hero__price-row { display:flex; align-items:baseline; gap:12px; margin-bottom:28px; }
+    .hero__price { font-family:'Fraunces',serif; font-size:2.8rem; font-weight:700; color:var(--dark); }
+    .hero__price-note { font-size:0.85rem; color:var(--light); }
+    .hero__btns { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+    .hero__trust { font-size:0.8rem; color:var(--light); display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+
+    /* MOCKUP */
+    .mockup-wrap { display:flex; justify-content:center; align-items:center; }
+    .mockup { width:280px; height:380px; background-image:url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=600&q=85&auto=format&fit=crop'); background-size:cover; background-position:center; border-radius:4px 16px 16px 4px; box-shadow:-10px 10px 0 #b8c8b8,0 8px 40px rgba(0,0,0,0.12); padding:40px 32px; display:flex; flex-direction:column; color:#fff; position:relative; overflow:hidden; }
+    .mockup::before { content:''; position:absolute; inset:0; background:linear-gradient(160deg,rgba(10,10,10,0.52) 0%,rgba(35,58,40,0.82) 100%); border-radius:inherit; z-index:0; }
+    .mockup > * { position:relative; z-index:1; }
+    .mockup__brand { font-family:'Fraunces',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; opacity:0.65; margin-bottom:auto; }
+    .mockup__title { font-family:'Fraunces',serif; font-size:1.9rem; font-weight:700; line-height:1.1; margin-bottom:12px; }
+    .mockup__title em { font-style:italic; font-weight:300; opacity:0.85; }
+    .mockup__sub { font-size:0.78rem; opacity:0.72; line-height:1.5; margin-bottom:20px; }
+    .mockup__pill { display:inline-block; background:rgba(255,255,255,0.18); border-radius:100px; padding:5px 14px; font-size:0.72rem; font-weight:600; }
+
+    /* SECTION HEADER */
+    .section-header { text-align:center; margin-bottom:56px; }
+    .section-header__eyebrow { font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); margin-bottom:12px; display:block; }
+    .section-header__title { margin-bottom:14px; }
+    .section-header__sub { font-size:1rem; color:var(--mid); max-width:520px; margin:0 auto; }
+
+    /* INCLUDES STRIP */
+    .includes-strip { background:var(--dark-2); padding:18px 24px; display:flex; justify-content:center; align-items:center; gap:36px; flex-wrap:wrap; }
+    .includes-strip__item { display:flex; align-items:center; gap:9px; font-size:0.84rem; font-weight:500; color:rgba(255,255,255,0.8); }
+    .includes-strip__icon { color:#7db87d; display:inline-flex; }
+
+    /* PAIN */
+    .pain { padding:90px 24px; background:var(--warm); }
+    .pain__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+    .pain__card { background:var(--white); border-radius:var(--radius-lg); padding:26px 28px; border:1px solid var(--border); transition:transform .2s,box-shadow .2s; }
+    .pain__card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+    .pain__icon { margin-bottom:14px; display:block; color:#7db87d; }
+    .pain__card h3 { font-size:0.98rem; font-weight:600; margin-bottom:7px; font-family:'Inter',sans-serif; }
+    .pain__card p { font-size:0.88rem; line-height:1.6; }
+
+    /* INSIDE / DAYS */
+    .inside { padding:90px 24px; background:var(--sage); color:#fff; }
+    .inside .section-header__eyebrow { color:rgba(255,255,255,0.5); }
+    .inside .section-header__title,.inside .section-header__sub { color:rgba(255,255,255,0.9); }
+    .days { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; max-width:1100px; margin:0 auto; }
+    .day { background:rgba(255,255,255,0.09); border-radius:var(--radius-lg); padding:26px; border:1px solid rgba(255,255,255,0.13); transition:background .2s; }
+    .day:hover { background:rgba(255,255,255,0.15); }
+    .day__num { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px; }
+    .day__title { font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; color:#fff; margin-bottom:7px; line-height:1.3; }
+    .day__desc { font-size:0.86rem; color:rgba(255,255,255,0.6); line-height:1.6; }
+
+    /* WHAT YOU GET */
+    .includes-section { padding:90px 24px; background:var(--white); }
+    .includes-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; max-width:1000px; margin:0 auto; }
+    .includes-list { list-style:none; display:flex; flex-direction:column; gap:14px; }
+    .includes-list li { display:flex; align-items:flex-start; gap:12px; font-size:0.95rem; color:var(--dark-2); line-height:1.5; }
+    .includes-list li::before { content:'✓'; color:var(--sage); font-weight:700; flex-shrink:0; margin-top:2px; }
+    .includes-buy { background:var(--cream); border-radius:24px; padding:36px; border:1px solid var(--border); text-align:center; }
+    .includes-buy__price { font-family:'Fraunces',serif; font-size:3.2rem; font-weight:700; margin-bottom:4px; }
+    .includes-buy__note { font-size:0.82rem; color:var(--light); margin-bottom:24px; }
+    .includes-buy .btn { width:100%; justify-content:center; margin-bottom:12px; }
+    .includes-buy__trust { font-size:0.78rem; color:var(--light); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding:90px 24px; background:var(--off-white); }
+    .testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; max-width:1000px; margin:0 auto; }
+    .testi { background:var(--white); border-radius:var(--radius-lg); padding:30px; border:1px solid var(--border); box-shadow:var(--shadow); }
+    .testi__stars { color:#E8A020; font-size:0.95rem; margin-bottom:14px; letter-spacing:2px; }
+    .testi__quote { font-family:'Fraunces',serif; font-size:1rem; font-style:italic; line-height:1.65; color:var(--dark-2); margin-bottom:18px; }
+    .testi__author { font-size:0.84rem; font-weight:600; color:var(--mid); display:flex; align-items:center; gap:10px; }
+    .testi__avatar { width:34px; height:34px; border-radius:50%; background:var(--sage-light); display:flex; align-items:center; justify-content:center; font-size:0.88rem; font-weight:700; color:var(--sage); flex-shrink:0; }
+
+    /* FAQ */
+    .faq { padding:90px 24px; background:var(--white); }
+    .faq__list { max-width:680px; margin:0 auto; }
+    .faq__item { border-bottom:1px solid var(--border); padding:22px 0; }
+    .faq__item:first-child { border-top:1px solid var(--border); }
+    .faq__q { font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:20px; list-style:none; user-select:none; }
+    .faq__q::-webkit-details-marker { display:none; }
+    .faq__q::after { content:'+'; font-size:1.5rem; font-weight:300; color:var(--sage); flex-shrink:0; transition:transform .2s; }
+    details[open] .faq__q::after { transform:rotate(45deg); }
+    .faq__a { padding:14px 0 2px; font-size:0.93rem; line-height:1.75; color:var(--mid); }
+
+    /* FINAL CTA */
+    .final-cta { padding:100px 24px; text-align:center; background:var(--sage); color:#fff; }
+    .final-cta__title { color:#fff; margin-bottom:14px; }
+    .final-cta__title em { font-style:italic; opacity:0.85; }
+    .final-cta__sub { font-size:1.05rem; color:rgba(255,255,255,0.7); margin-bottom:36px; max-width:460px; margin-left:auto; margin-right:auto; margin-bottom:36px; }
+    .final-cta__trust { display:flex; justify-content:center; gap:28px; margin-top:24px; flex-wrap:wrap; }
+    .final-cta__trust-item { font-size:0.8rem; color:rgba(255,255,255,0.6); display:flex; align-items:center; gap:5px; }
+
+    /* FOOTER */
+    footer { background:var(--dark-2); color:rgba(255,255,255,0.45); padding:44px 24px; }
+    .footer__inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+    .footer__logo { font-family:'Fraunces',serif; font-size:1.25rem; font-weight:700; background:linear-gradient(90deg,#fff 0%,#7db87d 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .footer__links { display:flex; gap:22px; }
+    .footer__links a { color:rgba(255,255,255,0.4); text-decoration:none; font-size:0.82rem; transition:color .2s; }
+    .footer__links a:hover { color:rgba(255,255,255,0.85); }
+    .footer__copy { font-size:0.78rem; }
+
+    /* FADE */
+    .fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* MOBILE */
+    @media (max-width:768px) {
+      .hero__inner { grid-template-columns:1fr; gap:44px; text-align:center; }
+      .hero__btns { justify-content:center; }
+      .hero__trust { justify-content:center; }
+      .hero__price-row { justify-content:center; }
+      .mockup-wrap { order:-1; }
+      .mockup { width:220px; height:300px; }
+      .mockup__title { font-size:1.4rem; }
+      .includes-grid { grid-template-columns:1fr; gap:36px; }
+      .nav__link { display:none; }
+      .nav__burger { display:flex; }
+      .nav__right .btn { display:none; }
+      .includes-strip { gap:18px; }
+      .footer__inner { flex-direction:column; text-align:center; }
+      .footer__links { justify-content:center; flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav__logo" href="index.html">Untangle</a>
+    <div class="nav__right">
+      <a class="nav__link" href="products.html">Products</a>
+      <a class="nav__link" href="index.html#faq">FAQ</a>
+      <a class="btn btn--sage" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+      <button class="nav__burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav__mobile" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="btn btn--sage" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">Get the Guide $14</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div>
+        <div class="hero__eyebrow">Best Seller</div>
+        <h1 class="hero__title">Stop<br/><em>Overthinking</em></h1>
+        <p class="hero__sub">A 20-page, 7-day guide that walks you through CBT-backed exercises to break the mental loop — 10 minutes a day, no therapist required.</p>
+        <div class="hero__price-row">
+          <span class="hero__price">$14</span>
+          <span class="hero__price-note">One-time · Instant PDF</span>
+        </div>
+        <div class="hero__btns">
+          <a class="btn btn--sage btn--lg" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">Get Instant Access →</a>
+          <a class="btn btn--outline" href="#inside">See What's Inside</a>
+        </div>
+        <p class="hero__trust">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure checkout &nbsp;·&nbsp;
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Instant delivery &nbsp;·&nbsp;
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> 7-day guarantee
+        </p>
+      </div>
+      <div class="mockup-wrap">
+        <div class="mockup">
+          <div class="mockup__brand">Untangle</div>
+          <div>
+            <div class="mockup__title">Stop<br/><em>Overthinking</em></div>
+            <div class="mockup__sub">The 7-Day Mental Reset Guide<br/>Break the loop. Reclaim your peace.</div>
+            <div class="mockup__pill">20 Pages · PDF Guide</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCLUDES STRIP -->
+  <div class="includes-strip">
+    <div class="includes-strip__item"><span class="includes-strip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> 5.0 Star Rating</div>
+    <div class="includes-strip__item"><span class="includes-strip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span> 20-Page PDF Guide</div>
+    <div class="includes-strip__item"><span class="includes-strip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> 10 Min / Day</div>
+    <div class="includes-strip__item"><span class="includes-strip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span> 7-Day Guarantee</div>
+    <div class="includes-strip__item"><span class="includes-strip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> CBT-Backed</div>
+  </div>
+
+  <!-- IS THIS FOR YOU -->
+  <section class="pain">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">Sound Familiar?</span>
+        <h2 class="section-header__title">This guide is for you if…</h2>
+        <p class="section-header__sub">You don't need someone telling you to "just relax." You need actual tools.</p>
+      </div>
+      <div class="pain__grid">
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></span>
+          <h3>You replay conversations on a loop</h3>
+          <p>That thing you said 3 years ago still haunts you at 2am. You can't switch it off no matter how hard you try.</p>
+        </div>
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <h3>You spiral before making decisions</h3>
+          <p>Every choice feels massive. You overthink the small stuff just as much as the big stuff. Nothing feels safe to decide.</p>
+        </div>
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+          <h3>Your brain won't shut off at night</h3>
+          <p>You lie in bed wide awake, running through every possible scenario that might go wrong tomorrow.</p>
+        </div>
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg></span>
+          <h3>You feel mentally exhausted all day</h3>
+          <p>Not from doing too much — from thinking too much. You're drained before the day has even started.</p>
+        </div>
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          <h3>You catastrophise everything</h3>
+          <p>Your brain jumps straight to the worst case. One small problem becomes a full disaster in your head.</p>
+        </div>
+        <div class="pain__card fade-in">
+          <span class="pain__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <h3>You overthink what others think of you</h3>
+          <p>You rehearse conversations, overanalyse replies, and edit texts for 20 minutes before hitting send.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 DAYS INSIDE -->
+  <section class="inside" id="inside">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">What's Inside</span>
+        <h2 class="section-header__title">Your 7-Day Reset, day by day</h2>
+        <p class="section-header__sub">Each day builds on the last. By Day 7, you have a toolkit you keep for life.</p>
+      </div>
+    </div>
+    <div class="days">
+      <div class="day fade-in"><div class="day__num">Day 01</div><div class="day__title">Map Your Mental Loop</div><div class="day__desc">Identify exactly what triggers your overthinking and where your mind gets stuck the most.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 02</div><div class="day__title">The Pattern Interrupt</div><div class="day__desc">A 60-second technique to stop a spiral the moment it starts — before it takes over your day.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 03</div><div class="day__title">Reframe the Story</div><div class="day__desc">Challenge the worst-case narrative your brain tells you. Replace catastrophe with reality.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 04</div><div class="day__title">The Mental Offload</div><div class="day__desc">A brain dump method that genuinely empties your head in 5 minutes. Think clearly again.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 05</div><div class="day__title">Decision Detox</div><div class="day__desc">Stop agonising over choices. A simple framework to decide without second-guessing yourself.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 06</div><div class="day__title">The Quieting Routine</div><div class="day__desc">A wind-down system for evenings that tells your brain: it's safe to stop thinking now.</div></div>
+      <div class="day fade-in"><div class="day__num">Day 07</div><div class="day__title">Your Long-Term Toolkit</div><div class="day__desc">Pull it all together into a personal plan you return to anytime the spiral starts again.</div></div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET + BUY -->
+  <section class="includes-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">Everything Included</span>
+        <h2 class="section-header__title">One guide. Real results.</h2>
+      </div>
+      <div class="includes-grid fade-in">
+        <ul class="includes-list">
+          <li>7 daily exercises — each under 10 minutes</li>
+          <li>The "Pattern Interrupt" technique to stop spirals mid-thought</li>
+          <li>A daily check-in worksheet to track your mental load</li>
+          <li>The exact questions to ask when your brain catastrophises</li>
+          <li>How to find your #1 overthinking trigger and defuse it</li>
+          <li>A nighttime wind-down routine to actually turn your brain off</li>
+          <li>Techniques rooted in cognitive behavioural therapy (CBT)</li>
+          <li>Works on phone, tablet, or laptop — read anywhere</li>
+        </ul>
+        <div class="includes-buy">
+          <div class="includes-buy__price">$14</div>
+          <div class="includes-buy__note">One-time payment · Yours forever</div>
+          <a class="btn btn--sage btn--lg" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">Get Instant Access →</a>
+          <p class="includes-buy__trust">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:3px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure checkout · Instant PDF delivery · No subscriptions
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">Real Readers</span>
+        <h2 class="section-header__title">What people are saying</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi fade-in">
+          <div class="testi__stars">★★★★★</div>
+          <p class="testi__quote">"I downloaded this on a whim and finished it in two days. Day 2's technique alone was worth every penny. I've already recommended it to four people."</p>
+          <div class="testi__author"><div class="testi__avatar">S</div><div><div style="color:#1C1C1C;">Sophie R.</div><div style="font-weight:400;font-size:0.78rem;color:#888;">Verified Buyer</div></div></div>
+        </div>
+        <div class="testi fade-in">
+          <div class="testi__stars">★★★★★</div>
+          <p class="testi__quote">"I've spent thousands on therapy and this $14 guide explained my thought patterns better than most sessions. Practical, real, and actually doable."</p>
+          <div class="testi__author"><div class="testi__avatar">J</div><div><div style="color:#1C1C1C;">Jake M.</div><div style="font-weight:400;font-size:0.78rem;color:#888;">Verified Buyer</div></div></div>
+        </div>
+        <div class="testi fade-in">
+          <div class="testi__stars">★★★★★</div>
+          <p class="testi__quote">"I'm on Day 5 and my partner noticed a difference before I even told them I was doing this. That says everything."</p>
+          <div class="testi__author"><div class="testi__avatar">A</div><div><div style="color:#1C1C1C;">Aisha T.</div><div style="font-weight:400;font-size:0.78rem;color:#888;">Verified Buyer</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container--sm">
+      <div class="section-header fade-in">
+        <span class="section-header__eyebrow">Questions</span>
+        <h2 class="section-header__title">Frequently asked</h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq__item fade-in"><summary class="faq__q">What exactly do I get?</summary><p class="faq__a">A beautifully formatted 20-page PDF delivered instantly to your inbox. 7 clear days of exercises — no vague advice, no padding. Works on phone, tablet, or laptop.</p></details>
+        <details class="faq__item fade-in"><summary class="faq__q">How long does each day take?</summary><p class="faq__a">Each exercise takes 5–15 minutes. You don't need to clear your schedule — just a quiet 10 minutes and a bit of honesty with yourself.</p></details>
+        <details class="faq__item fade-in"><summary class="faq__q">Do I need experience with CBT?</summary><p class="faq__a">Zero. Written for real people, not therapists. The techniques draw on CBT principles but explained in plain English — no jargon, no prior knowledge needed.</p></details>
+        <details class="faq__item fade-in"><summary class="faq__q">What if it doesn't work for me?</summary><p class="faq__a">We stand behind this guide. If you complete the 7 days and feel it wasn't worth your $14, reach out within 7 days of purchase and we'll make it right. No questions asked.</p></details>
+        <details class="faq__item fade-in"><summary class="faq__q">Is this a replacement for therapy?</summary><p class="faq__a">No — and we'd never claim that. This is a practical self-help guide for everyday overthinking. If you're dealing with severe anxiety, please speak with a professional. This guide can complement that work.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container--sm fade-in">
+      <h2 class="final-cta__title">Ready to stop the <em>mental loop?</em></h2>
+      <p class="final-cta__sub">7 days. 10 minutes a day. The tools to quiet your mind for good.</p>
+      <a class="btn btn--primary btn--lg" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">Get the Guide — $14</a>
+      <div class="final-cta__trust">
+        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Instant PDF delivery</span>
+        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure payment</span>
+        <span class="final-cta__trust-item"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> 7-day guarantee</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer__inner">
+      <span class="footer__logo">Untangle</span>
+      <div class="footer__links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="stop-overthinking.html">Stop Overthinking</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <span class="footer__copy">© 2026 Untangle. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    burger.addEventListener('click', () => { mobileNav.classList.toggle('open'); });
+
+    // Fade in on scroll
+    const fades = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    fades.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
