@@ -63,6 +63,28 @@ const CAROUSELS = [
   }
 
   await browser.close();
-  console.log(`\nDone. All slides saved to: carousel/${folder}/`);
-  console.log(`Run make-reel.py to add reel.mp4 to the same folder.`);
+
+  // ── Write carousel caption ───────────────────────────────────────────────
+  const caption = `It's 2am and your brain won't stop. Here's what actually helps.
+
+01. Brain dump everything — get it out of your head and onto paper.
+02. 4-7-8 breathing — inhale 4, hold 7, out for 8. Do it 3 times.
+03. Name it out loud — "I'm worried about X." Naming breaks the spiral.
+04. The 20-minute rule — can't sleep? Get up. Come back only when tired.
+05. Tomorrow is not tonight — write "deal with tomorrow" and close it.
+
+Save this for the next time your brain decides 2am is the right time to catastrophise.
+
+And if this keeps happening — the Stop Overthinking guide walks you through 7 days of exercises that actually rewire the habit. 10 minutes a day. Link in bio.
+
+—
+
+#overthinking #sleepanxiety #cantsleep #2am #anxietyrelief #mentalhealth #quietmind #cbt #stopoverthinking #mentalhealthtips #anxietymanagement #selfhelp #mindset #innerpeace #untangle`;
+
+  const captionPath = path.join(outDir, 'carousel-caption.txt');
+  fs.writeFileSync(captionPath, caption, 'utf8');
+  console.log(`  carousel-caption.txt`);
+
+  console.log(`\nDone. All files saved to: carousel/${folder}/`);
+  console.log(`Run make-reel.py to add reel.mp4 + reel-caption.txt to the same folder.`);
 })();
