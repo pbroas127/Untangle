@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untangle — 2am Carousel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:       #3B5740;
+      --sage-dark:  #2A4030;
+      --sage-light: #E8EFE6;
+      --sage-mid:   #6B8F72;
+      --sage-bright:#7DB87D;
+      --dark:       #0F0F0F;
+      --dark-2:     #0D1710;
+      --mid:        #4A4A4A;
+      --cream:      #FBF7F0;
+      --warm:       #F5EFE6;
+      --white:      #FEFCF8;
+      --border:     #E4DED4;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .brand-tag {
+      font-family: 'Fraunces', serif;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+    .slide-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 1 — HOOK
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s1 {
+      background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=90&auto=format&fit=crop&sat=-30&bri=-20');
+      background-size: cover;
+      background-position: center top;
+    }
+    .s1__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(170deg, rgba(8,8,8,0.88) 0%, rgba(20,40,25,0.92) 100%);
+    }
+    .s1__content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 56px 72px;
+    }
+    .s1__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .s1__body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .s1__time {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--sage-bright);
+      letter-spacing: 0.06em;
+      margin-bottom: 28px;
+    }
+    .s1__headline {
+      font-family: 'Fraunces', serif;
+      font-size: 102px;
+      font-weight: 700;
+      line-height: 0.9;
+      color: #fff;
+      letter-spacing: -0.04em;
+      margin-bottom: 36px;
+    }
+    .s1__headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+    }
+    .s1__sub {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      max-width: 560px;
+    }
+    .s1__sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .s1__swipe {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TIP SLIDE BASE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .tip {
+      display: flex;
+      flex-direction: column;
+      padding: 56px 80px;
+      position: relative;
+    }
+    .tip__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0;
+    }
+    .tip__bg-num {
+      position: absolute;
+      font-family: 'Fraunces', serif;
+      font-size: 420px;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.055;
+    }
+    .tip__body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      gap: 0;
+    }
+    .tip__label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .tip__title {
+      font-family: 'Fraunces', serif;
+      font-size: 82px;
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -0.03em;
+      margin-bottom: 36px;
+    }
+    .tip__title em { font-style: italic; font-weight: 300; }
+    .tip__divider {
+      width: 48px;
+      height: 2px;
+      border-radius: 2px;
+      margin: 0 auto 32px;
+    }
+    .tip__desc {
+      font-size: 21px;
+      line-height: 1.6;
+      max-width: 760px;
+      font-weight: 400;
+    }
+    .tip__desc strong { font-weight: 600; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 2 — TIP 1 (Cream)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s2 { background: var(--cream); }
+    .s2 .tip__bg-num  { color: var(--sage); }
+    .s2 .tip__label   { color: var(--sage-mid); }
+    .s2 .tip__title   { color: var(--dark); }
+    .s2 .tip__title em{ color: var(--sage); }
+    .s2 .tip__divider { background: var(--border); }
+    .s2 .tip__desc    { color: var(--mid); }
+    .s2 .brand-tag    { color: var(--sage); }
+    .s2 .slide-num    { color: var(--mid); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 3 — TIP 2 (Sage)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s3 { background: var(--sage); }
+    .s3 .tip__bg-num  { color: #fff; }
+    .s3 .tip__label   { color: rgba(255,255,255,0.5); }
+    .s3 .tip__title   { color: #fff; }
+    .s3 .tip__title em{ color: rgba(255,255,255,0.72); }
+    .s3 .tip__divider { background: rgba(255,255,255,0.25); }
+    .s3 .tip__desc    { color: rgba(255,255,255,0.78); }
+    .s3 .brand-tag    { color: rgba(255,255,255,0.55); }
+    .s3 .slide-num    { color: rgba(255,255,255,0.4); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 4 — TIP 3 (Dark)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s4 { background: var(--dark-2); }
+    .s4 .tip__bg-num  { color: var(--sage); }
+    .s4 .tip__label   { color: var(--sage-bright); }
+    .s4 .tip__title   { color: #fff; }
+    .s4 .tip__title em{ color: rgba(255,255,255,0.65); }
+    .s4 .tip__divider { background: rgba(255,255,255,0.12); }
+    .s4 .tip__desc    { color: rgba(255,255,255,0.68); }
+    .s4 .brand-tag    { color: rgba(255,255,255,0.3); }
+    .s4 .slide-num    { color: rgba(255,255,255,0.22); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 5 — TIP 4 (Warm)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s5 { background: var(--warm); }
+    .s5 .tip__bg-num  { color: var(--sage); }
+    .s5 .tip__label   { color: var(--sage-mid); }
+    .s5 .tip__title   { color: var(--dark); }
+    .s5 .tip__title em{ color: var(--sage); }
+    .s5 .tip__divider { background: var(--border); }
+    .s5 .tip__desc    { color: var(--mid); }
+    .s5 .brand-tag    { color: var(--sage); }
+    .s5 .slide-num    { color: var(--mid); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 6 — TIP 5 (Sage Light)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s6 { background: var(--sage-light); }
+    .s6 .tip__bg-num  { color: var(--sage); }
+    .s6 .tip__label   { color: var(--sage); }
+    .s6 .tip__title   { color: var(--dark); }
+    .s6 .tip__title em{ color: var(--sage); }
+    .s6 .tip__divider { background: var(--sage-mid); opacity: 0.35; }
+    .s6 .tip__desc    { color: #4A5E4D; }
+    .s6 .brand-tag    { color: var(--sage); }
+    .s6 .slide-num    { color: var(--sage-mid); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 7 — CTA
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s7 {
+      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&q=90&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+    .s7__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(170deg, rgba(8,8,8,0.84) 0%, rgba(25,50,30,0.92) 100%);
+    }
+    .s7__content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 56px 72px;
+    }
+    .s7__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .s7__body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .s7__eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage-bright);
+      margin-bottom: 28px;
+    }
+    .s7__headline {
+      font-family: 'Fraunces', serif;
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 0.95;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+    }
+    .s7__headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+    }
+    .s7__sub {
+      font-size: 22px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.55;
+      max-width: 620px;
+      margin-bottom: 52px;
+    }
+    .s7__box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .s7__btn {
+      background: #fff;
+      color: var(--sage-dark);
+      border-radius: 100px;
+      padding: 22px 52px;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .s7__price {
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.02em;
+    }
+    .s7__handle {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── GLOBAL CENTER OVERRIDE ── */
+    .s1__body, .s1__sub, .s1__time { text-align: center; align-items: center; }
+    .tip__body { text-align: center; align-items: center; }
+    .s7__body, .s7__headline, .s7__sub { text-align: center; align-items: center; }
+    .s7__box { align-items: center; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     SLIDE 1 — HOOK
+═══════════════════════════════════ -->
+<div class="slide s1">
+  <div class="s1__overlay"></div>
+  <div class="s1__content">
+    <div class="s1__top">
+      <span class="brand-tag" style="color:rgba(255,255,255,0.5);">Untangle</span>
+      <span class="slide-num" style="color:rgba(255,255,255,0.38);">01 / 07</span>
+    </div>
+
+    <div class="s1__body">
+      <div class="s1__time">It's 2am.</div>
+      <div class="s1__headline">
+        Your brain<br/>won't <em>stop.</em>
+      </div>
+      <div class="s1__sub">
+        Here are <strong>5 things</strong> that actually help<br/>when you're stuck in the loop.
+      </div>
+    </div>
+
+    <div class="s1__swipe">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      Swipe for all 5
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 2 — TIP 1: Brain Dump
+═══════════════════════════════════ -->
+<div class="slide s2 tip">
+  <div class="tip__bg-num">01</div>
+  <div class="tip__top">
+    <span class="brand-tag">Untangle</span>
+    <span class="slide-num">02 / 07</span>
+  </div>
+  <div class="tip__body">
+    <div class="tip__label">Tip 01</div>
+    <div class="tip__title">Brain<br/><em>Dump</em><br/>Everything</div>
+    <div class="tip__divider"></div>
+    <div class="tip__desc">
+      Write every thought down. All of it, messy and unfiltered.<br/>
+      <strong>Getting thoughts out of your head and onto paper breaks the loop</strong> — your brain stops recycling them once they're written.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 3 — TIP 2: 4-7-8 Breathing
+═══════════════════════════════════ -->
+<div class="slide s3 tip">
+  <div class="tip__bg-num">02</div>
+  <div class="tip__top">
+    <span class="brand-tag">Untangle</span>
+    <span class="slide-num">03 / 07</span>
+  </div>
+  <div class="tip__body">
+    <div class="tip__label">Tip 02</div>
+    <div class="tip__title">4-7-8<br/><em>Breathing</em></div>
+    <div class="tip__divider"></div>
+    <div class="tip__desc">
+      Inhale for 4. Hold for 7. Exhale for 8. Repeat 3 times.<br/>
+      <strong>Your nervous system physically cannot stay in overdrive</strong> on that exhale. It's not a trick. It's biology.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 4 — TIP 3: Name It
+═══════════════════════════════════ -->
+<div class="slide s4 tip">
+  <div class="tip__bg-num">03</div>
+  <div class="tip__top">
+    <span class="brand-tag">Untangle</span>
+    <span class="slide-num">04 / 07</span>
+  </div>
+  <div class="tip__body">
+    <div class="tip__label">Tip 03</div>
+    <div class="tip__title">Name It<br/><em>Out Loud</em></div>
+    <div class="tip__divider"></div>
+    <div class="tip__desc">
+      Say the worry out loud. Literally: <em>"I'm worried about X."</em><br/>
+      <strong>Naming a thought separates you from it.</strong> You become the observer, not the thought. That gap is where the spiral stops.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 5 — TIP 4: 20-Minute Rule
+═══════════════════════════════════ -->
+<div class="slide s5 tip">
+  <div class="tip__bg-num">04</div>
+  <div class="tip__top">
+    <span class="brand-tag">Untangle</span>
+    <span class="slide-num">05 / 07</span>
+  </div>
+  <div class="tip__body">
+    <div class="tip__label">Tip 04</div>
+    <div class="tip__title">The<br/>20-Minute<br/><em>Rule</em></div>
+    <div class="tip__divider"></div>
+    <div class="tip__desc">
+      Can't sleep after 20 minutes? Get up and go to another room.<br/>
+      Come back <strong>only when you feel tired.</strong> Your brain learns: bed means sleep, not anxiety.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 6 — TIP 5: Tomorrow's Not Tonight
+═══════════════════════════════════ -->
+<div class="slide s6 tip">
+  <div class="tip__bg-num">05</div>
+  <div class="tip__top">
+    <span class="brand-tag">Untangle</span>
+    <span class="slide-num">06 / 07</span>
+  </div>
+  <div class="tip__body">
+    <div class="tip__label">Tip 05</div>
+    <div class="tip__title">Tomorrow<br/>Is <em>Not</em><br/>Tonight</div>
+    <div class="tip__divider"></div>
+    <div class="tip__desc">
+      Your brain turns tomorrow's tasks into tonight's emergencies.<br/>
+      Write <strong>"deal with tomorrow"</strong> next to each worry, close the notebook, and tell yourself: <em>this is not urgent right now.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 7 — CTA
+═══════════════════════════════════ -->
+<div class="slide s7">
+  <div class="s7__overlay"></div>
+  <div class="s7__content">
+    <div class="s7__top">
+      <span class="brand-tag" style="color:rgba(255,255,255,0.5);">Untangle</span>
+      <span class="slide-num" style="color:rgba(255,255,255,0.38);">07 / 07</span>
+    </div>
+
+    <div class="s7__body">
+      <div class="s7__eyebrow">These are just the start</div>
+      <div class="s7__headline">
+        Stop<br/><em>Overthinking</em><br/>Guide
+      </div>
+      <div class="s7__sub">
+        7 days of CBT-backed exercises built for nights exactly like this. 10 minutes a day.
+      </div>
+      <div class="s7__box">
+        <div class="s7__btn">
+          Link in bio
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="s7__price">$14 · Instant PDF download</div>
+      </div>
+    </div>
+
+    <div class="s7__handle">@untangle</div>
+  </div>
+</div>
+
+</body>
+</html>
