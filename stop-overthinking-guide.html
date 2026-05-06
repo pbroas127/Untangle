@@ -4,7 +4,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="favicon.png">
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=816"/>
   <title>Untangle</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -1191,7 +1191,7 @@
   function scalePages() {
     var pageW = 816; // 8.5in at 96dpi
     var pageH = 1056; // 11in at 96dpi
-    var vw = window.innerWidth;
+    var vw = window.screen.width; // physical screen width (innerWidth is fixed at 816)
     if (vw < pageW) {
       var scale = vw / pageW;
       var gap = pageH * (scale - 1); // negative number
