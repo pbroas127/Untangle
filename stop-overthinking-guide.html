@@ -47,8 +47,9 @@
       .page:last-child { margin-bottom: 0; }
     }
     @media print {
-      body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
-      .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; width: 8.5in !important; height: 11in !important; overflow: hidden !important; }
+      html { margin: 0 !important; padding: 0 !important; }
+      body { background: #fff !important; padding: 0 !important; margin: 0 !important; width: 8.5in !important; }
+      .page { display: block !important; box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; padding: 0 !important; width: 8.5in !important; height: 11in !important; max-height: 11in !important; overflow: hidden !important; }
     }
 
     /* ── PRINT BAR (screen only) ── */
@@ -72,9 +73,9 @@
     @media print { #print-bar, #ios-modal { display: none !important; } }
 
     /* ── iOS SAVE MODAL ── */
-    #ios-modal { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.72); align-items:flex-end; justify-content:center; padding:0 0 20px; }
+    #ios-modal { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.72); align-items:center; justify-content:center; padding:20px; }
     #ios-modal.show { display:flex; }
-    .ios-modal__box { background:#1C1C1C; border-radius:20px 20px 16px 16px; padding:28px 24px 32px; width:100%; max-width:480px; color:#fff; }
+    .ios-modal__box { background:#1C1C1C; border-radius:20px; padding:28px 24px 32px; width:100%; max-width:420px; color:#fff; }
     .ios-modal__title { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600; margin-bottom:6px; }
     .ios-modal__sub { font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:24px; }
     .ios-modal__step { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; }
