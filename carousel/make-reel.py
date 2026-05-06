@@ -27,8 +27,8 @@ PEXELS_API_KEY = "QAOIVsrWbKt1Q5r30bxwIqQ4I2ERGpJSh0aubDZd6r7g89jl579zRI7l"   # 
 REEL_LINES = [
     {"text": "Did I say the wrong thing?",      "style": "italic", "duration": 2.2},
     {"text": "What if they're mad at me?",      "style": "italic", "duration": 2.2},
-    {"text": "I should have just—",             "style": "italic", "duration": 1.8},
-    {"text": "But what if—",                    "style": "italic", "duration": 1.6},
+    {"text": "I should have just",              "style": "italic", "duration": 1.8},
+    {"text": "But what if",                     "style": "italic", "duration": 1.6},
     {"text": "STOP.",                           "style": "impact", "duration": 2.0},
     {"text": "This is a thought loop.",         "style": "body",   "duration": 2.2},
     {"text": "It can be broken.",               "style": "sage",   "duration": 2.4},
@@ -143,12 +143,6 @@ def make_text_frame(text, style="body", width=W, height=H):
         line_w = bbox[2] - bbox[0]
         x      = (width - line_w) / 2
 
-        # Subtle dark pill behind text for readability
-        pad_x, pad_y = 28, 14
-        draw.rounded_rectangle(
-            [x - pad_x, y - pad_y, x + line_w + pad_x, y + font_size + pad_y],
-            radius=12, fill=(0, 0, 0, 90)
-        )
         # Drop shadow
         draw.text((x + 2, y + 2), line, font=font, fill=(0, 0, 0, 140))
         # Main text
