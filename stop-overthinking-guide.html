@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     /* ── PRINT SETUP ── */
-    @page { size: Letter; margin: 0; }
+    @page { size: 8.5in 11in; margin: 0; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -47,9 +47,8 @@
       .page:last-child { margin-bottom: 0; }
     }
     @media print {
-      @page { size: 8.5in 11in; margin: 0; }
-      body { background: #fff !important; padding: 0 !important; }
-      .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; }
+      body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
+      .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; width: 8.5in !important; height: 11in !important; overflow: hidden !important; }
     }
 
     /* ── PRINT BAR (screen only) ── */
@@ -70,7 +69,21 @@
     }
     #print-btn:hover { background: #2A4030; transform: translateY(-1px); }
     #print-btn svg { width: 15px; height: 15px; }
-    @media print { #print-bar { display: none !important; } }
+    @media print { #print-bar, #ios-modal { display: none !important; } }
+
+    /* ── iOS SAVE MODAL ── */
+    #ios-modal { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.72); align-items:flex-end; justify-content:center; padding:0 0 20px; }
+    #ios-modal.show { display:flex; }
+    .ios-modal__box { background:#1C1C1C; border-radius:20px 20px 16px 16px; padding:28px 24px 32px; width:100%; max-width:480px; color:#fff; }
+    .ios-modal__title { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600; margin-bottom:6px; }
+    .ios-modal__sub { font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:24px; }
+    .ios-modal__step { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; }
+    .ios-modal__step:last-of-type { margin-bottom:24px; }
+    .ios-modal__num { width:28px; height:28px; border-radius:50%; background:#3B5740; font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+    .ios-modal__text { font-size:0.92rem; line-height:1.5; color:rgba(255,255,255,0.88); }
+    .ios-modal__text strong { color:#fff; }
+    .ios-modal__close { width:100%; padding:15px; background:#3B5740; border:none; border-radius:100px; color:#fff; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer; letter-spacing:-0.01em; }
+    .ios-modal__close:hover { background:#2A4030; }
     h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.15; letter-spacing: -0.02em; }
 
     /* ── PAGE SHELL ── */
@@ -365,12 +378,37 @@
 <!-- PRINT BAR (screen only) -->
 <div id="print-bar">
   <a class="brand" href="index.html">Untangle</a>
-  <button id="print-btn" onclick="window.print()">
+  <button id="print-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
-    Save as PDF
+    Save PDF
   </button>
+</div>
+
+<!-- iOS SAVE MODAL -->
+<div id="ios-modal">
+  <div class="ios-modal__box">
+    <div class="ios-modal__title">Save your PDF</div>
+    <div class="ios-modal__sub">Follow these steps in Safari</div>
+    <div class="ios-modal__step">
+      <div class="ios-modal__num">1</div>
+      <div class="ios-modal__text">Tap the <strong>three dots</strong> at the bottom of your screen</div>
+    </div>
+    <div class="ios-modal__step">
+      <div class="ios-modal__num">2</div>
+      <div class="ios-modal__text">Tap <strong>Share</strong></div>
+    </div>
+    <div class="ios-modal__step">
+      <div class="ios-modal__num">3</div>
+      <div class="ios-modal__text">Tap <strong>Options</strong> and select <strong>PDF</strong></div>
+    </div>
+    <div class="ios-modal__step">
+      <div class="ios-modal__num">4</div>
+      <div class="ios-modal__text">Tap <strong>Save to Files</strong></div>
+    </div>
+    <button class="ios-modal__close" onclick="document.getElementById('ios-modal').classList.remove('show')">Got it</button>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1132,6 +1170,23 @@
 
 
 <script>
+  // iOS detection
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // Save PDF button
+  document.getElementById('print-btn').addEventListener('click', function() {
+    if (isIOS) {
+      document.getElementById('ios-modal').classList.add('show');
+    } else {
+      window.print();
+    }
+  });
+
+  // Close modal on backdrop click
+  document.getElementById('ios-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+
   // Scale pages to fit mobile viewport width
   function scalePages() {
     var pageW = 816; // 8.5in at 96dpi
