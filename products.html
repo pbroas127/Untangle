@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untangle</title>
+  <meta name="description" content="Practical PDF guides for mental clarity. No subscriptions, no fluff."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; background: #FEFCF8; color: #0F0F0F; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    :root {
+      --sage:       #3B5740;
+      --sage-dark:  #2A4030;
+      --sage-light: #E8EFE6;
+      --border:     #E4DED4;
+      --cream:      #FBF7F0;
+      --radius:     12px;
+      --shadow:     0 2px 20px rgba(0,0,0,0.07);
+      --shadow-lg:  0 8px 40px rgba(0,0,0,0.12);
+    }
+
+    h1,h2,h3 { font-family: 'Fraunces', serif; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(254,252,248,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 68px; }
+    .nav__logo { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; color: var(--sage); text-decoration: none; letter-spacing: -0.03em; }
+    .nav__logo span { color: #0F0F0F; }
+    .nav__right { display: flex; align-items: center; gap: 32px; }
+    .nav__link { text-decoration: none; color: #4A4A4A; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav__link:hover, .nav__link.active { color: var(--sage); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--radius); font-weight: 600; cursor: pointer; text-decoration: none; transition: all .2s; border: none; font-family: inherit; }
+    .btn--primary { background: #0F0F0F; color: #FEFCF8; }
+    .btn--primary:hover { background: #2a2a2a; }
+    .btn--sage { background: var(--sage); color: #FEFCF8; }
+    .btn--sage:hover { background: var(--sage-dark); }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--cream); border-bottom: 1px solid var(--border); padding: 72px 5% 60px; text-align: center; }
+    .page-header__eyebrow { display: inline-block; background: var(--sage-light); color: var(--sage); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .page-header__title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
+    .page-header__sub { color: #4A4A4A; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+    /* FILTER BAR */
+    .filter-bar { max-width: 1100px; margin: 48px auto 0; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .filter-bar__tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-tab { padding: 8px 18px; border-radius: 20px; border: 1.5px solid var(--border); background: transparent; font-family: inherit; font-size: 0.85rem; font-weight: 500; color: #4A4A4A; cursor: pointer; transition: all .2s; }
+    .filter-tab.active, .filter-tab:hover { border-color: var(--sage); background: var(--sage-light); color: var(--sage); }
+    .filter-bar__count { font-size: 0.85rem; color: #888; }
+
+    /* PRODUCT GRID */
+    .catalog { max-width: 1100px; margin: 36px auto 80px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+
+    /* PRODUCT CARD */
+    .product-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow .25s, transform .25s; }
+    .product-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+
+    .product-card__cover { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .product-card__cover--sage { background: linear-gradient(140deg, #2A4030 0%, #3B5740 60%, #4a6b51 100%); }
+    .product-card__cover--slate { background: linear-gradient(140deg, #1e2a3a 0%, #2c3e55 60%, #3a5068 100%); }
+    .product-card__cover--warm { background: linear-gradient(140deg, #3d2b1f 0%, #5c3d28 60%, #7a5035 100%); }
+    .product-card__cover-inner { text-align: center; color: #fff; padding: 24px; }
+    .product-card__cover-brand { font-family: 'Fraunces', serif; font-size: 0.8rem; font-weight: 400; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .product-card__cover-title { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+    .product-card__cover-title em { font-style: italic; opacity: 0.85; }
+    .product-card__cover-pill { margin-top: 12px; display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; font-size: 0.72rem; font-weight: 500; padding: 4px 12px; letter-spacing: 0.04em; }
+
+    /* NEW / COMING SOON badges */
+    .product-card__badge { position: absolute; top: 14px; right: 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+    .badge--new { background: #fff; color: var(--sage); }
+    .badge--soon { background: rgba(0,0,0,0.35); color: rgba(255,255,255,0.85); }
+
+    .product-card__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+    .product-card__category { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+    .product-card__title { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+    .product-card__desc { font-size: 0.88rem; color: #4A4A4A; line-height: 1.6; flex: 1; margin-bottom: 18px; }
+    .product-card__meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+    .product-card__tag { font-size: 0.75rem; background: var(--sage-light); color: var(--sage); padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .product-card__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .product-card__price { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 600; }
+    .product-card__price span { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 400; color: #888; margin-left: 4px; }
+    .product-card__btn { padding: 11px 22px; font-size: 0.88rem; border-radius: 10px; }
+    .product-card__btn--disabled { background: #e4ded4; color: #888; cursor: not-allowed; pointer-events: none; }
+
+    /* COMING SOON OVERLAY */
+    .product-card--soon { opacity: 0.75; }
+    .product-card--soon:hover { transform: none; box-shadow: none; }
+
+    /* EMPTY STATE (shows if all filtered out) */
+    .catalog-empty { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #888; font-size: 0.95rem; }
+
+    /* BOTTOM BANNER */
+    .suggest-banner { background: var(--sage-light); border-top: 1px solid var(--border); padding: 56px 5%; text-align: center; }
+    .suggest-banner h2 { font-size: 1.6rem; margin-bottom: 10px; }
+    .suggest-banner p { color: #4A4A4A; font-size: 0.95rem; margin-bottom: 24px; }
+    .suggest-banner form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+    .suggest-banner input { flex: 1; min-width: 200px; padding: 13px 18px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.9rem; background: #fff; outline: none; }
+    .suggest-banner input:focus { border-color: var(--sage); }
+    .suggest-banner button { padding: 13px 24px; font-size: 0.9rem; border-radius: var(--radius); }
+
+    /* FOOTER */
+    footer { background: #0F0F0F; color: rgba(255,255,255,0.5); padding: 32px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.83rem; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer__logo { font-family: 'Fraunces', serif; font-size: 1.1rem; color: #fff; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav__logo" href="index.html">Untan<span>g</span>le</a>
+    <div class="nav__right">
+      <a class="nav__link active" href="products.html">Products</a>
+      <a class="nav__link" href="index.html#faq">FAQ</a>
+      <a class="btn btn--primary" href="index.html#product" style="padding:12px 24px;font-size:0.88rem;">Get the Guide $14</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <span class="page-header__eyebrow">All Guides</span>
+    <h1 class="page-header__title">Mental clarity, <em>on your terms.</em></h1>
+    <p class="page-header__sub">Practical PDF guides backed by CBT and evidence-based techniques. One-time purchase. Yours forever.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-bar__tabs">
+      <button class="filter-tab active" data-filter="all">All Guides</button>
+      <button class="filter-tab" data-filter="anxiety">Anxiety</button>
+      <button class="filter-tab" data-filter="sleep">Sleep</button>
+      <button class="filter-tab" data-filter="focus">Focus</button>
+    </div>
+    <span class="filter-bar__count" id="catalog-count">1 guide available</span>
+  </div>
+
+  <!-- PRODUCT CATALOG -->
+  <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  TO ADD A NEW PRODUCT: copy one .product-card block,     ║
+    ║  paste it below the last card, and update:               ║
+    ║   • data-category="anxiety|sleep|focus"                  ║
+    ║   • .product-card__cover class (--sage / --slate / --warm)║
+    ║   • title, description, tags, price, buy link            ║
+    ║  Remove badge--soon and product-card--soon for live items ║
+    ╚══════════════════════════════════════════════════════════╝
+  -->
+  <div class="catalog" id="catalog">
+
+    <!-- PRODUCT 1 — LIVE -->
+    <div class="product-card" data-category="anxiety">
+      <div class="product-card__cover product-card__cover--sage">
+        <div class="product-card__cover-inner">
+          <div class="product-card__cover-brand">Untangle</div>
+          <div class="product-card__cover-title">Stop<br/><em>Overthinking</em></div>
+          <div class="product-card__cover-pill">20 Pages · PDF Guide</div>
+        </div>
+        <span class="product-card__badge badge--new">Best Seller</span>
+      </div>
+      <div class="product-card__body">
+        <div class="product-card__category">Anxiety &amp; Overthinking</div>
+        <div class="product-card__title">The 7-Day Mental Reset Guide</div>
+        <p class="product-card__desc">Break the overthinking loop in 7 days. CBT-backed exercises, 10 minutes a day. No therapist. No app subscription. Just tools that actually stick.</p>
+        <div class="product-card__meta">
+          <span class="product-card__tag">7-Day Program</span>
+          <span class="product-card__tag">CBT-Backed</span>
+          <span class="product-card__tag">Instant PDF</span>
+        </div>
+        <div class="product-card__footer">
+          <div class="product-card__price">$14 <span>one-time</span></div>
+          <a class="btn btn--sage product-card__btn" href="https://buy.stripe.com/14A00cggJgzo9pn289eME00" target="_blank">Get Instant Access</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 — COMING SOON (duplicate & fill in when ready) -->
+    <div class="product-card product-card--soon" data-category="sleep">
+      <div class="product-card__cover product-card__cover--slate">
+        <div class="product-card__cover-inner">
+          <div class="product-card__cover-brand">Untangle</div>
+          <div class="product-card__cover-title">Better<br/><em>Sleep Reset</em></div>
+          <div class="product-card__cover-pill">Coming Soon</div>
+        </div>
+        <span class="product-card__badge badge--soon">Coming Soon</span>
+      </div>
+      <div class="product-card__body">
+        <div class="product-card__category">Sleep &amp; Wind-Down</div>
+        <div class="product-card__title">The 7-Night Sleep Reset Guide</div>
+        <p class="product-card__desc">A structured 7-night protocol to fix your wind-down routine, quiet racing thoughts at bedtime, and wake up actually rested.</p>
+        <div class="product-card__meta">
+          <span class="product-card__tag">7-Night Program</span>
+          <span class="product-card__tag">Sleep Science</span>
+          <span class="product-card__tag">Instant PDF</span>
+        </div>
+        <div class="product-card__footer">
+          <div class="product-card__price">$14 <span>one-time</span></div>
+          <a class="btn product-card__btn product-card__btn--disabled">Notify Me</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 — COMING SOON -->
+    <div class="product-card product-card--soon" data-category="focus">
+      <div class="product-card__cover product-card__cover--warm">
+        <div class="product-card__cover-inner">
+          <div class="product-card__cover-brand">Untangle</div>
+          <div class="product-card__cover-title">Deep<br/><em>Focus Guide</em></div>
+          <div class="product-card__cover-pill">Coming Soon</div>
+        </div>
+        <span class="product-card__badge badge--soon">Coming Soon</span>
+      </div>
+      <div class="product-card__body">
+        <div class="product-card__category">Focus &amp; Productivity</div>
+        <div class="product-card__title">The Focus Repair Guide</div>
+        <p class="product-card__desc">Rebuild your ability to concentrate without relying on apps, timers, or willpower. Practical exercises drawn from attention research.</p>
+        <div class="product-card__meta">
+          <span class="product-card__tag">5-Day Program</span>
+          <span class="product-card__tag">Attention Research</span>
+          <span class="product-card__tag">Instant PDF</span>
+        </div>
+        <div class="product-card__footer">
+          <div class="product-card__price">$14 <span>one-time</span></div>
+          <a class="btn product-card__btn product-card__btn--disabled">Notify Me</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SUGGEST A TOPIC -->
+  <div class="suggest-banner">
+    <h2>Want a guide on something specific?</h2>
+    <p>Tell us what you're struggling with. We build based on what you actually need.</p>
+    <form onsubmit="handleSuggest(event)">
+      <input type="text" id="suggest-input" placeholder="e.g. social anxiety, morning routine, burnout..." />
+      <button type="submit" class="btn btn--sage">Send Idea</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer__logo">Untangle</span>
+    <div style="display:flex;gap:24px;">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <span>© 2026 Untangle. All rights reserved.</span>
+  </footer>
+
+  <script>
+    // Filter tabs
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.product-card');
+    const countEl = document.getElementById('catalog-count');
+
+    function updateCount() {
+      const visible = [...cards].filter(c => c.style.display !== 'none').length;
+      countEl.textContent = `${visible} guide${visible !== 1 ? 's' : ''} available`;
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.filter;
+        cards.forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+        });
+        updateCount();
+      });
+    });
+
+    updateCount();
+
+    // Suggest form
+    function handleSuggest(e) {
+      e.preventDefault();
+      const val = document.getElementById('suggest-input').value.trim();
+      if (!val) return;
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Thanks!';
+      btn.disabled = true;
+      document.getElementById('suggest-input').value = '';
+      setTimeout(() => { btn.textContent = 'Send Idea'; btn.disabled = false; }, 3000);
+    }
+  </script>
+
+</body>
+</html>
