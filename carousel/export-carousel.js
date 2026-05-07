@@ -19,13 +19,18 @@ const folder = `${mm}-${dd}-${yy}`;
 const outDir = path.resolve(__dirname, folder);
 if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-// ── Carousels to export ──────────────────────────────────────────────────────
-// prefix: filename prefix for the slides, e.g. "slide" → slide-01.png
-const CAROUSELS = [
-  { file: 'carousel.html',         prefix: 'slide'   },
-  { file: 'carousel-2am.html',     prefix: '2am'     },
-  { file: 'carousel-burnout.html', prefix: 'burnout' },
-];
+// ── TODAY'S CAROUSEL ─────────────────────────────────────────────────────────
+// Change this one line each time you make a new carousel.
+// file:   the HTML file in this folder
+// prefix: the filename prefix for exported PNGs  e.g. "burnout" → burnout-01.png
+const TODAY = { file: 'carousel-burnout.html', prefix: 'burnout' };
+
+// ── History (for reference only — not exported) ──────────────────────────────
+// { file: 'carousel.html',         prefix: 'slide' }   // 05-05-26
+// { file: 'carousel-2am.html',     prefix: '2am'   }   // 05-06-26
+// { file: 'carousel-burnout.html', prefix: 'burnout' } // 05-07-26
+
+const CAROUSELS = [TODAY];
 
 (async () => {
   const browser = await chromium.launch();
