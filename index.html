@@ -497,13 +497,13 @@
       .nav__link { display: none; }
       .nav__burger { display:flex; }
       .nav__right .btn { display:none; }
-      .cat__grid { grid-template-columns:repeat(2,1fr); gap:12px; }
-      .cat__card { aspect-ratio:1; padding:22px 20px; border-radius:16px; }
-      .cat__icon { margin-bottom:10px; }
+      .cat__grid { grid-template-columns:repeat(2,1fr); gap:12px; margin:0 auto; max-width:100%; }
+      .cat__card { aspect-ratio:1; padding:22px 20px; border-radius:16px; align-items:center; text-align:center; }
+      .cat__icon { margin-bottom:10px; display:flex; justify-content:center; }
       .cat__icon svg { width:22px; height:22px; }
       .cat__title { font-size:1rem; margin-bottom:0; }
       .cat__sub { display:none; }
-      .cat__count { margin-top:auto; padding-top:14px; font-size:0.7rem; }
+      .cat__count { margin-top:auto; padding-top:14px; font-size:0.7rem; align-self:center; display:flex; align-items:center; justify-content:center; text-align:center; }
       .carousel-track { height:420px; }
       .guide-card { width:260px; }
       .guide-card.is-peek-left { transform:translate(calc(-50% - 280px),-50%) scale(0.86); }
