@@ -22,8 +22,9 @@ if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 // ── Carousels to export ──────────────────────────────────────────────────────
 // prefix: filename prefix for the slides, e.g. "slide" → slide-01.png
 const CAROUSELS = [
-  { file: 'carousel.html',     prefix: 'slide' },
-  { file: 'carousel-2am.html', prefix: '2am'   },
+  { file: 'carousel.html',         prefix: 'slide'   },
+  { file: 'carousel-2am.html',     prefix: '2am'     },
+  { file: 'carousel-burnout.html', prefix: 'burnout' },
 ];
 
 (async () => {
@@ -65,21 +66,22 @@ const CAROUSELS = [
   await browser.close();
 
   // ── Write carousel caption ───────────────────────────────────────────────
-  const caption = `It's 2am and your brain won't stop. Here's what actually helps.
+  const caption = `You think you would know if you were burned out.
 
-01. Brain dump everything — get it out of your head and onto paper.
-02. 4-7-8 breathing — inhale 4, hold 7, out for 8. Do it 3 times.
-03. Name it out loud — "I'm worried about X." Naming breaks the spiral.
-04. The 20-minute rule — can't sleep? Get up. Come back only when tired.
-05. Tomorrow is not tonight — write "deal with tomorrow" and close it.
+Most people don't. Here's what burnout actually looks like:
 
-Save this for the next time your brain decides 2am is the right time to catastrophise.
+01. Scrolling for two hours and remembering nothing
+02. Coming back from a trip just as hollow as when you left
+03. Not falling apart at work. Just feeling nothing at home.
+04. Waking up Monday morning just as empty as Friday night
 
-And if this keeps happening — the Stop Overthinking guide walks you through 7 days of exercises that actually rewire the habit. 10 minutes a day. Link in bio.
+If any of these hit — you are not lazy. You are running on empty.
+
+The Running on Empty guide walks you through 7 days of honest, practical steps to find what is draining you and rebuild energy that actually lasts. 10 minutes a day. Link in bio.
 
 —
 
-#overthinking #sleepanxiety #cantsleep #2am #anxietyrelief #mentalhealth #quietmind #cbt #stopoverthinking #mentalhealthtips #anxietymanagement #selfhelp #mindset #innerpeace #untangle`;
+#burnout #burnoutrecovery #mentalhealth #exhausted #runningonempty #energymanagement #selfcare #cbt #mentalhealthtips #burnoutawareness #selfhelp #mindset #innerpeace #digitaldownload #untangle`;
 
   const captionPath = path.join(outDir, 'carousel-caption.txt');
   fs.writeFileSync(captionPath, caption, 'utf8');

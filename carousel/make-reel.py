@@ -25,18 +25,19 @@ PEXELS_API_KEY = "QAOIVsrWbKt1Q5r30bxwIqQ4I2ERGpJSh0aubDZd6r7g89jl579zRI7l"   # 
 # sage   = Georgia Bold Italic, sage green — the resolution/hope lines
 # small  = Arial, dimmer — CTA
 REEL_LINES = [
-    {"text": "Did I say the wrong thing?",      "style": "italic", "duration": 2.2},
-    {"text": "What if they're mad at me?",      "style": "italic", "duration": 2.2},
-    {"text": "I should have just",              "style": "italic", "duration": 1.8},
-    {"text": "But what if",                     "style": "italic", "duration": 1.6},
-    {"text": "STOP.",                           "style": "impact", "duration": 2.0},
-    {"text": "This is a thought loop.",         "style": "body",   "duration": 2.2},
-    {"text": "It can be broken.",               "style": "sage",   "duration": 2.4},
-    {"text": "7 Days.\n10 Minutes a Day.",      "style": "impact", "duration": 2.8},
+    {"text": "You have been giving.",           "style": "italic", "duration": 2.2},
+    {"text": "Every single day.",               "style": "italic", "duration": 1.8},
+    {"text": "To work.",                        "style": "italic", "duration": 1.4},
+    {"text": "To the people you love.",         "style": "italic", "duration": 2.0},
+    {"text": "To things that never end.",       "style": "italic", "duration": 2.0},
+    {"text": "When did you last refill?",       "style": "impact", "duration": 3.0},
+    {"text": "You are not lazy.",               "style": "body",   "duration": 2.0},
+    {"text": "You are depleted.",               "style": "sage",   "duration": 2.6},
+    {"text": "7 Days to find your way back.",   "style": "impact", "duration": 2.8},
     {"text": "Link in bio.",                    "style": "small",  "duration": 2.0},
 ]
 
-PEXELS_QUERY = "dark bedroom night insomnia awake"
+PEXELS_QUERY = "golden sunset road horizon empty highway"
 FADE_FRAMES  = 12
 
 W, H = 1080, 1920                      # vertical 9:16
@@ -307,15 +308,15 @@ def write_reel_caption(lines, folder):
     if body:
         parts += [body, ""]
     parts += [
-        "If your brain does this at 2am, you're not broken. You're stuck in a loop that can be unlearned.",
+        "You are not lazy. You are not weak. You are running on empty.",
         "",
-        "The Stop Overthinking guide gives you 7 days of CBT-backed exercises. 10 minutes a day. No therapist. No app.",
+        "The Running on Empty guide gives you 7 days of honest, practical steps to find what is draining you and rebuild energy that actually lasts. 10 minutes a day. No therapist. No app.",
         "",
         "Link in bio to grab it for $14.",
         "",
         "—",
         "",
-        "#overthinking #mentalhealth #anxietyrelief #quietmind #cbt #anxietymanagement #selfhelp #mindset #mentalhealthtips #stopoverthinking #mentalhealthawareness #innerpeace #digitaldownload #selfhelpbooks #untangle",
+        "#burnout #burnoutrecovery #mentalhealth #exhausted #runningonempty #energymanagement #selfcare #cbt #mentalhealthtips #burnoutawareness #selfhelp #mindset #innerpeace #digitaldownload #untangle",
     ]
     caption_path = folder / "reel-caption.txt"
     caption_path.write_text("\n".join(parts), encoding="utf-8")
