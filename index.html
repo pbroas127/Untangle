@@ -375,7 +375,8 @@
     .how__desc { font-size:0.88rem; color:var(--mid); line-height:1.6; }
     /* CATEGORIES */
     .categories { padding:100px 24px; background:var(--white); }
-    .cat__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; max-width:1100px; margin:0 auto; }
+    .cat__grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:1100px; margin:0 auto; }
+    .cat__cta { text-align:center; margin-top:36px; }
     .cat__card { border-radius:var(--radius-lg); padding:32px 26px; border:1px solid var(--border); cursor:pointer; text-decoration:none; display:block; transition:transform .2s,box-shadow .2s; }
     .cat__card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
     .cat__card--sage { background:var(--sage); }
@@ -390,23 +391,79 @@
     .cat__count { display:inline-block; margin-top:14px; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:20px; }
     .cat__card--sage .cat__count { background:rgba(255,255,255,.15); color:#fff; }
     .cat__card--warm .cat__count,.cat__card--light .cat__count,.cat__card--cream .cat__count { background:var(--sage-light); color:var(--sage); }
-    /* FEATURED SCROLL */
-    .featured { padding:100px 0 100px 24px; background:var(--warm); overflow:hidden; }
-    .featured__header { max-width:1100px; margin:0 auto 40px; padding-right:24px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; }
-    .featured__scroll { display:flex; gap:22px; overflow-x:auto; padding-right:24px; padding-bottom:12px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-    .featured__scroll::-webkit-scrollbar { display:none; }
-    .guide-card { flex:0 0 300px; scroll-snap-align:start; background:var(--white); border-radius:20px; border:1px solid var(--border); overflow:hidden; transition:box-shadow .25s,transform .25s; text-decoration:none; display:flex; flex-direction:column; }
-    .guide-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-3px); }
-    .guide-card__cover { height:180px; display:flex; align-items:center; justify-content:center; position:relative; }
+    .cat__card--amber { background:#C4713A; }
+    .cat__card--amber .cat__icon,.cat__card--amber .cat__title,.cat__card--amber .cat__sub { color:#fff; }
+    .cat__card--amber .cat__sub { color:rgba(255,255,255,.65); }
+    .cat__card--amber .cat__count { background:rgba(255,255,255,.15); color:#fff; }
+
+    /* FEATURED / PICK-WHEEL CAROUSEL */
+    .featured { padding:100px 0; background:var(--warm); }
+    .featured__header { max-width:900px; margin:0 auto 48px; padding:0 24px; text-align:center; }
+    .featured__eyebrow { display:block; }
+    .featured__title { font-size:clamp(1.6rem,3vw,2.4rem); margin:6px 0 0; }
+
+    .carousel-wrap { position:relative; display:flex; align-items:center; justify-content:center; gap:0; padding:0 0 48px; }
+    .carousel-arrow {
+      position:absolute; top:50%; transform:translateY(-60%); z-index:10;
+      width:48px; height:48px; border-radius:50%;
+      background:var(--white); border:1.5px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:all .2s; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+      flex-shrink:0;
+    }
+    .carousel-arrow:hover { background:var(--dark); border-color:var(--dark); color:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.18); }
+    .carousel-arrow:hover svg { stroke:#fff; }
+    .carousel-arrow svg { stroke:var(--dark); transition:stroke .2s; }
+    .carousel-arrow--prev { left:max(24px, calc(50% - 530px)); }
+    .carousel-arrow--next { right:max(24px, calc(50% - 530px)); }
+
+    .carousel-track {
+      width:100%; max-width:960px;
+      height:460px;
+      position:relative; overflow:hidden;
+      mask-image:linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+      -webkit-mask-image:linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+    }
+    .guide-card {
+      position:absolute; top:50%; width:290px;
+      background:var(--white); border-radius:20px; border:1px solid var(--border);
+      overflow:hidden; text-decoration:none; display:flex; flex-direction:column;
+      transition: transform .52s cubic-bezier(0.4,0,0.2,1),
+                  opacity .52s cubic-bezier(0.4,0,0.2,1),
+                  box-shadow .3s;
+      will-change:transform,opacity;
+      pointer-events:none;
+    }
+    .guide-card.is-center {
+      transform:translate(-50%,-50%) scale(1);
+      opacity:1; z-index:3; pointer-events:auto;
+      box-shadow:0 12px 48px rgba(0,0,0,0.13);
+    }
+    .guide-card.is-peek-left {
+      transform:translate(calc(-50% - 320px),-50%) scale(0.86);
+      opacity:0.38; z-index:2;
+    }
+    .guide-card.is-peek-right {
+      transform:translate(calc(-50% + 320px),-50%) scale(0.86);
+      opacity:0.38; z-index:2;
+    }
+    .guide-card.is-gone-left {
+      transform:translate(calc(-50% - 680px),-50%) scale(0.7);
+      opacity:0; z-index:1;
+    }
+    .guide-card.is-gone-right {
+      transform:translate(calc(-50% + 680px),-50%) scale(0.7);
+      opacity:0; z-index:1;
+    }
+    .guide-card.no-transition { transition:none !important; }
+    .guide-card:hover.is-center { box-shadow:0 16px 56px rgba(0,0,0,0.18); transform:translate(-50%,-52%) scale(1); }
+
+    .guide-card__cover { height:180px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0; }
     .guide-card__cover--sage { background:linear-gradient(140deg,#2A4030 0%,#3B5740 60%,#4a6b51 100%); }
     .guide-card__cover--slate { background:linear-gradient(140deg,#1e2a3a 0%,#2c3e55 100%); }
     .guide-card__cover--warm { background:linear-gradient(140deg,#3d2b1f 0%,#7a5035 100%); }
     .guide-card__cover--amber { background:linear-gradient(140deg,#7a3b1e 0%,#9A5228 50%,#C4713A 100%); }
     .badge--live-amber { background:#fff; color:#C4713A; }
-    .cat__card--amber { background:#C4713A; }
-    .cat__card--amber .cat__icon,.cat__card--amber .cat__title,.cat__card--amber .cat__sub { color:#fff; }
-    .cat__card--amber .cat__sub { color:rgba(255,255,255,.65); }
-    .cat__card--amber .cat__count { background:rgba(255,255,255,.15); color:#fff; }
     .guide-card__cover-inner { text-align:center; color:#fff; padding:20px; }
     .guide-card__cover-brand { font-family:'Fraunces',serif; font-size:0.72rem; opacity:.55; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
     .guide-card__cover-title { font-family:'Fraunces',serif; font-size:1.2rem; font-weight:600; line-height:1.2; }
@@ -420,7 +477,10 @@
     .guide-card__desc { font-size:0.84rem; color:var(--mid); line-height:1.55; flex:1; margin-bottom:16px; }
     .guide-card__footer { display:flex; align-items:center; justify-content:space-between; }
     .guide-card__price { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:700; color:var(--dark); }
-    .guide-card--soon { opacity:.7; pointer-events:none; }
+
+    .carousel-dots { display:flex; justify-content:center; gap:8px; }
+    .carousel-dot { width:7px; height:7px; border-radius:50%; background:var(--border); transition:all .3s; cursor:pointer; border:none; padding:0; }
+    .carousel-dot.active { background:var(--sage); width:22px; border-radius:4px; }
 
     @media (max-width: 768px) {
       .hero__inner { grid-template-columns: 1fr; gap: 44px; text-align: center; }
@@ -436,8 +496,15 @@
       .nav__link { display: none; }
       .nav__burger { display:flex; }
       .nav__right .btn { display:none; }
-      .featured { padding-left:16px; }
-      .guide-card { flex:0 0 260px; }
+      .cat__grid { grid-template-columns:repeat(2,1fr); }
+      .carousel-track { height:420px; }
+      .guide-card { width:260px; }
+      .guide-card.is-peek-left { transform:translate(calc(-50% - 280px),-50%) scale(0.86); }
+      .guide-card.is-peek-right { transform:translate(calc(-50% + 280px),-50%) scale(0.86); }
+      .guide-card.is-gone-left { transform:translate(calc(-50% - 580px),-50%) scale(0.7); }
+      .guide-card.is-gone-right { transform:translate(calc(-50% + 580px),-50%) scale(0.7); }
+      .carousel-arrow--prev { left:8px; }
+      .carousel-arrow--next { right:8px; }
     }
   </style>
 </head>
@@ -575,100 +642,118 @@
           <div class="cat__sub">Rebuild your attention span without apps, timers, or willpower.</div>
           <span class="cat__count">Coming soon</span>
         </a>
-        <a class="cat__card cat__card--cream fade-in" href="products.html">
-          <div class="cat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          <div class="cat__title">Confidence &amp; Self-Worth</div>
-          <div class="cat__sub">Stop seeking validation and start trusting your own judgment.</div>
-          <span class="cat__count">Coming soon</span>
-        </a>
+      </div>
+      <div class="cat__cta fade-in">
+        <a class="btn btn--outline" href="products.html" style="padding:14px 32px;font-size:0.92rem;">See All Guides</a>
       </div>
     </div>
   </section>
 
-  <!-- FEATURED GUIDES -->
+  <!-- FEATURED GUIDES — PICK-WHEEL CAROUSEL -->
   <section class="featured" id="product">
     <div class="featured__header fade-in">
-      <div>
-        <span class="section-header__eyebrow" style="text-align:left;display:block;">Featured Guides</span>
-        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);margin:0;">Trending right now</h2>
-      </div>
-      <a class="btn btn--outline" href="products.html" style="flex-shrink:0;">View All Guides</a>
+      <span class="section-header__eyebrow featured__eyebrow">Featured Guides</span>
+      <h2 class="featured__title">Trending right now</h2>
     </div>
-    <div class="featured__scroll">
-      <!-- LIVE -->
-      <a class="guide-card" href="stop-overthinking.html">
-        <div class="guide-card__cover guide-card__cover--sage">
-          <div class="guide-card__cover-inner">
-            <div class="guide-card__cover-brand">Untangle</div>
-            <div class="guide-card__cover-title">Stop<br/><em>Overthinking</em></div>
+
+    <div class="carousel-wrap">
+      <!-- Prev arrow -->
+      <button class="carousel-arrow carousel-arrow--prev" id="carousel-prev" aria-label="Previous guide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <!-- Track -->
+      <div class="carousel-track" id="carousel-track">
+
+        <!-- Card 0: Stop Overthinking -->
+        <a class="guide-card" data-index="0" href="stop-overthinking.html">
+          <div class="guide-card__cover guide-card__cover--sage">
+            <div class="guide-card__cover-inner">
+              <div class="guide-card__cover-brand">Untangle</div>
+              <div class="guide-card__cover-title">Stop<br/><em>Overthinking</em></div>
+            </div>
+            <span class="guide-card__badge badge--live">Best Seller</span>
           </div>
-          <span class="guide-card__badge badge--live">Best Seller</span>
-        </div>
-        <div class="guide-card__body">
-          <div class="guide-card__cat">Anxiety &amp; Overthinking</div>
-          <div class="guide-card__title">The 7-Day Mental Reset</div>
-          <p class="guide-card__desc">CBT backed exercises. 10 minutes a day. Break the spiral for good.</p>
-          <div class="guide-card__footer">
-            <span class="guide-card__price">$14</span>
-            <span class="btn btn--sage" style="padding:10px 20px;font-size:0.84rem;border-radius:100px;">Get it →</span>
+          <div class="guide-card__body">
+            <div class="guide-card__cat">Anxiety &amp; Overthinking</div>
+            <div class="guide-card__title">The 7-Day Mental Reset</div>
+            <p class="guide-card__desc">CBT-backed exercises. 10 minutes a day. Break the spiral for good.</p>
+            <div class="guide-card__footer">
+              <span class="guide-card__price">$14</span>
+              <span class="btn btn--sage" style="padding:10px 20px;font-size:0.84rem;border-radius:100px;">Get it →</span>
+            </div>
           </div>
-        </div>
-      </a>
-      <!-- LIVE: RUNNING ON EMPTY -->
-      <a class="guide-card" href="running-on-empty.html">
-        <div class="guide-card__cover guide-card__cover--amber">
-          <div class="guide-card__cover-inner">
-            <div class="guide-card__cover-brand">Untangle</div>
-            <div class="guide-card__cover-title">Running on<br/><em>Empty</em></div>
+        </a>
+
+        <!-- Card 1: Running on Empty -->
+        <a class="guide-card" data-index="1" href="running-on-empty.html">
+          <div class="guide-card__cover guide-card__cover--amber">
+            <div class="guide-card__cover-inner">
+              <div class="guide-card__cover-brand">Untangle</div>
+              <div class="guide-card__cover-title">Running on<br/><em>Empty</em></div>
+            </div>
+            <span class="guide-card__badge badge--live-amber">New</span>
           </div>
-          <span class="guide-card__badge badge--live-amber">New</span>
-        </div>
-        <div class="guide-card__body">
-          <div class="guide-card__cat">Burnout &amp; Energy</div>
-          <div class="guide-card__title">The 7-Day Burnout Recovery</div>
-          <p class="guide-card__desc">Identify what's draining you and rebuild energy that actually lasts.</p>
-          <div class="guide-card__footer">
-            <span class="guide-card__price">$14</span>
-            <span class="btn" style="padding:10px 20px;font-size:0.84rem;border-radius:100px;background:#C4713A;color:#fff;">Get it →</span>
+          <div class="guide-card__body">
+            <div class="guide-card__cat" style="color:#C4713A;">Burnout &amp; Energy</div>
+            <div class="guide-card__title">The 7-Day Burnout Recovery</div>
+            <p class="guide-card__desc">Identify what's draining you and rebuild energy that actually lasts.</p>
+            <div class="guide-card__footer">
+              <span class="guide-card__price">$14</span>
+              <span class="btn" style="padding:10px 20px;font-size:0.84rem;border-radius:100px;background:#C4713A;color:#fff;">Get it →</span>
+            </div>
           </div>
-        </div>
-      </a>
-      <!-- COMING SOON -->
-      <div class="guide-card guide-card--soon">
-        <div class="guide-card__cover guide-card__cover--slate">
-          <div class="guide-card__cover-inner">
-            <div class="guide-card__cover-brand">Untangle</div>
-            <div class="guide-card__cover-title">Better<br/><em>Sleep Reset</em></div>
+        </a>
+
+        <!-- Card 2: Better Sleep Reset -->
+        <div class="guide-card" data-index="2">
+          <div class="guide-card__cover guide-card__cover--slate">
+            <div class="guide-card__cover-inner">
+              <div class="guide-card__cover-brand">Untangle</div>
+              <div class="guide-card__cover-title">Better<br/><em>Sleep Reset</em></div>
+            </div>
+            <span class="guide-card__badge badge--soon">Coming Soon</span>
           </div>
-          <span class="guide-card__badge badge--soon">Coming Soon</span>
-        </div>
-        <div class="guide-card__body">
-          <div class="guide-card__cat">Sleep &amp; Wind-Down</div>
-          <div class="guide-card__title">The 7-Night Sleep Reset</div>
-          <p class="guide-card__desc">Fix your wind down routine and wake up actually rested.</p>
-          <div class="guide-card__footer">
-            <span class="guide-card__price" style="color:#aaa;">Soon</span>
-          </div>
-        </div>
-      </div>
-      <div class="guide-card guide-card--soon">
-        <div class="guide-card__cover guide-card__cover--warm">
-          <div class="guide-card__cover-inner">
-            <div class="guide-card__cover-brand">Untangle</div>
-            <div class="guide-card__cover-title">Deep<br/><em>Focus Guide</em></div>
-          </div>
-          <span class="guide-card__badge badge--soon">Coming Soon</span>
-        </div>
-        <div class="guide-card__body">
-          <div class="guide-card__cat">Focus &amp; Clarity</div>
-          <div class="guide-card__title">The Focus Repair Guide</div>
-          <p class="guide-card__desc">Rebuild concentration without apps, timers, or willpower tricks.</p>
-          <div class="guide-card__footer">
-            <span class="guide-card__price" style="color:#aaa;">Soon</span>
+          <div class="guide-card__body">
+            <div class="guide-card__cat">Sleep &amp; Wind-Down</div>
+            <div class="guide-card__title">The 7-Night Sleep Reset</div>
+            <p class="guide-card__desc">Fix your wind-down routine and wake up actually rested.</p>
+            <div class="guide-card__footer">
+              <span class="guide-card__price" style="color:#aaa;font-size:0.95rem;font-family:'Inter',sans-serif;font-weight:500;">Coming Soon</span>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <!-- Card 3: Focus Repair -->
+        <div class="guide-card" data-index="3">
+          <div class="guide-card__cover guide-card__cover--warm">
+            <div class="guide-card__cover-inner">
+              <div class="guide-card__cover-brand">Untangle</div>
+              <div class="guide-card__cover-title">Deep<br/><em>Focus Guide</em></div>
+            </div>
+            <span class="guide-card__badge badge--soon">Coming Soon</span>
+          </div>
+          <div class="guide-card__body">
+            <div class="guide-card__cat">Focus &amp; Clarity</div>
+            <div class="guide-card__title">The Focus Repair Guide</div>
+            <p class="guide-card__desc">Rebuild concentration without apps, timers, or willpower tricks.</p>
+            <div class="guide-card__footer">
+              <span class="guide-card__price" style="color:#aaa;font-size:0.95rem;font-family:'Inter',sans-serif;font-weight:500;">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /carousel-track -->
+
+      <!-- Next arrow -->
+      <button class="carousel-arrow carousel-arrow--next" id="carousel-next" aria-label="Next guide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div><!-- /carousel-wrap -->
+
+    <!-- Dots -->
+    <div class="carousel-dots" id="carousel-dots"></div>
+
   </section>
 
 
@@ -823,6 +908,86 @@
         }
       });
     });
+
+    // ── PICK-WHEEL CAROUSEL ──────────────────────────────────────────────────
+    (function() {
+      const cards   = Array.from(document.querySelectorAll('#carousel-track .guide-card'));
+      const dotsWrap = document.getElementById('carousel-dots');
+      const N       = cards.length;
+      let current   = 0;
+      let animating = false;
+
+      // Possible states each card can be in
+      const STATES = ['is-gone-left','is-peek-left','is-center','is-peek-right','is-gone-right'];
+
+      // Build dots
+      cards.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function mod(n, m) { return ((n % m) + m) % m; }
+
+      // Assign classes based on current index
+      function render(skipTransition) {
+        cards.forEach((card, i) => {
+          if (skipTransition) card.classList.add('no-transition');
+          // Remove all state classes
+          STATES.forEach(s => card.classList.remove(s));
+
+          const offset = mod(i - current, N);
+          if      (offset === 0)               card.classList.add('is-center');
+          else if (offset === 1)               card.classList.add('is-peek-right');
+          else if (offset === N - 1)           card.classList.add('is-peek-left');
+          else if (offset === 2)               card.classList.add('is-gone-right');
+          else                                  card.classList.add('is-gone-left');
+        });
+        // Force reflow to apply no-transition, then remove it
+        if (skipTransition) {
+          cards[0].getBoundingClientRect(); // reflow
+          cards.forEach(card => card.classList.remove('no-transition'));
+        }
+        // Update dots
+        document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      function goTo(idx) {
+        if (animating || idx === current) return;
+        animating = true;
+        current = mod(idx, N);
+        render(false);
+        setTimeout(() => { animating = false; }, 540);
+      }
+
+      function next() { goTo(mod(current + 1, N)); }
+      function prev() { goTo(mod(current - 1, N)); }
+
+      document.getElementById('carousel-next').addEventListener('click', next);
+      document.getElementById('carousel-prev').addEventListener('click', prev);
+
+      // Keyboard
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft')  prev();
+      });
+
+      // Touch / swipe
+      let touchStartX = 0;
+      const track = document.getElementById('carousel-track');
+      track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
+      });
+
+      // Initial render (no transition)
+      render(true);
+    })();
   </script>
 
 </body>
