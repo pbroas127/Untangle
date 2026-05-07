@@ -19,6 +19,9 @@
       --sage:       #3B5740;
       --sage-dark:  #2A4030;
       --sage-light: #E8EFE6;
+      --amber:      #C4713A;
+      --amber-dark: #9A5228;
+      --amber-light:#FAEADE;
       --border:     #E4DED4;
       --cream:      #FBF7F0;
       --radius:     12px;
@@ -67,9 +70,10 @@
     .product-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
     .product-card__cover { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .product-card__cover--sage { background: linear-gradient(140deg, #2A4030 0%, #3B5740 60%, #4a6b51 100%); }
+    .product-card__cover--sage  { background: linear-gradient(140deg, #2A4030 0%, #3B5740 60%, #4a6b51 100%); }
     .product-card__cover--slate { background: linear-gradient(140deg, #1e2a3a 0%, #2c3e55 60%, #3a5068 100%); }
-    .product-card__cover--warm { background: linear-gradient(140deg, #3d2b1f 0%, #5c3d28 60%, #7a5035 100%); }
+    .product-card__cover--warm  { background: linear-gradient(140deg, #3d2b1f 0%, #5c3d28 60%, #7a5035 100%); }
+    .product-card__cover--amber { background: linear-gradient(140deg, #7a3b1e 0%, #9A5228 50%, #C4713A 100%); }
     .product-card__cover-inner { text-align: center; color: #fff; padding: 24px; }
     .product-card__cover-brand { font-family: 'Fraunces', serif; font-size: 0.8rem; font-weight: 400; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
     .product-card__cover-title { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
@@ -79,10 +83,15 @@
     /* NEW / COMING SOON badges */
     .product-card__badge { position: absolute; top: 14px; right: 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
     .badge--new { background: #fff; color: var(--sage); }
+    .badge--new-amber { background: #fff; color: var(--amber); }
     .badge--soon { background: rgba(0,0,0,0.35); color: rgba(255,255,255,0.85); }
 
     .product-card__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
     .product-card__category { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+    .product-card__category--amber { color: var(--amber); }
+    .product-card__tag--amber { background: var(--amber-light); color: var(--amber-dark); }
+    .btn--amber { background: var(--amber); color: #FEFCF8; }
+    .btn--amber:hover { background: var(--amber-dark); }
     .product-card__title { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
     .product-card__desc { font-size: 0.88rem; color: #4A4A4A; line-height: 1.6; flex: 1; margin-bottom: 18px; }
     .product-card__meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -157,10 +166,11 @@
     <div class="filter-bar__tabs">
       <button class="filter-tab active" data-filter="all">All Guides</button>
       <button class="filter-tab" data-filter="anxiety">Anxiety</button>
+      <button class="filter-tab" data-filter="burnout">Burnout</button>
       <button class="filter-tab" data-filter="sleep">Sleep</button>
       <button class="filter-tab" data-filter="focus">Focus</button>
     </div>
-    <span class="filter-bar__count" id="catalog-count">1 guide available</span>
+    <span class="filter-bar__count" id="catalog-count">2 guides available</span>
   </div>
 
   <!-- PRODUCT CATALOG -->
@@ -202,7 +212,33 @@
       </div>
     </div>
 
-    <!-- PRODUCT 2 — COMING SOON (duplicate & fill in when ready) -->
+    <!-- PRODUCT 2 — LIVE: RUNNING ON EMPTY -->
+    <div class="product-card" data-category="burnout">
+      <div class="product-card__cover product-card__cover--amber">
+        <div class="product-card__cover-inner">
+          <div class="product-card__cover-brand">Untangle</div>
+          <div class="product-card__cover-title">Running on<br/><em>Empty</em></div>
+          <div class="product-card__cover-pill">18 Pages · PDF Guide</div>
+        </div>
+        <span class="product-card__badge badge--new-amber">New</span>
+      </div>
+      <div class="product-card__body">
+        <div class="product-card__category product-card__category--amber">Burnout &amp; Energy</div>
+        <div class="product-card__title">The 7-Day Burnout Recovery Guide</div>
+        <p class="product-card__desc">Refill your tank without quitting your life. Seven days of honest, practical steps to identify what's draining you and rebuild energy that actually lasts.</p>
+        <div class="product-card__meta">
+          <span class="product-card__tag product-card__tag--amber">7-Day Program</span>
+          <span class="product-card__tag product-card__tag--amber">CBT-Backed</span>
+          <span class="product-card__tag product-card__tag--amber">Instant PDF</span>
+        </div>
+        <div class="product-card__footer">
+          <div class="product-card__price">$14 <span>one-time</span></div>
+          <a class="btn btn--amber product-card__btn" href="running-on-empty.html">View Guide →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 4 — COMING SOON -->
     <div class="product-card product-card--soon" data-category="sleep">
       <div class="product-card__cover product-card__cover--slate">
         <div class="product-card__cover-inner">
@@ -228,7 +264,7 @@
       </div>
     </div>
 
-    <!-- PRODUCT 3 — COMING SOON -->
+    <!-- PRODUCT 5 — COMING SOON -->
     <div class="product-card product-card--soon" data-category="focus">
       <div class="product-card__cover product-card__cover--warm">
         <div class="product-card__cover-inner">

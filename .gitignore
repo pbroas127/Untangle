@@ -1,0 +1,11 @@
+# Large video files — too big for GitHub (use local only)
+carousel/**/*.mp4
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db

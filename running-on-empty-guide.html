@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=816"/>
+  <title>Untangle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* PRINT SETUP */
+    @page { size: 8.5in 11in; margin: 0; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber:       #C4713A;
+      --amber-dark:  #9A5228;
+      --amber-light: #E8A87C;
+      --amber-xlight:#F5D4B8;
+      --dark:        #1A0D06;
+      --dark-2:      #2C1A0E;
+      --mid:         #6B4A30;
+      --light:       #9A7A60;
+      --cream:       #FBF3EC;
+      --warm:        #F5E6D8;
+      --border:      #E8D5C0;
+      --white:       #FEFAF6;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--dark); }
+
+    @media screen {
+      body { background: #1A1A1A; padding: 68px 0 40px; overflow-x: hidden; }
+      .page { margin: 0 auto 16px; border-radius: 4px; box-shadow: 0 8px 48px rgba(0,0,0,0.55); transform-origin: top center; }
+      .page:last-child { margin-bottom: 0; }
+    }
+    @media print {
+      body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
+      .page { box-shadow: none !important; border-radius: 0 !important; transform: none !important; margin: 0 !important; width: 8.5in !important; height: 11in !important; overflow: hidden !important; break-after: page; page-break-after: always; }
+    }
+
+    /* PRINT BAR */
+    #print-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(26,13,6,0.96); backdrop-filter: blur(12px);
+      height: 60px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #print-bar .brand { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; background:linear-gradient(90deg,#fff 0%,#E8A87C 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none; letter-spacing:-0.03em; }
+    #print-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--amber); color: #fff; border: none;
+      padding: 10px 22px; border-radius: 100px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+      transition: all 0.2s; letter-spacing: -0.01em;
+    }
+    #print-btn:hover { background: var(--amber-dark); transform: translateY(-1px); }
+    #print-btn svg { width: 15px; height: 15px; }
+    @media print { #print-bar, #ios-modal { display: none !important; } }
+
+    /* iOS MODAL */
+    #ios-modal { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.72); align-items:center; justify-content:center; padding:20px; }
+    #ios-modal.show { display:flex; }
+    .ios-modal__box { background:#1C1C1C; border-radius:20px; padding:28px 24px 32px; width:100%; max-width:420px; color:#fff; }
+    .ios-modal__title { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600; margin-bottom:6px; }
+    .ios-modal__sub { font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:24px; }
+    .ios-modal__step { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; }
+    .ios-modal__step:last-of-type { margin-bottom:24px; }
+    .ios-modal__num { width:28px; height:28px; border-radius:50%; background:var(--amber); font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+    .ios-modal__text { font-size:0.92rem; line-height:1.5; color:rgba(255,255,255,0.88); }
+    .ios-modal__text strong { color:#fff; }
+    .ios-modal__close { width:100%; padding:15px; background:var(--amber); border:none; border-radius:100px; color:#fff; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer; letter-spacing:-0.01em; }
+    h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.15; letter-spacing: -0.02em; }
+
+    /* PAGE SHELL */
+    .page {
+      width: 8.5in; height: 11in;
+      overflow: hidden; position: relative;
+      page-break-after: always; page-break-inside: avoid;
+      display: flex; flex-direction: column;
+    }
+    .page:last-child { page-break-after: auto; }
+
+    /* COVER */
+    .cover {
+      background-image: url('https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?w=1600&q=85&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      justify-content: space-between;
+    }
+    .cover__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(26,13,6,0.78) 0%, rgba(154,82,40,0.82) 100%);
+    }
+    .cover__content {
+      position: relative; z-index: 2;
+      padding: 0.8in 0.9in;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      height: 11in; color: #fff;
+    }
+    .cover__brand { font-family:'Fraunces',serif; font-size:13pt; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; opacity:0.75; }
+    .cover__main { margin-top: auto; padding-bottom: 0.5in; }
+    .cover__eyebrow { font-size:9pt; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; opacity:0.65; margin-bottom:18px; }
+    .cover__title { font-size:72pt; font-weight:700; line-height:0.92; margin-bottom:16px; }
+    .cover__title em { font-style:italic; font-weight:300; color:rgba(255,255,255,0.82); }
+    .cover__sub { font-size:14pt; font-weight:300; opacity:0.8; line-height:1.5; max-width:4.5in; margin-bottom:40px; }
+    .cover__divider { width:56px; height:2px; background:rgba(255,255,255,0.4); margin-bottom:24px; }
+    .cover__tagline { font-size:11pt; opacity:0.6; font-style:italic; font-family:'Fraunces',serif; }
+    .cover__footer { display:flex; justify-content:space-between; align-items:flex-end; opacity:0.5; font-size:8pt; letter-spacing:0.06em; }
+
+    /* INTERIOR BASE */
+    .interior { background:var(--white); padding:0.55in 0.9in 0.45in; height:11in; }
+    .interior--cream { background:var(--cream); }
+    .interior--amber { background:var(--amber); color:#fff; }
+    .interior--dark  { background:var(--dark-2); color:#fff; }
+    .interior--warm  { background:var(--warm); }
+
+    /* DAY HEADER STRIP */
+    .day-header {
+      margin: -0.55in -0.9in 0.5in;
+      height: 2.6in;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+    .day-header__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,13,6,0.72) 0%, rgba(196,113,58,0.78) 100%);
+    }
+    .day-header__meta {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0.35in 0.9in;
+    }
+    .day-header__day { font-size:9pt; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber-xlight); opacity:0.9; margin-bottom:8px; }
+    .day-header__title { font-family:'Fraunces',serif; font-size:34pt; font-weight:700; color:#fff; line-height:1.05; letter-spacing:-0.02em; }
+    .day-header__title em { font-style:italic; font-weight:300; }
+
+    /* TYPOGRAPHY */
+    .section-label { font-size:8pt; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:10px; }
+    .section-label--light { color:var(--amber-xlight); }
+    .body-lg { font-size:12pt; line-height:1.65; color:var(--mid); }
+    .body-lg strong { color:var(--dark); font-weight:600; }
+    .body-sm { font-size:10pt; line-height:1.6; color:var(--mid); }
+    .body-sm strong { color:var(--dark); font-weight:600; }
+    .page-title { font-family:'Fraunces',serif; font-size:28pt; font-weight:700; color:var(--dark); letter-spacing:-0.03em; line-height:1.1; margin-bottom:18px; }
+    .page-title em { font-style:italic; font-weight:300; color:var(--amber); }
+    .pull-quote { font-family:'Fraunces',serif; font-size:16pt; font-style:italic; font-weight:300; color:var(--amber-dark); line-height:1.45; letter-spacing:-0.01em; border-left:3px solid var(--amber-light); padding-left:20px; margin:20px 0; }
+
+    /* EXERCISE BOXES */
+    .exercise-box { background:var(--warm); border-radius:10px; padding:18px 22px; margin:16px 0; border-left:4px solid var(--amber); }
+    .exercise-box--dark { background:rgba(0,0,0,0.15); border-left-color:var(--amber-light); }
+    .exercise-box__label { font-size:8pt; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:8px; }
+    .exercise-box__label--light { color:var(--amber-xlight); }
+    .exercise-box__text { font-size:10.5pt; line-height:1.55; color:var(--mid); }
+    .exercise-box__text--light { color:rgba(255,255,255,0.82); }
+    .write-line { border-bottom:1px solid var(--border); height:26px; margin-bottom:4px; width:100%; }
+    .write-line--light { border-bottom-color:rgba(255,255,255,0.25); }
+
+    /* CHECKLIST */
+    .checklist { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .checklist li { display:flex; align-items:flex-start; gap:12px; font-size:10.5pt; line-height:1.5; color:var(--mid); }
+    .checklist__box { width:16px; height:16px; border:2px solid var(--amber-light); border-radius:3px; flex-shrink:0; margin-top:2px; }
+    .checklist--light li { color:rgba(255,255,255,0.82); }
+    .checklist--light .checklist__box { border-color:rgba(255,255,255,0.35); }
+
+    /* RATING SCALE */
+    .rating-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .rating-label { font-size:10pt; color:var(--mid); flex:1; line-height:1.4; }
+    .rating-boxes { display:flex; gap:5px; }
+    .rating-box { width:22px; height:22px; border:1.5px solid var(--border); border-radius:4px; }
+
+    /* STAT STRIP */
+    .stat-strip { display:flex; gap:0; border-top:1px solid rgba(255,255,255,0.2); padding-top:28px; margin-top:28px; }
+    .stat { flex:1; padding-right:28px; }
+    .stat + .stat { padding-left:28px; padding-right:0; border-left:1px solid rgba(255,255,255,0.18); }
+    .stat__num { font-family:'Fraunces',serif; font-size:38pt; font-weight:700; color:#fff; line-height:1; margin-bottom:6px; }
+    .stat__label { font-size:9pt; color:rgba(255,255,255,0.62); line-height:1.4; }
+
+    /* TWO COL */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+    /* BACK COVER */
+    .back-cover {
+      background-image: url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1600&q=85&auto=format&fit=crop');
+      background-size:cover; background-position:center;
+    }
+    .back-cover__overlay { position:absolute; inset:0; background:linear-gradient(160deg,rgba(26,13,6,0.88) 0%,rgba(154,82,40,0.92) 100%); }
+    .back-cover__content { position:relative; z-index:2; height:11in; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0.8in; color:#fff; }
+    .back-cover__brand { font-family:'Fraunces',serif; font-size:52pt; font-weight:700; letter-spacing:-0.03em; margin-bottom:16px; }
+    .back-cover__tagline { font-size:13pt; font-weight:300; font-style:italic; opacity:0.7; font-family:'Fraunces',serif; margin-bottom:48px; }
+    .back-cover__url { font-size:10pt; letter-spacing:0.08em; opacity:0.5; text-transform:lowercase; }
+
+    /* PAGE FOOTER */
+    .page-footer { display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:14px; border-top:1px solid var(--border); font-size:7.5pt; color:var(--light); letter-spacing:0.04em; }
+    .page-footer--dark { border-top-color:rgba(255,255,255,0.12); color:rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+<div id="print-bar">
+  <a class="brand" href="index.html">Untangle</a>
+  <button id="print-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Save PDF
+  </button>
+</div>
+
+<div id="ios-modal">
+  <div class="ios-modal__box">
+    <div class="ios-modal__title">Save your PDF</div>
+    <div class="ios-modal__sub">Follow these steps in Safari</div>
+    <div class="ios-modal__step"><div class="ios-modal__num">1</div><div class="ios-modal__text">Tap the <strong>three dots</strong> at the bottom of your screen</div></div>
+    <div class="ios-modal__step"><div class="ios-modal__num">2</div><div class="ios-modal__text">Tap <strong>Share</strong></div></div>
+    <div class="ios-modal__step"><div class="ios-modal__num">3</div><div class="ios-modal__text">Tap <strong>Options</strong> and select <strong>PDF</strong></div></div>
+    <div class="ios-modal__step"><div class="ios-modal__num">4</div><div class="ios-modal__text">Tap <strong>Save to Files</strong></div></div>
+    <button class="ios-modal__close" onclick="document.getElementById('ios-modal').classList.remove('show')">Got it</button>
+  </div>
+</div>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="cover__overlay"></div>
+  <div class="cover__content">
+    <div class="cover__brand">Untangle</div>
+    <div class="cover__main">
+      <div class="cover__eyebrow">Burnout Recovery Guide</div>
+      <div class="cover__title">Running<br/>on <em>Empty</em></div>
+      <div class="cover__sub">The 7-Day Burnout Recovery Guide. Rebuild your energy before the tank runs completely dry.</div>
+      <div class="cover__divider"></div>
+      <div class="cover__tagline">By Untangle</div>
+    </div>
+    <div class="cover__footer">
+      <span>untanglepdfs.com</span>
+      <span>&#169; 2026 Untangle</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: INTRODUCTION -->
+<div class="page interior interior--cream">
+  <div style="margin:-0.55in -0.9in 0.45in; height:1.4in; background:var(--amber); position:relative; flex-shrink:0;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--dark) 0%,var(--amber) 100%);"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:0.22in 0.9in;">
+      <div style="font-family:'Fraunces',serif;font-size:22pt;font-weight:700;color:#fff;letter-spacing:-0.02em;">You Are Not <em style="font-weight:300;">Lazy.</em> You Are Depleted.</div>
+    </div>
+  </div>
+
+  <div class="section-label">What Burnout Actually Is</div>
+  <p class="body-lg" style="margin-bottom:16px;">Burnout is not a character flaw. It is not weakness. It is what happens when you give more than you recover, for too long, with no restoration in between. The tank runs dry. Not because you are broken. Because no one ever taught you how to refill it.</p>
+  <p class="body-lg" style="margin-bottom:20px;">Chronic burnout rewires the way your brain responds to stress. Your cortisol system stays on high alert even when nothing is wrong. Tasks that once felt easy feel impossible. Rest stops feeling restful. You become tired of being tired.</p>
+
+  <div class="pull-quote">"Burnout is not the price of ambition. It is the cost of a system with no recovery built in."</div>
+
+  <div class="section-label" style="margin-top:18px;">How This Guide Works</div>
+  <ul class="checklist">
+    <li><div class="checklist__box"></div>10 minutes a day for 7 days. No more.</li>
+    <li><div class="checklist__box"></div>Each day targets one root cause of burnout with a CBT-backed exercise.</li>
+    <li><div class="checklist__box"></div>You will not be asked to quit your job or overhaul your life. Small, specific changes compound.</li>
+    <li><div class="checklist__box"></div>By Day 7 you will have a personal maintenance system that keeps the tank from hitting empty again.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Untangle — Running on Empty</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 3: DAY 1 -->
+<div class="page interior">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day One</div>
+      <div class="day-header__title">Name the <em>Drain</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;">You cannot fix what you have not named. Most people running on empty have never actually stopped to identify what is draining them. They just feel exhausted and assume everything is the problem. Today you get specific.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Exercise — The Drain List</div>
+    <p class="exercise-box__text" style="margin-bottom:14px;">List every commitment, responsibility, relationship, or habit currently in your life. Next to each, mark whether it gives energy (+), drains it (−), or is neutral (=).</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="two-col" style="margin-top:14px;">
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">Biggest Drain Right Now</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">One Thing Giving Energy</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 1 — Name the Drain</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 4: DAY 2 -->
+<div class="page interior interior--warm">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Two</div>
+      <div class="day-header__title">The Energy <em>Audit</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;">Burnout is often invisible because the drains are spread across many small things, not one big one. An energy audit shows you where your hours actually go, which is usually very different from where you think they go.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Where Does Your Energy Go? — Rate Each Area (1 = Draining, 5 = Energising)</div>
+    <div style="margin-top:10px;">
+      <div class="rating-row"><span class="rating-label">Work / Career responsibilities</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+      <div class="rating-row"><span class="rating-label">Relationships and social obligations</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+      <div class="rating-row"><span class="rating-label">Personal admin and daily logistics</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+      <div class="rating-row"><span class="rating-label">Family and home responsibilities</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+      <div class="rating-row"><span class="rating-label">Time on your phone or social media</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+      <div class="rating-row"><span class="rating-label">Time spent on things you actually enjoy</span><div class="rating-boxes"><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div><div class="rating-box"></div></div></div>
+    </div>
+  </div>
+
+  <div class="exercise-box" style="margin-top:14px;">
+    <div class="exercise-box__label">The Unavoidable Drain — Can You Reduce, Change, or Recover From It?</div>
+    <p class="exercise-box__text" style="margin-bottom:10px;">For your biggest unavoidable drain, answer these three questions:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 2 — The Energy Audit</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 5: DAY 3 -->
+<div class="page interior interior--dark">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Three</div>
+      <div class="day-header__title">The Permission <em>Slip</em></div>
+    </div>
+  </div>
+
+  <div class="section-label section-label--light">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;color:rgba(255,255,255,0.75);">Most burnout is sustained by the belief that rest must be earned. That you can only stop when everything is done. Since everything is never done, you never stop. This is not discipline. It is a thought pattern that can be changed.</p>
+
+  <div class="pull-quote" style="border-left-color:var(--amber-light);color:var(--amber-xlight);">"Rest is not the reward for finishing. Rest is what makes finishing possible."</div>
+
+  <div class="exercise-box exercise-box--dark" style="margin-top:16px;">
+    <div class="exercise-box__label exercise-box__label--light">Exercise — Write Your Permission Slip</div>
+    <p class="exercise-box__text exercise-box__text--light" style="margin-bottom:14px;">Complete the following out loud, then write it down.</p>
+    <p style="font-size:10.5pt;color:rgba(255,255,255,0.65);margin-bottom:8px;">I, <span style="border-bottom:1px solid rgba(255,255,255,0.3);display:inline-block;width:160px;">&nbsp;</span>, give myself permission to rest without guilt.</p>
+    <p style="font-size:10.5pt;color:rgba(255,255,255,0.65);margin-bottom:8px;">I am allowed to say no to <span style="border-bottom:1px solid rgba(255,255,255,0.3);display:inline-block;width:200px;">&nbsp;</span>.</p>
+    <p style="font-size:10.5pt;color:rgba(255,255,255,0.65);margin-bottom:16px;">I do not need to earn my own recovery.</p>
+    <div class="write-line write-line--light"></div>
+    <div class="write-line write-line--light"></div>
+    <div class="write-line write-line--light"></div>
+  </div>
+
+  <div style="margin-top:18px;">
+    <div class="section-label section-label--light">The CBT Reframe</div>
+    <ul class="checklist checklist--light" style="margin-top:8px;">
+      <li><div class="checklist__box"></div>Old belief: "I can rest when everything is done."</li>
+      <li><div class="checklist__box"></div>New belief: "Scheduled rest makes everything else more sustainable."</li>
+      <li><div class="checklist__box"></div>Rest is a strategy, not a reward.</li>
+    </ul>
+  </div>
+
+  <div class="page-footer page-footer--dark">
+    <span>Day 3 — The Permission Slip</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 6: DAY 4 -->
+<div class="page interior">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Four</div>
+      <div class="day-header__title">Set One <em>Boundary</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;">A boundary is not a wall. It is a decision about what you will and will not take on, communicated clearly. Most people in burnout have never said no to a single thing from their drain list. Today you say no to one thing. One is enough to start.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Choose Your One No</div>
+    <p class="exercise-box__text" style="margin-bottom:12px;">Look at your drain list from Day 1. Choose one item you can say no to this week. Write it here:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="exercise-box" style="margin-top:14px;">
+    <div class="exercise-box__label">The Script — Use These Exact Words</div>
+    <p class="exercise-box__text" style="margin-bottom:12px;">You do not need to explain, justify, or apologise. Choose one of the following:</p>
+    <ul class="checklist" style="gap:8px;">
+      <li><div class="checklist__box"></div><span>"I cannot take that on right now. Thank you for thinking of me."</span></li>
+      <li><div class="checklist__box"></div><span>"That does not work for me this week."</span></li>
+      <li><div class="checklist__box"></div><span>"I am at capacity at the moment. I will let you know when that changes."</span></li>
+    </ul>
+  </div>
+
+  <div class="two-col" style="margin-top:14px;">
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">Who Are You Saying No To?</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">How Does That Feel?</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 4 — Set One Boundary</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 7: DAY 5 -->
+<div class="page interior interior--cream">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Five</div>
+      <div class="day-header__title">Refill the <em>Tank</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;">Not all rest is restoration. Scrolling your phone, watching TV, lying on the sofa worrying — these are not refills. They are neutral at best, draining at worst. True restoration is specific to you, and it has to be scheduled or it will not happen.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Your Restoration List — What Actually Refills You?</div>
+    <p class="exercise-box__text" style="margin-bottom:12px;">List 8 activities that leave you feeling genuinely better, not just distracted. Think physical, creative, social, and solitary.</p>
+    <div class="two-col">
+      <div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-box" style="margin-top:14px;">
+    <div class="exercise-box__label">Schedule One Restoration This Week</div>
+    <p class="exercise-box__text" style="margin-bottom:10px;">What will you do? When? For how long? Write it as a non-negotiable appointment.</p>
+    <p style="font-size:10pt;color:var(--mid);margin-bottom:6px;">Activity: <span style="border-bottom:1px solid var(--border);display:inline-block;width:200px;">&nbsp;</span></p>
+    <p style="font-size:10pt;color:var(--mid);margin-bottom:6px;">Day and time: <span style="border-bottom:1px solid var(--border);display:inline-block;width:170px;">&nbsp;</span></p>
+    <p style="font-size:10pt;color:var(--mid);">Duration: <span style="border-bottom:1px solid var(--border);display:inline-block;width:190px;">&nbsp;</span></p>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 5 — Refill the Tank</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 8: DAY 6 -->
+<div class="page interior">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Six</div>
+      <div class="day-header__title">Redesign <em>Your Day</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:16px;">Your current daily structure was built around other people's needs and deadlines. It almost certainly has no recovery windows built in. Today you redesign it with one goal: protect your energy at the structural level so recovery is automatic, not effortful.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Build Your Recovery Structure</div>
+    <p class="exercise-box__text" style="margin-bottom:12px;">Fill in a version of your ideal day that includes the four anchors below. These do not need to be long. Even 10 minutes counts.</p>
+    <p style="font-size:10pt;color:var(--mid);margin-bottom:7px;"><strong style="color:var(--amber);">Morning anchor</strong> (10 min just for you before demands begin): <span style="border-bottom:1px solid var(--border);display:inline-block;width:260px;">&nbsp;</span></p>
+    <p style="font-size:10pt;color:var(--mid);margin-bottom:7px;"><strong style="color:var(--amber);">Peak energy window</strong> (protect this for your most important work): <span style="border-bottom:1px solid var(--border);display:inline-block;width:235px;">&nbsp;</span></p>
+    <p style="font-size:10pt;color:var(--mid);margin-bottom:7px;"><strong style="color:var(--amber);">Midday reset</strong> (a genuine break, not eating at your desk): <span style="border-bottom:1px solid var(--border);display:inline-block;width:270px;">&nbsp;</span></p>
+    <p style="font-size:10pt;color:var(--mid);"><strong style="color:var(--amber);">Evening wind down</strong> (one hour before sleep, no screens): <span style="border-bottom:1px solid var(--border);display:inline-block;width:255px;">&nbsp;</span></p>
+  </div>
+
+  <div class="exercise-box" style="margin-top:14px;">
+    <div class="exercise-box__label">One Thing to Remove From Tomorrow</div>
+    <p class="exercise-box__text" style="margin-bottom:10px;">What one task or commitment can you either cancel, delegate, or move to next week?</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 6 — Redesign Your Day</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 9: DAY 7 -->
+<div class="page interior interior--warm">
+  <div class="day-header" style="background-image:url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1200&q=85&auto=format&fit=crop');">
+    <div class="day-header__overlay"></div>
+    <div class="day-header__meta">
+      <div class="day-header__day">Day Seven</div>
+      <div class="day-header__title">The Maintenance <em>Plan</em></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Matters</div>
+  <p class="body-sm" style="margin-bottom:14px;">The tank drained because the system was broken. The goal of Day 7 is not to fix everything at once. It is to build a simple monitoring system so you catch yourself before hitting empty again.</p>
+
+  <div class="exercise-box">
+    <div class="exercise-box__label">Your Weekly Check-In — Every Sunday, Rate Your Tank</div>
+    <p class="exercise-box__text" style="margin-bottom:10px;">Circle your number. If it drops below 4 two weeks in a row, activate your boundary from Day 4.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+      <span style="font-size:9pt;color:var(--mid);">Empty</span>
+      <div style="display:flex;gap:8px;">
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">1</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">2</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">3</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">4</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">5</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">6</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">7</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">8</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:var(--mid);">9</div>
+        <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--amber);background:var(--amber);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11pt;color:#fff;">10</div>
+      </div>
+      <span style="font-size:9pt;color:var(--mid);">Full</span>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:14px;gap:14px;">
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">Early Warning Signs</div>
+      <p class="exercise-box__text" style="margin-bottom:8px;">What does it feel like when you are heading toward empty? Write your personal signals.</p>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+    <div class="exercise-box" style="margin:0;">
+      <div class="exercise-box__label">Your Recovery Trigger</div>
+      <p class="exercise-box__text" style="margin-bottom:8px;">When you see the warning signs, what is the first thing you will do?</p>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Day 7 — The Maintenance Plan</span>
+    <span>untanglepdfs.com</span>
+  </div>
+</div>
+
+<!-- PAGE 10: CLOSING -->
+<div class="page interior interior--amber">
+  <div style="height:100%;display:flex;flex-direction:column;justify-content:center;padding:0.4in 0;">
+
+    <div class="section-label" style="color:rgba(255,255,255,0.6);margin-bottom:24px;">You Made It Through 7 Days</div>
+
+    <div style="font-family:'Fraunces',serif;font-size:36pt;font-weight:700;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin-bottom:28px;">
+      The tank does not<br/>have to stay <em style="font-weight:300;">empty.</em>
+    </div>
+
+    <p style="font-size:12pt;color:rgba(255,255,255,0.82);line-height:1.65;max-width:5.5in;margin-bottom:32px;">Recovery from burnout is not a single event. It is a practice. Some weeks will be harder than others. Some weeks the tank will dip again. That is not failure. That is being human.</p>
+    <p style="font-size:12pt;color:rgba(255,255,255,0.82);line-height:1.65;max-width:5.5in;margin-bottom:40px;">What you have built this week is a system. A way of checking in with yourself, naming what is wrong, and taking one deliberate action. That is everything.</p>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:32px;">
+      <div style="font-size:9pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:18px;">What Comes Next</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:16px 20px;flex:1;">
+          <div style="font-family:'Fraunces',serif;font-size:14pt;font-weight:600;color:#fff;margin-bottom:6px;">Stop Overthinking</div>
+          <div style="font-size:9.5pt;color:rgba(255,255,255,0.65);line-height:1.45;">Break the thought loop that keeps you up at night. The 7-Day Mental Reset Guide.</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:16px 20px;flex:1;">
+          <div style="font-family:'Fraunces',serif;font-size:14pt;font-weight:600;color:#fff;margin-bottom:6px;">More guides coming</div>
+          <div style="font-size:9.5pt;color:rgba(255,255,255,0.65);line-height:1.45;">Visit untanglepdfs.com to see the full collection as it grows.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding-top:24px;border-top:1px solid rgba(255,255,255,0.15);display:flex;justify-content:space-between;font-size:8pt;color:rgba(255,255,255,0.35);">
+      <span>Untangle — Running on Empty</span>
+      <span>untanglepdfs.com</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 11: BACK COVER -->
+<div class="page back-cover">
+  <div class="back-cover__overlay"></div>
+  <div class="back-cover__content">
+    <div class="back-cover__brand">Untangle</div>
+    <div class="back-cover__tagline">Practical guides for a quieter mind.</div>
+    <div style="width:48px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 32px;"></div>
+    <div class="back-cover__url">untanglepdfs.com</div>
+  </div>
+</div>
+
+<script>
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  document.getElementById('print-btn').addEventListener('click', function() {
+    if (isIOS) {
+      var a = document.createElement('a');
+      a.href = 'running-on-empty.pdf';
+      a.download = 'Running-on-Empty-Guide.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      window.print();
+    }
+  });
+
+  document.getElementById('ios-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+
+  function scalePages() {
+    var pageW = 816;
+    var pageH = 1056;
+    var vw = window.screen.width;
+    if (vw < pageW) {
+      var scale = vw / pageW;
+      var gap = pageH * (scale - 1);
+      document.querySelectorAll('.page').forEach(function(p) {
+        p.style.transform = 'scale(' + scale + ')';
+        p.style.marginBottom = (gap + 16) + 'px';
+      });
+    } else {
+      document.querySelectorAll('.page').forEach(function(p) {
+        p.style.transform = '';
+        p.style.marginBottom = '';
+      });
+    }
+  }
+  scalePages();
+  window.addEventListener('resize', scalePages);
+</script>
+</body>
+</html>

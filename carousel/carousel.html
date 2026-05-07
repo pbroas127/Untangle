@@ -83,7 +83,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: 48px 56px;
+      padding: 64px 72px;
     }
     .s1__top {
       display: flex;
@@ -91,8 +91,12 @@
       align-items: center;
     }
     .s1__body {
-      margin-top: auto;
-      margin-bottom: 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
     .s1__eyebrow {
       font-size: 14px;
@@ -137,7 +141,8 @@
       color: rgba(255,255,255,0.5);
       letter-spacing: 0.04em;
     }
-    .s1__swipe svg { opacity: 0.5; }
+    .s1__swipe { display: none; }
+    .s1__footer { display: none; }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
        SLIDE 2 — THE PROBLEM
@@ -146,13 +151,14 @@
       background: var(--cream);
       display: flex;
       flex-direction: column;
-      padding: 56px;
+      justify-content: space-between;
+      padding: 64px 72px;
     }
     .s2__top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 64px;
+      margin-bottom: 0;
     }
     .s2__top .brand-tag { color: var(--sage); }
     .s2__top .slide-num { color: var(--mid); }
@@ -171,7 +177,7 @@
       line-height: 0.95;
       color: var(--dark);
       letter-spacing: -0.03em;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
     .s2__title em {
       font-style: italic;
@@ -182,7 +188,6 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-top: auto;
     }
     .s2__item {
       display: flex;
@@ -212,18 +217,23 @@
       background: var(--sage);
       display: flex;
       flex-direction: column;
-      padding: 56px;
+      justify-content: space-between;
+      padding: 64px 72px;
     }
     .s3__top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: auto;
     }
     .s3__top .brand-tag { color: rgba(255,255,255,0.55); }
     .s3__top .slide-num { color: rgba(255,255,255,0.45); }
     .s3__body {
-      margin-bottom: 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 24px;
     }
     .s3__label {
       font-size: 12px;
@@ -458,10 +468,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: auto;
     }
     .s6__body {
-      margin-bottom: 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .s6__label {
       font-size: 13px;
@@ -473,7 +486,7 @@
     }
     .s6__title {
       font-family: 'Fraunces', serif;
-      font-size: 72px;
+      font-size: 100px;
       font-weight: 700;
       line-height: 0.95;
       color: #fff;
@@ -486,7 +499,7 @@
       color: rgba(255,255,255,0.78);
     }
     .s6__sub {
-      font-size: 20px;
+      font-size: 24px;
       color: rgba(255,255,255,0.65);
       line-height: 1.5;
       margin-bottom: 44px;
@@ -502,8 +515,8 @@
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.22);
       border-radius: 100px;
-      padding: 10px 24px;
-      font-size: 14px;
+      padding: 14px 28px;
+      font-size: 17px;
       font-weight: 500;
       color: rgba(255,255,255,0.8);
     }
@@ -516,8 +529,8 @@
       background: #fff;
       color: var(--sage-dark);
       border-radius: 100px;
-      padding: 20px 48px;
-      font-size: 18px;
+      padding: 24px 56px;
+      font-size: 22px;
       font-weight: 700;
       font-family: 'Inter', sans-serif;
       letter-spacing: -0.01em;
@@ -527,12 +540,12 @@
     }
     .s6__price {
       font-family: 'Fraunces', serif;
-      font-size: 28px;
+      font-size: 40px;
       font-weight: 700;
       color: #fff;
     }
     .s6__price-label {
-      font-size: 13px;
+      font-size: 16px;
       color: rgba(255,255,255,0.5);
       margin-top: 2px;
     }
@@ -542,6 +555,25 @@
       color: rgba(255,255,255,0.5);
       letter-spacing: 0.02em;
     }
+
+    /* ── CENTER OVERRIDE ── */
+    .s1__body, .s1__sub, .s1__eyebrow, .s1__footer { text-align: center; align-items: center; justify-content: center; }
+    .s2 { text-align: center; }
+    .s2__label, .s2__title { text-align: center; }
+    .s2__items { align-items: center; }
+    .s2__item { justify-content: center; text-align: center; }
+    .s2__dot { display: none; }
+    .s3__body, .s3__label, .s3__headline, .s3__sub { text-align: center; align-items: center; }
+    .s3__stat { text-align: center; }
+    .s4__label, .s4__title { text-align: center; }
+    .s4__card { align-items: center; text-align: center; }
+    .s5__body { text-align: center; align-items: center; }
+    .s5__accent { align-self: center; }
+    .s5__stars { justify-content: center; }
+    .s5__attr { justify-content: center; }
+    .s6__body, .s6__label, .s6__title, .s6__sub { text-align: center; align-items: center; }
+    .s6__pill-row { justify-content: center; }
+    .s6__cta-box { justify-content: center; }
   </style>
 </head>
 <body>
@@ -563,9 +595,6 @@
       <div class="s1__headline">
         Your brain<br/>isn't <em>broken.</em><br/>It's stuck<br/>in a loop.
       </div>
-      <div class="s1__sub">
-        And there's a proven way out. Swipe to see how.
-      </div>
     </div>
 
     <div class="s1__footer">
@@ -586,27 +615,16 @@
     <span class="slide-num">02 / 06</span>
   </div>
 
-  <div class="s2__label">Sound familiar?</div>
-  <div class="s2__title">
-    The loop<br/>that won't<br/><em>switch off.</em>
-  </div>
-
-  <div class="s2__items">
-    <div class="s2__item">
-      <div class="s2__dot"></div>
-      <div class="s2__item-text">You replay conversations that ended <strong>hours ago.</strong></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+    <div class="s2__label">Sound familiar?</div>
+    <div class="s2__title">
+      The loop<br/>that won't<br/><em>switch off.</em>
     </div>
-    <div class="s2__item">
-      <div class="s2__dot"></div>
-      <div class="s2__item-text">You map out every outcome before making <strong>a single decision.</strong></div>
-    </div>
-    <div class="s2__item">
-      <div class="s2__dot"></div>
-      <div class="s2__item-text">You wake up already <strong>exhausted from your own thoughts.</strong></div>
-    </div>
-    <div class="s2__item">
-      <div class="s2__dot"></div>
-      <div class="s2__item-text">You have read every article. The spiral <strong>still comes back.</strong></div>
+    <div class="s2__items">
+      <div class="s2__item"><div class="s2__item-text">You replay conversations that ended <strong>hours ago.</strong></div></div>
+      <div class="s2__item"><div class="s2__item-text">You map out every outcome before making <strong>a single decision.</strong></div></div>
+      <div class="s2__item"><div class="s2__item-text">You wake up already <strong>exhausted from your own thoughts.</strong></div></div>
+      <div class="s2__item"><div class="s2__item-text">You have read every article. The spiral <strong>still comes back.</strong></div></div>
     </div>
   </div>
 </div>
@@ -626,7 +644,7 @@
       7 days.<br/>10 minutes<br/>a <em>day.</em>
     </div>
     <div class="s3__sub">
-      CBT techniques, rebuilt for real life. No therapist. No app subscription. Just clear, honest exercises that actually break the pattern.
+      No therapist.<br/>No app subscription.<br/>Just exercises that actually work.
     </div>
   </div>
 
@@ -657,39 +675,33 @@
 
   <div class="s4__label">Inside the guide</div>
   <div class="s4__title">
-    A day-by-day<br/><em>reset plan.</em>
+    A day by day<br/><em>reset plan.</em>
   </div>
 
   <div class="s4__grid">
     <div class="s4__card">
       <div class="s4__day">Day 1</div>
       <div class="s4__card-title">Name the Loop</div>
-      <div class="s4__card-sub">Identify exactly what your overthinking pattern looks like.</div>
     </div>
     <div class="s4__card">
       <div class="s4__day">Day 2</div>
       <div class="s4__card-title">Catch the Thought</div>
-      <div class="s4__card-sub">Learn to spot the spiral before it pulls you under.</div>
     </div>
     <div class="s4__card">
       <div class="s4__day">Day 3</div>
       <div class="s4__card-title">Question It</div>
-      <div class="s4__card-sub">Challenge the thoughts that feel like facts but aren't.</div>
     </div>
     <div class="s4__card">
       <div class="s4__day">Day 4</div>
       <div class="s4__card-title">Reframe It</div>
-      <div class="s4__card-sub">Replace worst-case stories with grounded ones.</div>
     </div>
     <div class="s4__card">
       <div class="s4__day">Day 5</div>
       <div class="s4__card-title">Ground Yourself</div>
-      <div class="s4__card-sub">Sensory tools that pull you back to the present moment.</div>
     </div>
     <div class="s4__card">
       <div class="s4__day">Day 6 + 7</div>
       <div class="s4__card-title">Build Your Toolkit</div>
-      <div class="s4__card-sub">A personal plan to use every time the spiral starts.</div>
     </div>
   </div>
 </div>
@@ -713,7 +725,7 @@
       <div class="s5__star"></div>
     </div>
     <div class="s5__quote">
-      I did Day 1 on a Sunday night and slept better than I had in months.
+      Day 1. Sunday night.<br/>Best sleep I'd had in months.
     </div>
     <div class="s5__attr">
       <div class="s5__avatar">S</div>
@@ -742,7 +754,7 @@
         Stop<br/><em>Overthinking</em>
       </div>
       <div class="s6__sub">
-        The 7-Day Mental Reset Guide. Break the loop and reclaim your peace.
+        7 days. 10 minutes a day.<br/>Break the loop. Reclaim your peace.
       </div>
       <div class="s6__pill-row">
         <span class="s6__pill">20 Pages</span>
