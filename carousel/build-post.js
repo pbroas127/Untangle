@@ -24,46 +24,40 @@ const fs   = require("fs");
 // ═══════════════════════════════════════════════════════════════
 
 const TODAY_CAROUSEL = {
-  file:   "carousel-checklist.html",   // HTML file in this folder
-  prefix: "checklist",                 // PNG filename prefix  e.g. checklist-01.png
+  file:   "carousel-receipt.html",    // HTML file in this folder
+  prefix: "receipt",                  // PNG filename prefix  e.g. receipt-01.png
 };
 
-const REEL_COMP = "BeforeAfterReel";  // Remotion composition ID (from Root.tsx)
+const REEL_COMP = "CounterReel";  // Remotion composition ID (from Root.tsx)
 
 // Caption text — update these when you change content
-const CAROUSEL_CAPTION = `You might be in a thought spiral right now.
+const CAROUSEL_CAPTION = `Your brain has been billing you all day.
 
-Swipe through and see how many feel familiar:
+Line Item 01 — Replaying that conversation from three days ago: 47 min
+Line Item 02 — Catastrophising a meeting that has not happened: 2 hrs
+Line Item 03 — Apologising for something that was not your fault: 31 min
+Line Item 04 — Preparing for an argument that never came: 1 hr
+Line Item 05 — Lying awake solving tomorrow's problems: 3 hrs
 
-☐  You replay conversations from days ago
-☐  You apologise for things that were not your fault
-☐  You rehearse what to say before you say it
-☐  You lie awake solving problems that have not happened yet
-☐  You feel exhausted from thinking, not doing
+Total: your entire evening.
 
-If you checked more than two, this is a thought spiral. Not a character flaw. Not something you have to live with forever.
-
-The Stop Overthinking guide gives you 7 days of CBT-backed exercises to break the loop. 10 minutes a day. Link in bio.
+Refunds are available. The Stop Overthinking guide gives you 7 days of CBT-backed exercises to break the billing cycle. 10 minutes a day. Link in bio.
 
 —
 
-#overthinking #thoughtspiral #mentalhealth #anxietyrelief #cbt #stopoverthinking #quietmind #anxietymanagement #selfhelp #mindset #mentalhealthtips #innerpeace #digitaldownload #untangle`;
+#overthinking #anxietyrelief #mentalhealth #thoughtspiral #cbt #stopoverthinking #quietmind #anxietymanagement #selfhelp #mindset #mentalhealthtips #innerpeace #digitaldownload #untangle`;
 
-const REEL_CAPTION = `You wake up already tired.
+const REEL_CAPTION = `You have 47,000 thoughts a day.
 
-You push through anyway.
+38,000 are the same ones from yesterday.
 
-You rest. But nothing refills.
+Not because something is wrong with you. Because your brain is stuck in a loop it was never taught to exit.
 
-You smile at work. You collapse at home.
-
-This is not weakness. This is what running on empty looks like.
-
-The Running on Empty guide gives you 7 days of honest, practical steps to find what is draining you and rebuild energy that actually lasts. 10 minutes a day. Link in bio.
+The Stop Overthinking guide gives you 7 CBT-backed exercises to break the cycle. 10 minutes a day. Link in bio.
 
 —
 
-#burnout #burnoutrecovery #runningonempty #exhausted #mentalhealth #energymanagement #selfcare #cbt #mentalhealthtips #burnoutawareness #selfhelp #mindset #innerpeace #untangle`;
+#overthinking #mentalhealth #anxietyrelief #cbt #thoughtspiral #stopoverthinking #quietmind #mindset #selfhelp #mentalhealthtips #innerpeace #untangle`;
 
 // ═══════════════════════════════════════════════════════════════
 //  DATED OUTPUT FOLDER
