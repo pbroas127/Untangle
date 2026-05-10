@@ -24,40 +24,42 @@ const fs   = require("fs");
 // ═══════════════════════════════════════════════════════════════
 
 const TODAY_CAROUSEL = {
-  file:   "carousel-receipt.html",    // HTML file in this folder
-  prefix: "receipt",                  // PNG filename prefix  e.g. receipt-01.png
+  file:   "carousel-colorblock.html",  // HTML file in this folder
+  prefix: "colorblock",                // PNG filename prefix  e.g. colorblock-01.png
 };
 
-const REEL_COMP = "CounterReel";  // Remotion composition ID (from Root.tsx)
+const REEL_COMP = "WordReel";  // Remotion composition ID (from Root.tsx)
 
 // Caption text — update these when you change content
-const CAROUSEL_CAPTION = `Your brain has been billing you all day.
+const CAROUSEL_CAPTION = `You say you're fine.
 
-Line Item 01 — Replaying that conversation from three days ago: 47 min
-Line Item 02 — Catastrophising a meeting that has not happened: 2 hrs
-Line Item 03 — Apologising for something that was not your fault: 31 min
-Line Item 04 — Preparing for an argument that never came: 1 hr
-Line Item 05 — Lying awake solving tomorrow's problems: 3 hrs
+You are not fine.
 
-Total: your entire evening.
+You have not been fine in a while.
 
-Refunds are available. The Stop Overthinking guide gives you 7 days of CBT-backed exercises to break the billing cycle. 10 minutes a day. Link in bio.
+You are exhausted from pretending.
+
+You do not have to perform wellness.
+
+You just have to start somewhere.
+
+The Running on Empty guide gives you 7 days to find what is draining you and rebuild energy that actually lasts. 10 minutes a day. Link in bio.
 
 —
 
-#overthinking #anxietyrelief #mentalhealth #thoughtspiral #cbt #stopoverthinking #quietmind #anxietymanagement #selfhelp #mindset #mentalhealthtips #innerpeace #digitaldownload #untangle`;
+#burnout #burnoutrecovery #runningonempty #exhausted #mentalhealth #energymanagement #selfcare #mentalhealthtips #selfhelp #mindset #innerpeace #untangle`;
 
-const REEL_CAPTION = `You have 47,000 thoughts a day.
+const REEL_CAPTION = `Replay. Analyse. Apologise. Rehearse. Worry. Repeat.
 
-38,000 are the same ones from yesterday.
+Sound familiar?
 
-Not because something is wrong with you. Because your brain is stuck in a loop it was never taught to exit.
+Your brain is not broken. It is stuck in a loop it was never taught to exit.
 
 The Stop Overthinking guide gives you 7 CBT-backed exercises to break the cycle. 10 minutes a day. Link in bio.
 
 —
 
-#overthinking #mentalhealth #anxietyrelief #cbt #thoughtspiral #stopoverthinking #quietmind #mindset #selfhelp #mentalhealthtips #innerpeace #untangle`;
+#overthinking #thoughtspiral #mentalhealth #anxietyrelief #cbt #stopoverthinking #quietmind #mindset #selfhelp #mentalhealthtips #innerpeace #untangle`;
 
 // ═══════════════════════════════════════════════════════════════
 //  DATED OUTPUT FOLDER

@@ -4,6 +4,7 @@ import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { BeforeAfterReel, TOTAL_FRAMES } from "./BeforeAfterReel";
 import { CounterReel, TOTAL_FRAMES_COUNTER } from "./CounterReel";
+import { WordReel, TOTAL_FRAMES_WORD } from "./WordReel";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -11,6 +12,15 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* ── UNTANGLE REELS ── */}
+      <Composition
+        id="WordReel"
+        component={WordReel}
+        durationInFrames={TOTAL_FRAMES_WORD}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
       <Composition
         id="CounterReel"
         component={CounterReel}

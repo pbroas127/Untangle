@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untangle — Color Block Carousel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* ── Every slide is a perfect 1080×1080 square ── */
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ── Top bar — barely there ── */
+    .top-bar {
+      position: absolute;
+      top: 52px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-family: 'Fraunces', serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .slide-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ── Perfect centre — the only layout used ── */
+    .centre {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 90px;
+    }
+
+    /* ── Main text — italic light by default, bold upright for punch ── */
+    .main-text {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      color: #fff;
+      text-align: center;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+    .main-text strong {
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* ── Per-slide colors ── */
+    .s1 { background: #1E2B3A; } /* deep slate   — denial         */
+    .s2 { background: #5C3545; } /* dark mauve   — reality        */
+    .s3 { background: #9A4F2A; } /* rust         — building truth */
+    .s4 { background: #C4713A; } /* amber        — peak exhaustion */
+    .s5 { background: #3B5740; } /* sage dark    — permission     */
+    .s6 { background: #7DB87D; } /* sage bright  — hope           */
+    .s7 { background: #0A0A0A; } /* near black   — CTA            */
+
+    /* ── Slide 1 sub-text ── */
+    .hook-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.36);
+      margin-top: 36px;
+    }
+
+    /* ── Swipe hint — slide 1 only ── */
+    .swipe-hint {
+      position: absolute;
+      bottom: 52px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.24);
+    }
+
+    /* ── CTA slide (s7) ── */
+    .cta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #C4713A;
+      margin-bottom: 32px;
+    }
+    .cta-headline {
+      font-family: 'Fraunces', serif;
+      font-size: 84px;
+      font-weight: 700;
+      font-style: normal;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      margin-bottom: 32px;
+    }
+    .cta-headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: #C4713A;
+    }
+    .cta-rule {
+      width: 240px;
+      height: 0;
+      border-top: 1px solid rgba(196,113,58,0.35);
+      margin: 0 auto 32px;
+    }
+    .cta-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.65;
+      margin-bottom: 44px;
+    }
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #C4713A;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 20px 60px;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════
+       SLIDE 1 — HOOK
+  ═══════════════════════════ -->
+  <div class="slide s1">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">01 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:96px;">You say<br/>you're fine.</p>
+      <p class="hook-sub">Is it though?</p>
+    </div>
+    <div class="swipe-hint">Swipe</div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 2
+  ═══════════════════════════ -->
+  <div class="slide s2">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">02 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:114px;">You are<br/><strong>not fine.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 3
+  ═══════════════════════════ -->
+  <div class="slide s3">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">03 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:84px;">You have not been fine<br/>in a while.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 4
+  ═══════════════════════════ -->
+  <div class="slide s4">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">04 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:88px;">You are <strong>exhausted</strong><br/>from pretending.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 5
+  ═══════════════════════════ -->
+  <div class="slide s5">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">05 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:82px;">You do not have to<br/><strong>perform wellness.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 6
+  ═══════════════════════════ -->
+  <div class="slide s6">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">06 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="main-text" style="font-size:88px; color:#0F1A12;">You just have to<br/><strong>start somewhere.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SLIDE 7 — CTA
+  ═══════════════════════════ -->
+  <div class="slide s7">
+    <div class="top-bar">
+      <span class="brand">Untangle</span>
+      <span class="slide-num">07 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="cta-label">Running on Empty</p>
+      <h2 class="cta-headline">7 days to find<br/>your way <em>back.</em></h2>
+      <div class="cta-rule"></div>
+      <p class="cta-sub">10 minutes a day.<br/>CBT-backed. No app.</p>
+      <span class="cta-pill">$14 · Link in bio</span>
+    </div>
+  </div>
+
+</body>
+</html>
