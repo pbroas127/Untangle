@@ -31,35 +31,21 @@ const TODAY_CAROUSEL = {
 const REEL_COMP = "WordReel";  // Remotion composition ID (from Root.tsx)
 
 // Caption text — update these when you change content
-const CAROUSEL_CAPTION = `You say you're fine.
+const CAROUSEL_CAPTION = `The version of you that keeps saying you're fine is working really hard right now.
 
-You are not fine.
+Holding it together at work. Smiling at the right moments. Doing all the things. Then collapsing quietly when nobody is watching.
 
-You have not been fine in a while.
+You do not have to keep earning the right to rest. The Running on Empty guide gives you 7 days to stop running. Link in bio.
 
-You are exhausted from pretending.
+#burnout #runningonempty #mentalhealth #selfcare #untangle`;
 
-You do not have to perform wellness.
+const REEL_CAPTION = `The thought does not need to be resolved tonight.
 
-You just have to start somewhere.
+That is the part nobody tells you. A brain that keeps replaying is not looking for answers. It is looking for safety. And you do not find that by thinking harder.
 
-The Running on Empty guide gives you 7 days to find what is draining you and rebuild energy that actually lasts. 10 minutes a day. Link in bio.
+7 days to learn how to step out of the loop. Link in bio.
 
-—
-
-#burnout #burnoutrecovery #runningonempty #exhausted #mentalhealth #energymanagement #selfcare #mentalhealthtips #selfhelp #mindset #innerpeace #untangle`;
-
-const REEL_CAPTION = `Replay. Analyse. Apologise. Rehearse. Worry. Repeat.
-
-Sound familiar?
-
-Your brain is not broken. It is stuck in a loop it was never taught to exit.
-
-The Stop Overthinking guide gives you 7 CBT-backed exercises to break the cycle. 10 minutes a day. Link in bio.
-
-—
-
-#overthinking #thoughtspiral #mentalhealth #anxietyrelief #cbt #stopoverthinking #quietmind #mindset #selfhelp #mentalhealthtips #innerpeace #untangle`;
+#overthinking #anxietyrelief #cbt #mentalhealth #untangle`;
 
 // ═══════════════════════════════════════════════════════════════
 //  DATED OUTPUT FOLDER
