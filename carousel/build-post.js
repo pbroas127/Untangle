@@ -24,28 +24,26 @@ const fs   = require("fs");
 // ═══════════════════════════════════════════════════════════════
 
 const TODAY_CAROUSEL = {
-  file:   "carousel-colorblock.html",  // HTML file in this folder
-  prefix: "colorblock",                // PNG filename prefix  e.g. colorblock-01.png
+  file:   "carousel-splitpanel.html",  // HTML file in this folder
+  prefix: "splitpanel",                // PNG filename prefix  e.g. splitpanel-01.png
 };
 
-const REEL_COMP = "WordReel";  // Remotion composition ID (from Root.tsx)
+const REEL_COMP = "ColorSequenceReel";  // Remotion composition ID (from Root.tsx)
 
 // Caption text — update these when you change content
-const CAROUSEL_CAPTION = `The version of you that keeps saying you're fine is working really hard right now.
+const CAROUSEL_CAPTION = `At 2am your brain has a very convincing story about how everything is falling apart.
 
-Holding it together at work. Smiling at the right moments. Doing all the things. Then collapsing quietly when nobody is watching.
+By 2pm the same situation looks completely different. Same brain. Same life. Different hour.
 
-You do not have to keep earning the right to rest. The Running on Empty guide gives you 7 days to stop running. Link in bio.
+That is not a character flaw. That is overthinking, and it has a pattern. The Stop Overthinking guide teaches you to recognise it before it runs your night. Link in bio.
+
+#overthinking #anxietyrelief #mentalhealth #cbt #untangle`;
+
+const REEL_CAPTION = `Most people do not realise how much they are carrying until they stop.
+
+The Running on Empty guide is not about doing more. It is about finally understanding what is taking everything you have. 7 days. Link in bio.
 
 #burnout #runningonempty #mentalhealth #selfcare #untangle`;
-
-const REEL_CAPTION = `The thought does not need to be resolved tonight.
-
-That is the part nobody tells you. A brain that keeps replaying is not looking for answers. It is looking for safety. And you do not find that by thinking harder.
-
-7 days to learn how to step out of the loop. Link in bio.
-
-#overthinking #anxietyrelief #cbt #mentalhealth #untangle`;
 
 // ═══════════════════════════════════════════════════════════════
 //  DATED OUTPUT FOLDER

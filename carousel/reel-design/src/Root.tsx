@@ -5,6 +5,7 @@ import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { BeforeAfterReel, TOTAL_FRAMES } from "./BeforeAfterReel";
 import { CounterReel, TOTAL_FRAMES_COUNTER } from "./CounterReel";
 import { WordReel, TOTAL_FRAMES_WORD } from "./WordReel";
+import { ColorSequenceReel, TOTAL_FRAMES_COLOR } from "./ColorSequenceReel";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -12,6 +13,15 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* ── UNTANGLE REELS ── */}
+      <Composition
+        id="ColorSequenceReel"
+        component={ColorSequenceReel}
+        durationInFrames={TOTAL_FRAMES_COLOR}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
       <Composition
         id="WordReel"
         component={WordReel}

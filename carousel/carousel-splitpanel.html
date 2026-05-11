@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untangle — 2am vs 2pm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       FULL-WIDTH SLIDES (1 + 7)
+    ━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .s1 { background: #111D16; }
+    .s7 { background: #3B5740; }
+
+    .top-bar-full {
+      position: absolute;
+      top: 52px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .brand-full {
+      font-family: 'Fraunces', serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .num-full {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .centre {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 90px;
+    }
+
+    /* Slide 1 typography */
+    .hook-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #7DB87D;
+      margin-bottom: 36px;
+    }
+    .hook-headline {
+      font-family: 'Fraunces', serif;
+      font-size: 88px;
+      font-weight: 700;
+      font-style: normal;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      margin-bottom: 36px;
+    }
+    .hook-headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: #7DB87D;
+    }
+    .hook-sub {
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.6;
+    }
+    .swipe-hint {
+      position: absolute;
+      bottom: 52px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+
+    /* Slide 7 CTA */
+    .cta-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #7DB87D;
+      margin-bottom: 28px;
+    }
+    .cta-headline {
+      font-family: 'Fraunces', serif;
+      font-size: 82px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      margin-bottom: 28px;
+    }
+    .cta-headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: #7DB87D;
+    }
+    .cta-rule {
+      width: 220px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      margin: 0 auto 28px;
+    }
+    .cta-sub {
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.65;
+      margin-bottom: 44px;
+    }
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(125,184,125,0.5);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 18px 56px;
+      border-radius: 100px;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       SPLIT SLIDES (2–6)
+    ━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .split {
+      display: flex;
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+    }
+
+    /* Hairline divider */
+    .split::after {
+      content: '';
+      position: absolute;
+      left: 540px;
+      top: 8%;
+      height: 84%;
+      width: 1px;
+      background: rgba(232,239,230,0.12);
+    }
+
+    .panel {
+      width: 540px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 52px 80px;
+    }
+
+    .panel--dark  { background: #111D16; }
+    .panel--light { background: #E8EFE6; }
+
+    /* Panel header labels */
+    .panel__time {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 44px;
+    }
+    .panel--dark  .panel__time { color: rgba(255,255,255,0.28); }
+    .panel--light .panel__time { color: rgba(17,29,22,0.30); }
+
+    /* The thought / the reality */
+    .panel__text {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      max-width: 400px;
+    }
+    .panel--dark .panel__text {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.90);
+    }
+    .panel--light .panel__text {
+      font-style: normal;
+      font-weight: 600;
+      color: #111D16;
+    }
+
+    /* Brand strip across top of split slides */
+    .split-topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .split-brand {
+      font-family: 'Fraunces', serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.20);
+      margin-top: 28px;
+    }
+    .split-num {
+      position: absolute;
+      top: 28px;
+      right: 56px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(17,29,22,0.28);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════
+       SLIDE 1 — HOOK
+  ═══════════════════════════════ -->
+  <div class="slide s1">
+    <div class="top-bar-full">
+      <span class="brand-full">Untangle</span>
+      <span class="num-full">01 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="hook-eyebrow">Overthinking Check</p>
+      <h1 class="hook-headline">Your brain<br/>at 2am is<br/><em>lying to you.</em></h1>
+      <p class="hook-sub">Swipe to see what it actually said.</p>
+    </div>
+    <div class="swipe-hint">Swipe</div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 2
+  ═══════════════════════════════ -->
+  <div class="slide">
+    <div class="split">
+      <div class="panel panel--dark">
+        <p class="panel__time">2am</p>
+        <p class="panel__text">"They all hate me."</p>
+      </div>
+      <div class="panel panel--light">
+        <p class="panel__time">2pm</p>
+        <p class="panel__text">Nobody thought about it twice.</p>
+      </div>
+    </div>
+    <div class="split-topbar"><span class="split-brand">Untangle</span></div>
+    <span class="split-num">02 / 07</span>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 3
+  ═══════════════════════════════ -->
+  <div class="slide">
+    <div class="split">
+      <div class="panel panel--dark">
+        <p class="panel__time">2am</p>
+        <p class="panel__text">"I said the wrong thing."</p>
+      </div>
+      <div class="panel panel--light">
+        <p class="panel__time">2pm</p>
+        <p class="panel__text">You were fine. Everyone moved on.</p>
+      </div>
+    </div>
+    <div class="split-topbar"><span class="split-brand">Untangle</span></div>
+    <span class="split-num">03 / 07</span>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 4
+  ═══════════════════════════════ -->
+  <div class="slide">
+    <div class="split">
+      <div class="panel panel--dark">
+        <p class="panel__time">2am</p>
+        <p class="panel__text">"I am so far behind."</p>
+      </div>
+      <div class="panel panel--light">
+        <p class="panel__time">2pm</p>
+        <p class="panel__text">You are doing better than you think.</p>
+      </div>
+    </div>
+    <div class="split-topbar"><span class="split-brand">Untangle</span></div>
+    <span class="split-num">04 / 07</span>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 5
+  ═══════════════════════════════ -->
+  <div class="slide">
+    <div class="split">
+      <div class="panel panel--dark">
+        <p class="panel__time">2am</p>
+        <p class="panel__text">"Tomorrow is going to be awful."</p>
+      </div>
+      <div class="panel panel--light">
+        <p class="panel__time">2pm</p>
+        <p class="panel__text">You have handled worse.</p>
+      </div>
+    </div>
+    <div class="split-topbar"><span class="split-brand">Untangle</span></div>
+    <span class="split-num">05 / 07</span>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 6
+  ═══════════════════════════════ -->
+  <div class="slide">
+    <div class="split">
+      <div class="panel panel--dark">
+        <p class="panel__time">2am</p>
+        <p class="panel__text">"Something bad is coming."</p>
+      </div>
+      <div class="panel panel--light">
+        <p class="panel__time">2pm</p>
+        <p class="panel__text">Right now, you are safe.</p>
+      </div>
+    </div>
+    <div class="split-topbar"><span class="split-brand">Untangle</span></div>
+    <span class="split-num">06 / 07</span>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SLIDE 7 — CTA
+  ═══════════════════════════════ -->
+  <div class="slide s7">
+    <div class="top-bar-full">
+      <span class="brand-full">Untangle</span>
+      <span class="num-full">07 / 07</span>
+    </div>
+    <div class="centre">
+      <p class="cta-label">Stop Overthinking</p>
+      <h2 class="cta-headline">The 2am version<br/>of you is not<br/><em>telling the truth.</em></h2>
+      <div class="cta-rule"></div>
+      <p class="cta-sub">7 CBT-backed exercises.<br/>10 minutes a day.</p>
+      <span class="cta-pill">$14 · Link in bio</span>
+    </div>
+  </div>
+
+</body>
+</html>
