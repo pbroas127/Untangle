@@ -24,24 +24,24 @@ const fs   = require("fs");
 // ═══════════════════════════════════════════════════════════════
 
 const TODAY_CAROUSEL = {
-  file:   "carousel-splitpanel.html",  // HTML file in this folder
-  prefix: "splitpanel",                // PNG filename prefix  e.g. splitpanel-01.png
+  file:   "carousel-oversize.html",  // HTML file in this folder
+  prefix: "oversize",                // PNG filename prefix  e.g. oversize-01.png
 };
 
-const REEL_COMP = "ColorSequenceReel";  // Remotion composition ID (from Root.tsx)
+const REEL_COMP = "ZoomReel";  // Remotion composition ID (from Root.tsx)
 
 // Caption text — update these when you change content
-const CAROUSEL_CAPTION = `At 2am your brain has a very convincing story about how everything is falling apart.
+const CAROUSEL_CAPTION = `Overthinking does not announce itself.
 
-By 2pm the same situation looks completely different. Same brain. Same life. Different hour.
+It just quietly becomes the background noise of your life. The replaying. The rehearsing. The apologising for things that never needed an apology.
 
-That is not a character flaw. That is overthinking, and it has a pattern. The Stop Overthinking guide teaches you to recognise it before it runs your night. Link in bio.
+The Stop Overthinking guide was built to interrupt that noise. 7 days. Link in bio.
 
-#overthinking #anxietyrelief #mentalhealth #cbt #untangle`;
+#overthinking #mentalhealth #anxietyrelief #cbt #untangle`;
 
-const REEL_CAPTION = `Most people do not realise how much they are carrying until they stop.
+const REEL_CAPTION = `There is a version of tired that sleep does not fix.
 
-The Running on Empty guide is not about doing more. It is about finally understanding what is taking everything you have. 7 days. Link in bio.
+You already know what that feels like. The Running on Empty guide helps you find what is actually draining you — and what to do about it. 7 days. Link in bio.
 
 #burnout #runningonempty #mentalhealth #selfcare #untangle`;
 
